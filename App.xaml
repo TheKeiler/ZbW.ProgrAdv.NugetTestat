@@ -1,0 +1,9 @@
+﻿<Application x:Class="ZbW.ProgrAdv.NugetTestat.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ZbW.ProgrAdv.NugetTestat"
+             StartupUri="Control/UserControlAppLogger.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>

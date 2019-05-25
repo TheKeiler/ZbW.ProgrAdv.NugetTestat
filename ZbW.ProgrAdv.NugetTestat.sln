@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZbW.ProgrAdv.NugetTestat", "ZbW.ProgrAdv.NugetTestat.csproj", "{751A476B-152F-41FA-8F54-FADD77D0577A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZbW.ProgrAdv.NugetTestatTest", "..\ZbW.ProgrAdv.NugetTestatTest\ZbW.ProgrAdv.NugetTestatTest.csproj", "{67DF32FF-92CC-4D40-8A82-10B168638C0A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{751A476B-152F-41FA-8F54-FADD77D0577A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{751A476B-152F-41FA-8F54-FADD77D0577A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{751A476B-152F-41FA-8F54-FADD77D0577A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{751A476B-152F-41FA-8F54-FADD77D0577A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67DF32FF-92CC-4D40-8A82-10B168638C0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67DF32FF-92CC-4D40-8A82-10B168638C0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67DF32FF-92CC-4D40-8A82-10B168638C0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67DF32FF-92CC-4D40-8A82-10B168638C0A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7A781C1F-DCEB-4131-854B-BAB0D056F75D}
+	EndGlobalSection
+EndGlobal
