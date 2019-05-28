@@ -124,7 +124,7 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
             else
             {
                 var dataBaseConnector = new DataBaseConnector(ConnectionString);
-                dataBaseConnector.LogClear(SelectedEntry);
+                dataBaseConnector.ExecuteLogClear(SelectedEntry);
                 LogEntriesList = dataBaseConnector.Read();
                 PropertyChanged(this, new PropertyChangedEventArgs("LogEntriesList"));
             }
@@ -147,7 +147,7 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
                 else
                 {
                     var dataBaseConnector = new DataBaseConnector(this.ConnectionString);
-                    dataBaseConnector.LogMessageAdd(this.NewEntry);
+                    dataBaseConnector.ExecuteLogMessageAdd(this.NewEntry);
                     this.LogEntriesList = dataBaseConnector.Read();
                 }
                 PropertyChanged(this, new PropertyChangedEventArgs("LogEntriesList"));

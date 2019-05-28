@@ -95,7 +95,7 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
         }
 
 
-        public void LogClear(LogEntry entry)
+        public void ExecuteLogClear(LogEntry entry)
         {
             var connStr = this._connectionString;
             IDbConnection con = null;       // Verbindung deklarieren
@@ -105,7 +105,7 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
                 con.Open();
                 //----- SQL-Kommando aufbauen
                 IDbCommand cmd = con.CreateCommand();
-                cmd.CommandText = "CALL LogClear(" + entry.Id + ");";
+                cmd.CommandText = "CALL ExecuteLogClear(" + entry.Id + ");";
                 cmd.ExecuteNonQuery();
 
             }
@@ -125,7 +125,7 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
             }
         }
 
-        public void LogMessageAdd(LogEntry newEntry)
+        public void ExecuteLogMessageAdd(LogEntry newEntry)
         {
             string connStr = this._connectionString;
             IDbConnection con = null;       // Verbindung deklarieren
@@ -135,7 +135,7 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
                 con.Open();
                 //----- SQL-Kommando aufbauen
                 IDbCommand cmd = con.CreateCommand();
-                cmd.CommandText = "CALL LogMessageAdd('" + newEntry.Pod +"', '"+newEntry.Hostname+"', '"+newEntry.Severity+"', '"+newEntry.Message+"');";
+                cmd.CommandText = "CALL ExecuteLogMessageAdd('" + newEntry.Pod +"', '"+newEntry.Hostname+"', '"+newEntry.Severity+"', '"+newEntry.Message+"');";
                 cmd.ExecuteNonQuery();
             }
             catch (Exception e)
