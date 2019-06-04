@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GenericRepository
+namespace ZbW.ProgrAdv.NugetTestat.Persistence
 {
     public interface IRepositoryBase<M>
     {
