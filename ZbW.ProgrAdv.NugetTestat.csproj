@@ -88,7 +88,7 @@
   <ItemGroup>
     <Compile Include="Model\ModelBase.cs" />
     <Compile Include="Persistence\IRepositoryBase.cs" />
-    <Compile Include="Persistence\LogentryRepository.cs" />
+    <Compile Include="Persistence\LogEntryRepository.cs" />
     <Compile Include="Persistence\RepositoryBase.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <None Include="App.xaml">
@@ -98,7 +98,6 @@
     <Compile Include="Control\UserControlAppLogger.xaml.cs">
       <DependentUpon>UserControlAppLogger.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Persistence\DataBaseConnector.cs" />
     <Compile Include="Model\LogEntry.cs" />
     <Compile Include="Model\DuplicateChecker.cs" />
     <Compile Include="Model\IEntity.cs" />
