@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -20,15 +20,15 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
         private ICommand _logMessageAdd;
         private ICommand _findDuplicates;
 
-        public ObservableCollection<LogEntry> LogEntriesList { get; set; }
+        public List<LogEntry> LogEntriesList { get; set; }
 
         public LogEntry SelectedEntry { get; set; }
         public LogEntry NewEntry { get; set; }
 
         public NugetTestatViewModel()
         {
-            this.ConnectionString= "Server = localhost; Database = inventarisierungsloesung; Uid = root; Pwd = ...";
-            this.LogEntriesList = new ObservableCollection<LogEntry>();
+            this.ConnectionString = "Server = localhost; Database = inventarisierungsloesung; Uid = root; Pwd = ...";
+            this.LogEntriesList = new List<LogEntry>();
             this.NewEntry = new LogEntry();
         }
 
@@ -102,8 +102,8 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
 
             else
             {
-                var dataBaseConnector = new DataBaseConnector(ConnectionString);
-                this.LogEntriesList = dataBaseConnector.Read();
+                var logentryRepository = new LogEntryRepository(ConnectionString);
+                this.LogEntriesList = logentryRepository.GetAll();
                 if (LogEntriesList.Count > 0)
                 {
                     this.SelectedEntry = this.LogEntriesList[0];
@@ -123,9 +123,9 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
             }
             else
             {
-                var dataBaseConnector = new DataBaseConnector(ConnectionString);
-                dataBaseConnector.ExecuteLogClear(SelectedEntry);
-                LogEntriesList = dataBaseConnector.Read();
+                var logentryRepository = new LogEntryRepository(ConnectionString);
+                logentryRepository.ExecuteLogClear(SelectedEntry);
+                LogEntriesList = logentryRepository.GetAll();
                 PropertyChanged(this, new PropertyChangedEventArgs("LogEntriesList"));
             }
 
@@ -146,18 +146,18 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
                 }
                 else
                 {
-                    var dataBaseConnector = new DataBaseConnector(this.ConnectionString);
-                    dataBaseConnector.ExecuteLogMessageAdd(this.NewEntry);
-                    this.LogEntriesList = dataBaseConnector.Read();
+                    var logentryRepository = new LogEntryRepository(this.ConnectionString);
+                    logentryRepository.ExecuteLogMessageAdd(this.NewEntry);
+                    this.LogEntriesList = logentryRepository.GetAll();
+                    PropertyChanged(this, new PropertyChangedEventArgs("LogEntriesList"));
                 }
-                PropertyChanged(this, new PropertyChangedEventArgs("LogEntriesList"));
             }
         }
 
         private void RunDuplicatesChecker()
         {
-            var dataBaseConnector = new DataBaseConnector(this.ConnectionString);
-            this.LogEntriesList = dataBaseConnector.Read();
+            var logentryRepository = new LogEntryRepository(this.ConnectionString);
+            this.LogEntriesList = logentryRepository.GetAll();
             var dubChecker = new DuplicateChecker();
             var dubList = dubChecker.FindDuplicates(this.LogEntriesList);
 

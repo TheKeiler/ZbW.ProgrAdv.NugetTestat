@@ -1,8 +1,8 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Windows;
-using MySql.Data.MySqlClient;
 using ZbW.ProgrAdv.NugetTestat.Model;
 
 namespace ZbW.ProgrAdv.NugetTestat.Persistence
@@ -17,7 +17,7 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
         }
         public ObservableCollection<LogEntry> Read()
         {
-            
+
             string connStr = this._connectionString;
 
             ObservableCollection<LogEntry> logEntries = new ObservableCollection<LogEntry>();
@@ -39,7 +39,7 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
                 while (reader.Read())
                 { // solange noch Daten vorhanden sind
                     int cols = reader.GetValues(dataRow); // tatsächliches Lesen 
-                    
+
                     var logEntry = new LogEntry();
                     for (int i = 0; i < cols; i++)
                     {
@@ -78,7 +78,7 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
             }
             catch (Exception e)
             {
-                MessageBox.Show("Es konnte keine Verbindung zur Datenbank hergestellt werden: "+e.Message);
+                MessageBox.Show("Es konnte keine Verbindung zur Datenbank hergestellt werden: " + e.Message);
             }
             finally
             {
@@ -135,7 +135,7 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
                 con.Open();
                 //----- SQL-Kommando aufbauen
                 IDbCommand cmd = con.CreateCommand();
-                cmd.CommandText = "CALL LogMessageAdd('" + newEntry.Pod +"', '"+newEntry.Hostname+"', '"+newEntry.Severity+"', '"+newEntry.Message+"');";
+                cmd.CommandText = "CALL LogMessageAdd('" + newEntry.Pod + "', '" + newEntry.Hostname + "', '" + newEntry.Severity + "', '" + newEntry.Message + "');";
                 cmd.ExecuteNonQuery();
             }
             catch (Exception e)

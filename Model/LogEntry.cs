@@ -2,9 +2,9 @@
 
 namespace ZbW.ProgrAdv.NugetTestat.Model
 {
-    public class LogEntry : IEntity
+    public class LogEntry : ModelBase<LogEntry>
     {
-        public int Id { get; set; }
+        public new int Id { get; set; }
         public string Pod { get; set; }
         public string Location { get; set; }
         public string Hostname { get; set; }
@@ -32,11 +32,11 @@ namespace ZbW.ProgrAdv.NugetTestat.Model
             unchecked
             {
                 // Large primes to avoid hashing collisions
-                const int hashingBase = (int) 2166136261;
+                const int hashingBase = (int)2166136261;
                 const int hashingMultiplier = 16777619;
 
                 int hash = hashingBase;
-                hash = (hash * hashingMultiplier) ^ (!Object.ReferenceEquals(null, Severity) ? 
+                hash = (hash * hashingMultiplier) ^ (!Object.ReferenceEquals(null, Severity) ?
                            Severity.GetHashCode() : 0);
                 hash = (hash * hashingMultiplier) ^ (!Object.ReferenceEquals(null, Message) ?
                            Message.GetHashCode() : 0);

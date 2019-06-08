@@ -1,49 +1,101 @@
-﻿using System.Collections.Generic;
+﻿using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
+using System.Windows;
 
 namespace ZbW.ProgrAdv.NugetTestat.Persistence
 {
     public abstract class RepositoryBase<M> : IRepositoryBase<M>
     {
-        public M GetSingle<P>(P pkValue)
+        protected string ConnectionString { get; }
+        public abstract string TableName { get; }
+
+        protected RepositoryBase(string connectionString)
         {
-            throw new System.NotImplementedException();
+            this.ConnectionString = connectionString;
         }
 
-        public void Add(M entity)
-        {
-            throw new System.NotImplementedException();
-        }
+        public abstract M GetSingle<P>(P pkValue);
 
-        public void Delete(M entity)
-        {
-            throw new System.NotImplementedException();
-        }
 
-        public void Update(M entity)
-        {
-            throw new System.NotImplementedException();
-        }
+        public abstract void Add(M entity);
 
-        public List<M> GetAll(string whereCondition, Dictionary<string, object> parameterValues)
-        {
-            throw new System.NotImplementedException();
-        }
+        public abstract void Delete(M entity);
 
-        public List<M> GetAll()
-        {
-            throw new System.NotImplementedException();
-        }
+        public abstract void Update(M entity);
+
+        public abstract List<M> GetAll(string whereCondition, Dictionary<string, object> parameterValues);
+
+        public abstract List<M> GetAll();
 
         public long Count(string whereCondition, Dictionary<string, object> parameterValues)
         {
-            throw new System.NotImplementedException();
-        }
+            var whereCon = whereCondition;
+            if (parameterValues.Count > 0 && whereCondition != null)
+            {
+                foreach (KeyValuePair<string, object> p in parameterValues)
+                {
+                    whereCon = whereCon.Replace($"@{p.Key}", p.Value.ToString());
+                }
+            }
 
+            using (var conn = new MySqlConnection(this.ConnectionString))
+            {
+                try
+                {
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        conn.Open();
+                        cmd.CommandText = $"select count(*) from {this.TableName} where {whereCon}";
+                        return (long)cmd.ExecuteScalar();
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Es konnte keine Verbindung zur Datenbank hergestellt werden: " + e.Message);
+                    return -1;
+                }
+                finally
+                {
+                    try
+                    {
+                        if (conn != null)
+                            // Verbindung schließen
+                            conn.Close();
+                    }
+                    catch (Exception ex) { Console.WriteLine(ex.Message); }
+                }
+            }
+        }
         public long Count()
         {
-            throw new System.NotImplementedException();
+            using (var conn = new MySqlConnection(this.ConnectionString))
+            {
+                try
+                {
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        conn.Open();
+                        cmd.CommandText = $"select count(*) from {this.TableName}";
+                        return (long)cmd.ExecuteScalar();
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Es konnte keine Verbindung zur Datenbank hergestellt werden: " + e.Message);
+                    return -1;
+                }
+                finally
+                {
+                    try
+                    {
+                        if (conn != null)
+                            // Verbindung schließen
+                            conn.Close();
+                    }
+                    catch (Exception ex) { Console.WriteLine(ex.Message); }
+                }
+            }
         }
-
-        public string TableName { get; }
     }
 }
