@@ -24,7 +24,7 @@ namespace ZbW.ProgrAdv.NugetTestat.Model
             if (Object.ReferenceEquals(this, logEntry)) return true;
 
             return String.Equals(Severity, logEntry.Severity)
-                   && String.Equals(Message, logEntry.Message);
+                   && string.Equals(Message, logEntry.Message);
         }
 
         public override int GetHashCode()

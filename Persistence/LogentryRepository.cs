@@ -13,7 +13,6 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
 
         public LogEntryRepository(string connectionString) : base(connectionString)
         {
-
         }
 
         public override LogEntry GetSingle<P>(P pkValue)

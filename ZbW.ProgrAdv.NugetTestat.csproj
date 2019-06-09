@@ -86,8 +86,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Location.cs" />
     <Compile Include="Model\ModelBase.cs" />
     <Compile Include="Persistence\IRepositoryBase.cs" />
+    <Compile Include="Persistence\LocationRepository.cs" />
     <Compile Include="Persistence\LogEntryRepository.cs" />
     <Compile Include="Persistence\RepositoryBase.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
