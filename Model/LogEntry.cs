@@ -2,7 +2,7 @@
 
 namespace ZbW.ProgrAdv.NugetTestat.Model
 {
-    public class LogEntry : ModelBase<LogEntry>
+    public class LogEntry : ModelBase
     {
         public new int Id { get; set; }
         public string Pod { get; set; }

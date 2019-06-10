@@ -2,7 +2,7 @@
 
 namespace ZbW.ProgrAdv.NugetTestat.Model
 {
-    class Location : ModelBase<Location>
+    class Location : ModelBase
     {
         public new int Id { get; set; }
         public int ParentId { get; set; }

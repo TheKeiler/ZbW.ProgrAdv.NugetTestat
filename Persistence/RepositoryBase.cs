@@ -17,7 +17,6 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
 
         public abstract M GetSingle<P>(P pkValue);
 
-
         public abstract void Add(M entity);
 
         public abstract void Delete(M entity);
