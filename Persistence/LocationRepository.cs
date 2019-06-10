@@ -7,7 +7,7 @@ using ZbW.ProgrAdv.NugetTestat.Model;
 
 namespace ZbW.ProgrAdv.NugetTestat.Persistence
 {
-    class LocationRepository : RepositoryBase<Location>
+    public class LocationRepository : RepositoryBase<Location>
     {
         public override string TableName => "location";
 
@@ -26,7 +26,7 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
                 IDbCommand cmd = con.CreateCommand();
                 cmd.CommandText =
                     $"INSERT INTO {TableName} (parent_location , address_fk , designation , building , room)" +
-                    $"VALUE"+
+                    $"VALUE" +
                     $"({location.ParentId},{location.AddressId},{location.Designation},{location.BuildingNr},{location.RoomNr})";
                 cmd.ExecuteNonQuery();
             }
@@ -110,22 +110,29 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
                         switch (i)
                         {
                             case 0:
-                                location.Id = (int)dataRow[i];
+                                location.Id = Convert.ToInt32(dataRow[i]);
                                 break;
                             case 1:
-                                location.ParentId = (int)dataRow[i];
+                                if (reader.IsDBNull(1))
+                                {
+                                    location.ParentId = null;
+                                }
+                                else
+                                {
+                                    location.ParentId = Convert.ToInt32(dataRow[i]);
+                                }
                                 break;
                             case 2:
-                                location.AddressId = (int)dataRow[i];
+                                location.AddressId = Convert.ToInt32(dataRow[i]);
                                 break;
                             case 3:
                                 location.Designation = dataRow[i].ToString();
                                 break;
                             case 4:
-                                location.BuildingNr = (int)dataRow[i];
+                                location.BuildingNr = Convert.ToInt32(dataRow[i]);
                                 break;
                             case 5:
-                                location.RoomNr = (int)dataRow[i];
+                                location.RoomNr = Convert.ToInt32(dataRow[i]);
                                 break;
                             default:
                                 Console.WriteLine("Da kahmen zu viele Felder");
@@ -169,7 +176,6 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
                 //----- SQL-Kommando ausführen; liefert einen OleDbDataReader
                 IDataReader reader = cmd.ExecuteReader();
 
-
                 object[] dataRow = new object[reader.FieldCount];
                 //----- Daten zeilenweise lesen und verarbeiten
                 while (reader.Read())
@@ -182,22 +188,29 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
                         switch (i)
                         {
                             case 0:
-                                location.Id = (int)dataRow[i];
+                                location.Id = Convert.ToInt32(dataRow[i]);
                                 break;
                             case 1:
-                                location.ParentId = (int)dataRow[i];
+                                if (reader.IsDBNull(1))
+                                {
+                                    location.ParentId = null;
+                                }
+                                else
+                                {
+                                    location.ParentId = Convert.ToInt32(dataRow[i]);
+                                }
                                 break;
                             case 2:
-                                location.AddressId = (int)dataRow[i];
+                                location.AddressId = Convert.ToInt32(dataRow[i]);
                                 break;
                             case 3:
                                 location.Designation = dataRow[i].ToString();
                                 break;
                             case 4:
-                                location.BuildingNr = (int)dataRow[i];
+                                location.BuildingNr = Convert.ToInt32(dataRow[i]);
                                 break;
                             case 5:
-                                location.RoomNr = (int)dataRow[i];
+                                location.RoomNr = Convert.ToInt32(dataRow[i]);
                                 break;
                             default:
                                 Console.WriteLine("Da kahmen zu viele Felder");
@@ -244,33 +257,40 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
                 object[] dataRow = new object[reader.FieldCount];
                 int cols = reader.GetValues(dataRow); // tatsächliches Lesen 
 
-                    for (int i = 0; i < cols; i++)
+                for (int i = 0; i < cols; i++)
+                {
+                    switch (i)
                     {
-                        switch (i)
-                        {
-                            case 0:
-                                location.Id = (int)dataRow[i];
-                                break;
-                            case 1:
-                                location.ParentId = (int)dataRow[i];
-                                break;
-                            case 2:
-                                location.AddressId = (int)dataRow[i];
-                                break;
-                            case 3:
-                                location.Designation = dataRow[i].ToString();
-                                break;
-                            case 4:
-                                location.BuildingNr = (int)dataRow[i];
-                                break;
-                            case 5:
-                                location.RoomNr = (int)dataRow[i];
-                                break;
-                            default:
-                                Console.WriteLine("Da kahmen zu viele Felder");
-                                break;
-                        }
-                    }                                   
+                        case 0:
+                            location.Id = Convert.ToInt32(dataRow[i]);
+                            break;
+                        case 1:
+                            if (reader.IsDBNull(1))
+                            {
+                                location.ParentId = null;
+                            }
+                            else
+                            {
+                                location.ParentId = Convert.ToInt32(dataRow[i]);
+                            }
+                            break;
+                        case 2:
+                            location.AddressId = Convert.ToInt32(dataRow[i]);
+                            break;
+                        case 3:
+                            location.Designation = dataRow[i].ToString();
+                            break;
+                        case 4:
+                            location.BuildingNr = Convert.ToInt32(dataRow[i]);
+                            break;
+                        case 5:
+                            location.RoomNr = Convert.ToInt32(dataRow[i]);
+                            break;
+                        default:
+                            Console.WriteLine("Da kahmen zu viele Felder");
+                            break;
+                    }
+                }
                 //----- Reader schließen
                 reader.Close();
             }

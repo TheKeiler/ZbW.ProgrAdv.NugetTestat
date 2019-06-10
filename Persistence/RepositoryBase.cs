@@ -5,6 +5,7 @@ using System.Windows;
 
 namespace ZbW.ProgrAdv.NugetTestat.Persistence
 {
+    //TODO: More Generic Methods possible with LINQ
     public abstract class RepositoryBase<M> : IRepositoryBase<M>
     {
         protected string ConnectionString { get; }
