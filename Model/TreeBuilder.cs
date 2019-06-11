@@ -19,7 +19,7 @@ namespace ZbW.ProgrAdv.NugetTestat.Model
             var children = descendants.Where(node => node.ParentId == locationNode.ValueObject.Id).ToArray();
             foreach (var child in children)
             {
-                var branch = Map(child);
+                var branch = Map(child, locationNode);
                 locationNode.AddChildNode(branch);
                 descendants.Remove(child);
             }
@@ -35,14 +35,15 @@ namespace ZbW.ProgrAdv.NugetTestat.Model
             if (rootNodes.Count() != 1) return new LocationNode();
             var rootNode = rootNodes.Single();
             nodes.Remove(rootNode);
-            return Map(rootNode);
+            return Map(rootNode, null);
         }
 
-        private LocationNode Map(Location loc)
+        private LocationNode Map(Location loc, LocationNode parentnode)
         {
             return new LocationNode
             {
                 ValueObject = loc,
+                ParentNode = parentnode
             };
         }
     }
