@@ -7,6 +7,7 @@ using ZbW.ProgrAdv.NugetTestat.Model;
 
 namespace ZbW.ProgrAdv.NugetTestat.Persistence
 {
+    //TODO: Refactor Class with LINQ
     public class LocationRepository : RepositoryBase<Location>
     {
         public override string TableName => "location";

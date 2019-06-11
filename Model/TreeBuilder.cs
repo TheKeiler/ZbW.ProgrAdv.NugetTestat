@@ -3,6 +3,7 @@ using System.Linq;
 
 namespace ZbW.ProgrAdv.NugetTestat.Model
 {
+    //TODO: Implement generic Baseclass
     public class TreeBuilder
     {
         public Node<Location> BuildTree(List<Location> locations)

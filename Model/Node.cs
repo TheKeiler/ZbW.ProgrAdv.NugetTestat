@@ -19,7 +19,7 @@ namespace ZbW.ProgrAdv.NugetTestat.Model
         public Node(M valueObject)
         {
             this.ValueObject = valueObject;
-            this.ParentNode = default(Node<M>);
+            this.ParentNode = default;
             this.ChildNodesList = new List<Node<M>>();
         }
 
