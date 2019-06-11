@@ -340,5 +340,12 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
                 catch (Exception ex) { Console.WriteLine(ex.Message); }
             }
         }
+
+        public Node<Location> GenerateLocationTreeFromList(List<Location> locationList)
+        {
+            var treeBuilder = new TreeBuilder();
+            var locationNode = treeBuilder.BuildTree(locationList);
+            return locationNode;
+        }
     }
 }

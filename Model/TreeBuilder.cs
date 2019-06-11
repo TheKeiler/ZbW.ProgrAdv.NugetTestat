@@ -5,16 +5,16 @@ namespace ZbW.ProgrAdv.NugetTestat.Model
 {
     public class TreeBuilder
     {
-        public LocationNode BuildTree(List<Location> locations)
+        public Node<Location> BuildTree(List<Location> locations)
         {
-            if (locations == null) return new LocationNode();
+            if (locations == null) return new Node<Location>();
             var nodeList = locations.ToList();
             var tree = FindTreeRoot(nodeList);
             BuildTree(tree, nodeList);
             return tree;
         }
 
-        private void BuildTree(LocationNode locationNode, List<Location> descendants)
+        private void BuildTree(Node<Location> locationNode, List<Location> descendants)
         {
             var children = descendants.Where(node => node.ParentId == locationNode.ValueObject.Id).ToArray();
             foreach (var child in children)
@@ -29,18 +29,18 @@ namespace ZbW.ProgrAdv.NugetTestat.Model
             }
         }
 
-        private LocationNode FindTreeRoot(List<Location> nodes)
+        private Node<Location> FindTreeRoot(List<Location> nodes)
         {
             var rootNodes = nodes.Where(node => node.ParentId == null);
-            if (rootNodes.Count() != 1) return new LocationNode();
+            if (rootNodes.Count() != 1) return new Node<Location>();
             var rootNode = rootNodes.Single();
             nodes.Remove(rootNode);
             return Map(rootNode, null);
         }
 
-        private LocationNode Map(Location loc, LocationNode parentnode)
+        private Node<Location> Map(Location loc, Node<Location> parentnode)
         {
-            return new LocationNode
+            return new Node<Location>
             {
                 ValueObject = loc,
                 ParentNode = parentnode

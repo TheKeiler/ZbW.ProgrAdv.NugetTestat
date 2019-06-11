@@ -87,8 +87,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Location.cs" />
-    <Compile Include="Model\LocationNode.cs" />
     <Compile Include="Model\ModelBase.cs" />
+    <Compile Include="Model\Node.cs" />
     <Compile Include="Model\TreeBuilder.cs" />
     <Compile Include="Persistence\IRepositoryBase.cs" />
     <Compile Include="Persistence\LocationRepository.cs" />
