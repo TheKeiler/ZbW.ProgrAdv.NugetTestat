@@ -344,7 +344,7 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
 
         public Node<Location> GenerateLocationTreeFromList(List<Location> locationList)
         {
-            var treeBuilder = new TreeBuilder();
+            var treeBuilder = new LocationTreeBuilder();
             var locationNode = treeBuilder.BuildTree(locationList);
             return locationNode;
         }
