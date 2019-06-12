@@ -4,32 +4,26 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:viewModel="clr-namespace:ZbW.ProgrAdv.NugetTestat.ViewModel"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    
+             mc:Ignorable="d" Width="623.6" Height="408">
+
     <Control.DataContext>
         <viewModel:LocationViewModel/>
     </Control.DataContext>
-    
+
     <Control.Resources>
-        <viewModel:LocationViewModel x:Key="LocationList"/>
 
-        <HierarchicalDataTemplate DataType    = "{x:Type viewModel:LocationViewModel}"
-                                ItemsSource = "{Binding Path=LocationTree}">
-            <TextBlock Text="{Binding Path=LocationTree}"/>
-        </HierarchicalDataTemplate>
-
-        <HierarchicalDataTemplate DataType  = "{x:Type viewModel:LocationViewModel}"
-                                ItemsSource = "{Binding Path=LocationTree}">
-            <TextBlock Text="{Binding Path=LocationTree}"/>
-        </HierarchicalDataTemplate>
-
-        <DataTemplate DataType="{x:Type viewModel:LocationViewModel}">
-            <TextBlock Text="{Binding Path=Name}"/>
-        </DataTemplate>
     </Control.Resources>
 
     <Grid>
-        <TreeView ItemsSource="{Binding Source=LocationTree}"/>
+        <Label Content="Connection String:" HorizontalAlignment="Left" Margin="30,30,0,0" VerticalAlignment="Top" Width="116" FontWeight="Bold"/>
+        <TextBox HorizontalAlignment="Left" Height="20" Margin="146,35,30,30" TextWrapping="Wrap" Text="{Binding ConnectionString, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="478" UndoLimit="150"/>
+        <Button Grid.Column="0" Content="Laden" HorizontalAlignment="Left" Margin="30,57,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Path=Laden}"/>
+        <TreeView Grid.Row="0" Margin="30,96,30,30" ItemsSource="{Binding LocationTree}">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding ChildNodesList}">
+                    <TreeViewItem Header="{Binding}"/>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
     </Grid>
 </UserControl>

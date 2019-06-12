@@ -65,5 +65,10 @@ namespace ZbW.ProgrAdv.NugetTestat.Model
         {
             return !(locA == locB);
         }
+
+        public override string ToString()
+        {
+            return Designation;
+        }
     }
 }

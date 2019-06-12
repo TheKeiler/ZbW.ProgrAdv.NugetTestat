@@ -30,5 +30,10 @@ namespace ZbW.ProgrAdv.NugetTestat.Model
         {
             this.ChildNodesList.Add(childNode);
         }
+
+        public override string ToString()
+        {
+            return ValueObject.ToString();
+        }
     }
 }
