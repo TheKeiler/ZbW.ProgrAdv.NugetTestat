@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 using ZbW.ProgrAdv.NugetTestat.Model;
 using ZbW.ProgrAdv.NugetTestat.Persistence;
 
@@ -13,19 +14,20 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
         public List<Location> Locations { get; set; }
         public string ConnectionString { get; set; }
         public List<Node<Location>> LocationTree { get; set; }
+        private ICommand _laden;
 
         public LocationViewModel()
         {
-            this.ConnectionString = "Server = localhost; Database = inventarisierungsloesung; Uid = root; Pwd = eli";
-            this.Locations = GetAllLocations();
-            this.LocationTree = new List<Node<Location>>();
-            GenerateLocationTreeFromList(this.Locations);
+            this.ConnectionString = "Server = localhost; Database = inventarisierungsloesung; Uid = root; Pwd = ...";
         }
 
-        public List<Location> GetAllLocations()
+        public void GetAllLocations()
         {
             var locationRepo = new LocationRepository(ConnectionString);
-            return locationRepo.GetAll();
+            this.Locations = locationRepo.GetAll();
+            this.LocationTree = new List<Node<Location>>();
+            GenerateLocationTreeFromList(Locations);
+            PropertyChanged(this, new PropertyChangedEventArgs("LocationTree"));
         }
 
         public void GenerateLocationTreeFromList(List<Location> locationList)
@@ -38,6 +40,20 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public ICommand Laden
+        {
+            get
+            {
+                if (_laden == null)
+                {
+                    _laden = new RelayCommand(
+                        param => GetAllLocations()
+                    );
+                }
+                return _laden;
+            }
         }
     }
 }
