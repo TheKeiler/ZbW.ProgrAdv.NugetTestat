@@ -68,7 +68,7 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
 
         public override string GenerateAddStatementValues(Location entity)
         {
-            return $"{entity.ParentId},{entity.AddressId},{entity.Designation},{entity.BuildingNr},{entity.RoomNr}";
+            return $"{entity.ParentId}, {entity.AddressId}, '{entity.Designation}', {entity.BuildingNr}, {entity.RoomNr}";
         }
 
         public override string GenerateUpdateStatementValues(Location entity)

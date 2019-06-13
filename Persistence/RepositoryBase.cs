@@ -7,7 +7,7 @@ using ZbW.ProgrAdv.NugetTestat.Model;
 
 namespace ZbW.ProgrAdv.NugetTestat.Persistence
 {
-    //TODO: More Generic Methods possible with LINQ
+    //TODO: Refactor Class with LINQ
     public abstract class RepositoryBase<M> : IRepositoryBase<M> where M : IModelBase, new()
     {
         protected string ConnectionString { get; }
@@ -67,9 +67,9 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
                 //----- SQL-Kommando aufbauen
                 IDbCommand cmd = con.CreateCommand();
                 cmd.CommandText =
-                    $"INSERT INTO {TableName} ({FieldsInAddStatement})" +
-                    $"VALUE" +
-                    $"({GenerateAddStatementValues(entity)})";
+                    $"INSERT INTO {TableName} ({FieldsInAddStatement}) " +
+                    $"VALUES" +
+                    $" ({GenerateAddStatementValues(entity)})";
                 cmd.ExecuteNonQuery();
             }
             catch (Exception e)
