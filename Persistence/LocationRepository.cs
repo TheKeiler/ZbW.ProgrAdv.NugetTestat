@@ -73,7 +73,7 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
 
         public override string GenerateUpdateStatementValues(Location entity)
         {
-            return $"parent_location = {entity.ParentId}, address_fk = {entity.AddressId} , designation = {entity.Designation}, building = {entity.BuildingNr} , room = {entity.RoomNr} WHERE location_id = {entity.Id}";
+            return $"parent_location = {entity.ParentId}, address_fk = {entity.AddressId} , designation = '{entity.Designation}', building = {entity.BuildingNr} , room = {entity.RoomNr} WHERE location_id = {entity.Id}";
         }
     }
 }
