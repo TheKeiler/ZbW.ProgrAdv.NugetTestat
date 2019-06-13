@@ -10,7 +10,6 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
     public class LocationViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
         public List<Location> Locations { get; set; }
         public string ConnectionString { get; set; }
         public List<Node<Location>> LocationTree { get; set; }

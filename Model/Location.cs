@@ -2,9 +2,9 @@
 
 namespace ZbW.ProgrAdv.NugetTestat.Model
 {
-    public class Location : ModelBase
+    public class Location : IModelBase
     {
-        public new int Id { get; set; }
+        public int Id { get; set; }
         public int? ParentId { get; set; }
         public int AddressId { get; set; }
         public string Designation { get; set; }
