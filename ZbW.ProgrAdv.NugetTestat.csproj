@@ -89,6 +89,7 @@
     <Compile Include="Control\UserControlLocations.xaml.cs">
       <DependentUpon>UserControlLocations.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\IEntity.cs" />
     <Compile Include="Model\Location.cs" />
     <Compile Include="Model\ModelBase.cs" />
     <Compile Include="Model\Node.cs" />
@@ -108,7 +109,6 @@
     </Compile>
     <Compile Include="Model\LogEntry.cs" />
     <Compile Include="Model\DuplicateChecker.cs" />
-    <Compile Include="Model\IEntity.cs" />
     <Compile Include="ViewModel\NugetTestatViewModel.cs" />
     <Page Include="Control\UserControlAppLogger.xaml">
       <SubType>Designer</SubType>
