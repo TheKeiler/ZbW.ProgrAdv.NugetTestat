@@ -108,7 +108,6 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
                 {
                     this.SelectedEntry = this.LogEntriesList[0];
                 }
-
                 PropertyChanged(this, new PropertyChangedEventArgs("LogEntriesList"));
                 PropertyChanged(this, new PropertyChangedEventArgs("SelectedEntry"));
             }
@@ -126,7 +125,12 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
                 var logentryRepository = new LogEntryRepository(ConnectionString);
                 logentryRepository.ExecuteLogClear(SelectedEntry);
                 LogEntriesList = logentryRepository.GetAll();
+                if (LogEntriesList.Count > 0)
+                {
+                    this.SelectedEntry = LogEntriesList[0];
+                }
                 PropertyChanged(this, new PropertyChangedEventArgs("LogEntriesList"));
+                PropertyChanged(this, new PropertyChangedEventArgs("SelectedEntry"));
             }
 
         }

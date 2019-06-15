@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZbW.ProgrAdv.NugetTestat", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZbW.ProgrAdv.NugetTestatTest", "..\ZbW.ProgrAdv.NugetTestatTest\ZbW.ProgrAdv.NugetTestatTest.csproj", "{67DF32FF-92CC-4D40-8A82-10B168638C0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp3", "..\ConsoleApp3\ConsoleApp3.csproj", "{FA2219B4-E333-44A9-AA41-7215136D6017}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZbW.ProgrAdv.NugetTestatTestConsole", "..\ConsoleApp3\ZbW.ProgrAdv.NugetTestatTestConsole.csproj", "{FA2219B4-E333-44A9-AA41-7215136D6017}"
 	ProjectSection(ProjectDependencies) = postProject
 		{751A476B-152F-41FA-8F54-FADD77D0577A} = {751A476B-152F-41FA-8F54-FADD77D0577A}
 	EndProjectSection
