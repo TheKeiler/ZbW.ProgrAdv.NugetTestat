@@ -1,14 +1,22 @@
-﻿using System;
+﻿using LinqToDB.Mapping;
+using System;
 
 namespace ZbW.ProgrAdv.NugetTestat.Model
 {
+    [Table("location")]
     public class Location : IModelBase
     {
+        [Column("location_id"), PrimaryKey, NotNull]
         public int Id { get; set; }
+        [Column("parent_location")]
         public int? ParentId { get; set; }
+        [Column("address_fk")]
         public int AddressId { get; set; }
+        [Column("designation")]
         public string Designation { get; set; }
+        [Column("building")]
         public int BuildingNr { get; set; }
+        [Column("room")]
         public int RoomNr { get; set; }
 
         public override bool Equals(object value)

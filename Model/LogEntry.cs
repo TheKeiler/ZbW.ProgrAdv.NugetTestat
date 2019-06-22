@@ -1,15 +1,24 @@
-﻿using System;
+﻿using LinqToDB.Mapping;
+using System;
 
 namespace ZbW.ProgrAdv.NugetTestat.Model
 {
+    [Table("v_logentries")]
     public class LogEntry : IModelBase
     {
+        [Column("id"), PrimaryKey, NotNull]
         public int Id { get; set; }
+        [Column("pod")]
         public string Pod { get; set; }
+        [Column("location")]
         public string Location { get; set; }
+        [Column("hostname")]
         public string Hostname { get; set; }
+        [Column("severity")]
         public int Severity { get; set; }
+        [Column("timestamp")]
         public DateTime Timestamp { get; set; }
+        [Column("message")]
         public string Message { get; set; }
         public bool IsDuplicate { get; set; }
 
