@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using ZbW.ProgrAdv.NugetTestat.Model;
+﻿using ZbW.ProgrAdv.NugetTestat.Model;
 
 namespace ZbW.ProgrAdv.NugetTestat.Persistence
 {

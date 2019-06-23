@@ -1,5 +1,4 @@
 ﻿using LinqToDB;
-using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,7 +8,7 @@ using ZbW.ProgrAdv.NugetTestat.Model;
 
 namespace ZbW.ProgrAdv.NugetTestat.Persistence
 {
-    public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : ModelBase  , new()
+    public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : ModelBase, new()
     {
         protected string ConnectionString { get; }
         protected string RepositoryName = "inventarisierungsloesung";
@@ -88,7 +87,7 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
                 catch (Exception e)
                 {
                     MessageBox.Show("Es konnte keine Verbindung zur Datenbank hergestellt werden: " + e.Message);
-                }               
+                }
             }
         }
 

@@ -1,6 +1,4 @@
-﻿using LinqToDB.Mapping;
-
-namespace ZbW.ProgrAdv.NugetTestat.Model
+﻿namespace ZbW.ProgrAdv.NugetTestat.Model
 {
     public abstract class ModelBase : IEntity
     {
