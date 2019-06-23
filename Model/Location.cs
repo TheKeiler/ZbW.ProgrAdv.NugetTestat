@@ -4,10 +4,10 @@ using System;
 namespace ZbW.ProgrAdv.NugetTestat.Model
 {
     [Table("location")]
-    public class Location : IModelBase
+    public class Location : ModelBase
     {
         [Column("location_id"), PrimaryKey, NotNull]
-        public int Id { get; set; }
+        public override int Id { get; set; }
         [Column("parent_location")]
         public int? ParentId { get; set; }
         [Column("address_fk")]

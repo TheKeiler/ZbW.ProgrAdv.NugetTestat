@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="574.8" d:DesignWidth="853.6">
     <Control.DataContext>
-        <viewModel:NugetTestatViewModel/>
+        <viewModel:LogEntryViewModel/>
     </Control.DataContext>
 
     <Grid>

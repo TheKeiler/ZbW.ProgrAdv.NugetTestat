@@ -6,7 +6,7 @@ namespace ZbW.ProgrAdv.NugetTestat.Model
     //TODO: Implement generic Baseclass
     public class LocationTreeBuilder
     {
-        public Node<Location> BuildTree(List<Location> locations)
+        public Node<Location> BuildTree(IQueryable<Location> locations)
         {
             if (locations == null) return new Node<Location>();
             var nodeList = locations.ToList();

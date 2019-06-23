@@ -9,7 +9,7 @@ using ZbW.ProgrAdv.NugetTestat.Persistence;
 
 namespace ZbW.ProgrAdv.NugetTestat.ViewModel
 {
-    public class NugetTestatViewModel : INotifyPropertyChanged
+    public class LogEntryViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -20,15 +20,15 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
         private ICommand _logMessageAdd;
         private ICommand _findDuplicates;
 
-        public List<LogEntry> LogEntriesList { get; set; }
+        public IQueryable<LogEntry> LogEntriesList { get; set; }
 
         public LogEntry SelectedEntry { get; set; }
         public LogEntry NewEntry { get; set; }
 
-        public NugetTestatViewModel()
+        public LogEntryViewModel()
         {
             this.ConnectionString = "Server = localhost; Database = inventarisierungsloesung; Uid = root; Pwd = ...";
-            this.LogEntriesList = new List<LogEntry>();
+            this.LogEntriesList = Enumerable.Empty<LogEntry>().AsQueryable();
             this.NewEntry = new LogEntry();
         }
 
@@ -104,9 +104,9 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
             {
                 var logentryRepository = new LogEntryRepository(ConnectionString);
                 this.LogEntriesList = logentryRepository.GetAll();
-                if (LogEntriesList.Count > 0)
+                if (LogEntriesList.Any())
                 {
-                    this.SelectedEntry = this.LogEntriesList[0];
+                    this.SelectedEntry = this.LogEntriesList.First();
                 }
                 PropertyChanged(this, new PropertyChangedEventArgs("LogEntriesList"));
                 PropertyChanged(this, new PropertyChangedEventArgs("SelectedEntry"));
@@ -125,9 +125,9 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
                 var logentryRepository = new LogEntryRepository(ConnectionString);
                 logentryRepository.ExecuteLogClear(SelectedEntry);
                 LogEntriesList = logentryRepository.GetAll();
-                if (LogEntriesList.Count > 0)
+                if (LogEntriesList.Any())
                 {
-                    this.SelectedEntry = LogEntriesList[0];
+                    this.SelectedEntry = this.LogEntriesList.First();
                 }
                 PropertyChanged(this, new PropertyChangedEventArgs("LogEntriesList"));
                 PropertyChanged(this, new PropertyChangedEventArgs("SelectedEntry"));
@@ -170,7 +170,7 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
                 for (int i = 0; i < dubList.Count(); i++)
                 {
                     var log = (LogEntry)dubList.ElementAt(i);
-                    for (int j = 0; j < LogEntriesList.Count; j++)
+                    for (int j = 0; j < LogEntriesList.Count(); j++)
                     {
                         if (LogEntriesList.ElementAt(j).Id == log.Id)
                         {

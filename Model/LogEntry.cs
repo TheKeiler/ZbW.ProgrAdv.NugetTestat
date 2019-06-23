@@ -4,10 +4,10 @@ using System;
 namespace ZbW.ProgrAdv.NugetTestat.Model
 {
     [Table("v_logentries")]
-    public class LogEntry : IModelBase
+    public class LogEntry : ModelBase
     {
         [Column("id"), PrimaryKey, NotNull]
-        public int Id { get; set; }
+        public override int Id { get; set; }
         [Column("pod")]
         public string Pod { get; set; }
         [Column("location")]

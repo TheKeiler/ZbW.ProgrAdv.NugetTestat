@@ -1,7 +1,9 @@
-﻿namespace ZbW.ProgrAdv.NugetTestat.Model
+﻿using LinqToDB.Mapping;
+
+namespace ZbW.ProgrAdv.NugetTestat.Model
 {
-    public interface IModelBase : IEntity
+    public abstract class ModelBase : IEntity
     {
-        int Id { get; set; }
+        public abstract int Id { get; set; }
     }
 }

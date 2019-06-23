@@ -74,6 +74,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Management" />
@@ -115,7 +116,7 @@
     </Compile>
     <Compile Include="Model\LogEntry.cs" />
     <Compile Include="Model\DuplicateChecker.cs" />
-    <Compile Include="ViewModel\NugetTestatViewModel.cs" />
+    <Compile Include="ViewModel\LogEntryViewModel.cs" />
     <Page Include="Control\UserControlAppLogger.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

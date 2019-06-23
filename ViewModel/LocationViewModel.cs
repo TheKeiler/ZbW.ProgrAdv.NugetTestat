@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using ZbW.ProgrAdv.NugetTestat.Model;
@@ -10,13 +11,14 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
     public class LocationViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public List<Location> Locations { get; set; }
+        public IQueryable<Location> Locations { get; set; }
         public string ConnectionString { get; set; }
         public List<Node<Location>> LocationTree { get; set; }
         private ICommand _laden;
 
         public LocationViewModel()
         {
+            Locations = Enumerable.Empty<Location>().AsQueryable();
             this.ConnectionString = "Server = localhost; Database = inventarisierungsloesung; Uid = root; Pwd = ...";
         }
 
@@ -29,7 +31,7 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
             PropertyChanged(this, new PropertyChangedEventArgs("LocationTree"));
         }
 
-        public void GenerateLocationTreeFromList(List<Location> locationList)
+        public void GenerateLocationTreeFromList(IQueryable<Location> locationList)
         {
             var treeBuilder = new LocationTreeBuilder();
             var locationNode = treeBuilder.BuildTree(locationList);
