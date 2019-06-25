@@ -70,10 +70,5 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
         /// </summary>
         /// <returns></returns>
         long Count();
-
-        /// <summary>
-        /// Gibt den Tabellennamen zurück, auf die sich das Repository bezieht
-        /// </summary>
-        string TableName { get; }
     }
 }

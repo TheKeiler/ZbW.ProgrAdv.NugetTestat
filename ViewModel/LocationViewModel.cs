@@ -28,7 +28,7 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
             this.Locations = locationRepo.GetAll();
             this.LocationTree = new List<Node<Location>>();
             GenerateLocationTreeFromList(Locations);
-            PropertyChanged(this, new PropertyChangedEventArgs("LocationTree"));
+            OnPropertyChanged("LocationTree");
         }
 
         public void GenerateLocationTreeFromList(IQueryable<Location> locationList)

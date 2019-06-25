@@ -8,10 +8,6 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
 {
     public class LogEntryRepository : RepositoryBase<LogEntry>
     {
-        public override string TableName => "v_logentries";
-
-        public override string TablePrimaryKey => "id";
-
         public LogEntryRepository(string connectionString) : base(connectionString)
         {
         }

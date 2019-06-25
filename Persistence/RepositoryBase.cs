@@ -13,8 +13,6 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
         protected string ConnectionString { get; }
         protected string RepositoryName = "inventarisierungsloesung";
         protected string ProviderName = "MySql";
-        public abstract string TableName { get; }
-        public abstract string TablePrimaryKey { get; }
 
         protected RepositoryBase(string connectionString)
         {

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -19,7 +20,7 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
         private ICommand _logMessageAdd;
         private ICommand _findDuplicates;
 
-        public IQueryable<LogEntry> LogEntriesList { get; set; }
+        public List<LogEntry> LogEntriesList { get; set; }
 
         public LogEntry SelectedEntry { get; set; }
         public LogEntry NewEntry { get; set; }
@@ -27,7 +28,7 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
         public LogEntryViewModel()
         {
             this.ConnectionString = "Server = localhost; Database = inventarisierungsloesung; Uid = root; Pwd = ...";
-            this.LogEntriesList = Enumerable.Empty<LogEntry>().AsQueryable();
+            this.LogEntriesList = new List<LogEntry>();
             this.NewEntry = new LogEntry();
         }
 
@@ -102,13 +103,13 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
             else
             {
                 var logentryRepository = new LogEntryRepository(ConnectionString);
-                this.LogEntriesList = logentryRepository.GetAll();
+                this.LogEntriesList = logentryRepository.GetAll().ToList<LogEntry>();
                 if (LogEntriesList.Any())
                 {
                     this.SelectedEntry = this.LogEntriesList.First();
                 }
-                PropertyChanged(this, new PropertyChangedEventArgs("LogEntriesList"));
-                PropertyChanged(this, new PropertyChangedEventArgs("SelectedEntry"));
+                OnPropertyChanged("LogEntriesList");
+                OnPropertyChanged("SelectedEntry");
             }
 
         }
@@ -123,13 +124,13 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
             {
                 var logentryRepository = new LogEntryRepository(ConnectionString);
                 logentryRepository.ExecuteLogClear(SelectedEntry);
-                LogEntriesList = logentryRepository.GetAll();
+                LogEntriesList = logentryRepository.GetAll().ToList<LogEntry>();
                 if (LogEntriesList.Any())
                 {
                     this.SelectedEntry = this.LogEntriesList.First();
                 }
-                PropertyChanged(this, new PropertyChangedEventArgs("LogEntriesList"));
-                PropertyChanged(this, new PropertyChangedEventArgs("SelectedEntry"));
+                OnPropertyChanged("LogEntriesList");
+                OnPropertyChanged("SelectedEntry");
             }
 
         }
@@ -151,34 +152,35 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
                 {
                     var logentryRepository = new LogEntryRepository(this.ConnectionString);
                     logentryRepository.ExecuteLogMessageAdd(this.NewEntry);
-                    this.LogEntriesList = logentryRepository.GetAll();
-                    PropertyChanged(this, new PropertyChangedEventArgs("LogEntriesList"));
+                    this.LogEntriesList = logentryRepository.GetAll().ToList<LogEntry>();
+                    OnPropertyChanged("LogEntriesList");
                 }
             }
         }
 
         private void RunDuplicatesChecker()
         {
-            var logentryRepository = new LogEntryRepository(this.ConnectionString);
-            this.LogEntriesList = logentryRepository.GetAll();
             var dubChecker = new DuplicateChecker();
-            var dubList = dubChecker.FindDuplicates(this.LogEntriesList);
+            var logRepo = new LogEntryRepository(this.ConnectionString);
+            var logList = logRepo.GetAll().ToList<LogEntry>();
+            var dubList = dubChecker.FindDuplicates(logList);
 
             if (dubList.Any())
             {
                 for (int i = 0; i < dubList.Count(); i++)
                 {
                     var log = (LogEntry)dubList.ElementAt(i);
-                    for (int j = 0; j < LogEntriesList.Count(); j++)
+                    for (int j = 0; j < logList.Count(); j++)
                     {
-                        if (LogEntriesList.ElementAt(j).Id == log.Id)
+                        if (logList.ElementAt(j).Id == log.Id)
                         {
-                            LogEntriesList.ElementAt(j).IsDuplicate = true;
+                            logList.ElementAt(j).IsDuplicate = true;
                         }
                     }
                 }
             }
-            PropertyChanged(this, new PropertyChangedEventArgs("LogEntriesList"));
+            this.LogEntriesList = logList;
+            OnPropertyChanged("LogEntriesList");
         }
     }
 
