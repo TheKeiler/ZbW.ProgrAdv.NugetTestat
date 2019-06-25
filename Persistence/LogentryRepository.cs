@@ -1,7 +1,4 @@
-﻿using MySql.Data.MySqlClient;
-using System;
-using System.Data;
-using System.Windows;
+﻿using LinqToDB.Data;
 using ZbW.ProgrAdv.NugetTestat.Model;
 
 namespace ZbW.ProgrAdv.NugetTestat.Persistence
@@ -27,63 +24,25 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
             throw new System.NotSupportedException();
         }
 
-        //TODO: Refactor with Linq
         public void ExecuteLogClear(LogEntry entry)
         {
+            using (var db = new DataConnection(ProviderName, ConnectionString))
+            {
+                db.QueryProc<LogEntry>("LogClear", new DataParameter("@_logentries_id", entry.Id));
+            }
 
-            IDbConnection con = null;       // Verbindung deklarieren
-            try
-            {
-                con = new MySqlConnection(ConnectionString);   //Verbindung erzeugen
-                con.Open();
-                //----- SQL-Kommando aufbauen
-                IDbCommand cmd = con.CreateCommand();
-                cmd.CommandText = $"CALL LogClear({entry.Id});";
-                cmd.ExecuteNonQuery();
-
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Es konnte keine Verbindung zur Datenbank hergestellt werden: " + e.Message);
-            }
-            finally
-            {
-                try
-                {
-                    if (con != null)
-                        // Verbindung schließen
-                        con.Close();
-                }
-                catch (Exception ex) { Console.WriteLine(ex.Message); }
-            }
         }
 
-        //TODO: Refactor with Linq
         public void ExecuteLogMessageAdd(LogEntry newEntry)
         {
-            IDbConnection con = null;       // Verbindung deklarieren
-            try
+            using (var db = new DataConnection(ProviderName, ConnectionString))
             {
-                con = new MySqlConnection(ConnectionString);   //Verbindung erzeugen
-                con.Open();
-                //----- SQL-Kommando aufbauen
-                IDbCommand cmd = con.CreateCommand();
-                cmd.CommandText = $"CALL LogMessageAdd('{ newEntry.Pod}', '{newEntry.Hostname}', '{newEntry.Severity}', '{newEntry.Message}');";
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Es konnte keine Verbindung zur Datenbank hergestellt werden: " + e.Message);
-            }
-            finally
-            {
-                try
-                {
-                    if (con != null)
-                        // Verbindung schließen
-                        con.Close();
-                }
-                catch (Exception ex) { Console.WriteLine(ex.Message); }
+                var dataParams = new DataParameter[4];
+                dataParams[0] = new DataParameter("@i_pod", newEntry.Id);
+                dataParams[1] = new DataParameter("@i_hostname", newEntry.Hostname);
+                dataParams[2] = new DataParameter("@i_severity", newEntry.Severity);
+                dataParams[3] = new DataParameter("@i_message", newEntry.Message);
+                db.QueryProc<LogEntry>("LogMessageAdd", dataParams);
             }
         }
     }

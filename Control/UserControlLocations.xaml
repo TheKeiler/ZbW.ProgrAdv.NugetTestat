@@ -20,7 +20,7 @@
         <Button Grid.Column="0" Content="Laden" HorizontalAlignment="Left" Margin="30,57,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Path=Laden}"/>
         <TreeView Grid.Row="0" Margin="30,96,30,30" ItemsSource="{Binding LocationTree, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=true, Mode=TwoWay}">
             <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding ChildNodesList, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=true, Mode=TwoWay}">
+                <HierarchicalDataTemplate ItemsSource="{Binding ChildNodesList, NotifyOnSourceUpdated=true, Mode=TwoWay}">
                     <TreeViewItem Header="{Binding}"/>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
