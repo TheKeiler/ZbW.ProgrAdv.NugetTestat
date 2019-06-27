@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Windows;
 using ZbW.ProgrAdv.NugetTestat.Model;
 
@@ -89,9 +90,21 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
             }
         }
 
-        public IQueryable<T> GetAll(string whereCondition, Dictionary<string, object> parameterValues)
+        public IQueryable<T> GetAll(Expression<Func<T, bool>> whereClause)
         {
-            throw new NotImplementedException();
+            IQueryable<T> entities = Enumerable.Empty<T>().AsQueryable();
+            using (var db = new LinqToDB.DataContext(ProviderName, ConnectionString))
+            {
+                try
+                {
+                    entities = db.GetTable<T>().Where<T>(whereClause);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Es konnte keine Verbindung zur Datenbank hergestellt werden: " + e.Message);
+                }
+            }
+            return entities;
         }
 
         public IQueryable<T> GetAll()
@@ -111,9 +124,21 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
             return entities;
         }
 
-        public long Count(string whereCondition, Dictionary<string, object> parameterValues)
+        public long Count(Expression<Func<T, bool>> whereClause)
         {
-            throw new NotImplementedException();
+            IQueryable<T> entities = Enumerable.Empty<T>().AsQueryable();
+            using (var db = new LinqToDB.DataContext(ProviderName, ConnectionString))
+            {
+                try
+                {
+                    entities = db.GetTable<T>().Where<T>(whereClause);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Es konnte keine Verbindung zur Datenbank hergestellt werden: " + e.Message);
+                }
+            }
+            return entities.Count();
         }
         public long Count()
         {

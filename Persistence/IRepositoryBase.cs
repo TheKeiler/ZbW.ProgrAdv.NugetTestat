@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace ZbW.ProgrAdv.NugetTestat.Persistence
 {
@@ -39,12 +41,10 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
         /// damit diese für PreparedStatements verwendet werden können.
         /// (Verhinderung von SQL-Injection)
         /// </summary>
-        /// <param name="whereCondition">WhereBedingung als string
+        /// <param name="whereCondition">WhereBedingung als delegate
         /// z.B. "NetPrice > @netPrice and Active = @active and Description like @desc</param>
-        /// <param name="parameterValues">Parameter-Werte für die Wherebedingung
-        /// bspw: {{"netPrice", 10.5}, {"active", true}, {"desc", "Wolle%"}}</param>
         /// <returns></returns>
-        IQueryable<M> GetAll(string whereCondition, Dictionary<string, object> parameterValues);
+        IQueryable<M> GetAll(Expression<Func<M, bool>> whereClause);
 
         /// <summary>
         /// Gibt eine Liste aller in der DB vorhandenen Model-Objekte vom Typ M zurück
@@ -58,12 +58,10 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
         /// Zählt in der Datenbank die Anzahl Model-Objekte vom Typ M, die der
         /// Where-Bedingung entsprechen
         /// </summary>
-        /// <param name="whereCondition">WhereBedingung als string
+        /// <param name="whereCondition">WhereBedingung als Delegate
         /// z.B. "NetPrice > @netPrice and Active = @active and Description like @desc</param>
-        /// <param name="parameterValues">Parameter-Werte für die Wherebedingung
-        /// bspw: {{"netPrice", 10.5}, {"active", true}, {"desc", "Wolle%"}}</param>
         /// <returns></returns>
-        long Count(string whereCondition, Dictionary<string, object> parameterValues);
+        long Count(Expression<Func<M, bool>> whereClause);
 
         /// <summary>
         /// Zählt alle Model-Objekte vom Typ M
