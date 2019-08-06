@@ -1,0 +1,87 @@
+﻿<UserControl x:Class="ZbW.ProgrAdv.NugetTestat.Control.UserControlCustomer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModel="clr-namespace:ZbW.ProgrAdv.NugetTestat.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="900">
+    
+    <Control.DataContext>
+        <viewModel:CustomerViewModel/>
+    </Control.DataContext>
+    
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Grid.ColumnSpan="2" >
+            <Label Content="Connection String:" FontWeight="Bold" VerticalAlignment="Center"/>
+            <TextBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="750" Text="{Binding ConnectionString, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Grid.ColumnSpan="2">
+            <Button Content="Laden" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="90" Margin="7,0" Command="{Binding Path=Laden}" FontWeight="Bold"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+            <DataGrid HorizontalAlignment="Center" Height="310"  VerticalAlignment="Stretch" Width="880" CanUserAddRows="false" CanUserDeleteRows="False" IsReadOnly="True" HeadersVisibility="Column" ItemsSource="{Binding Customers, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Grid.Column="0" Orientation ="Horizontal" Grid.ColumnSpan="2">
+            <Label Content="Kunde erfassen:" FontWeight="Bold" VerticalAlignment="Center"></Label>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Grid.Column="0" Orientation ="Horizontal">
+            <Label Content="Vorname:" VerticalAlignment="Center" Width="100"></Label>
+            <TextBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="300" Text="{Binding NewCustomer.Firstname, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Grid.Column="1" Orientation ="Horizontal">
+            <Label Content="Nachname:" VerticalAlignment="Center" Width="100"></Label>
+            <TextBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="300" Text="{Binding NewCustomer.Lastname, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="5" Grid.Column="0" Orientation ="Horizontal">
+            <Label Content="Kundennummer:" VerticalAlignment="Center" Width="100"></Label>
+            <TextBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="300" Text="{Binding NewCustomer.CustomerNumber, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}" RenderTransformOrigin="1,0.5"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="5" Grid.Column="1" Orientation ="Horizontal">
+            <Label Content="Telefonnummer:" VerticalAlignment="Center" Width="100"></Label>
+            <TextBox VerticalAlignment="Center" Width="300" Text="{Binding NewCustomer.PhoneNumber, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="6" Grid.Column="0" Orientation ="Horizontal">
+            <Label Content="Email-Adresse:" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100"></Label>
+            <TextBox HorizontalAlignment="Right" VerticalAlignment="Center" Width="300" Text="{Binding NewCustomer.EMail, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="6" Grid.Column="1" Orientation ="Horizontal">
+            <Label Content="Website:" VerticalAlignment="Center" Width="100"></Label>
+            <TextBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="300" Text="{Binding NewCustomer.Url, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="7" Grid.Column="0" Orientation ="Horizontal">
+            <Label Content="Passwort:" VerticalAlignment="Center" Width="100"></Label>
+            <TextBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="300" Text="{Binding NewCustomer.Password, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="7" Grid.Column="1" Orientation ="Horizontal" >
+            <Button Content="Kunde einfügen" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="400" Command="{Binding Path=InsertCustomer}" FontWeight="Bold"/>
+        </StackPanel>
+
+    </Grid>
+</UserControl>
