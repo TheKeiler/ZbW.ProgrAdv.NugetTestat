@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -15,6 +16,8 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
         public IQueryable<Customer> Customers { get; set; }
         public Customer SelectedCustomer { get; set; }
         public Customer NewCustomer { get; set; }
+        public ObservableCollection<Country> Countries { get; set; }
+        public Country SelectedCountry { get; set; }
         public string ConnectionString { get; set; }
         private ICommand _laden;
         private ICommand _InsertCustomer;
@@ -23,7 +26,17 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
         {
             Customers = Enumerable.Empty<Customer>().AsQueryable();
             NewCustomer = new Customer();
+            Countries = new ObservableCollection<Country>();
+            GenerateListOfCountries();
+            SelectedCountry = Countries[0];
             this.ConnectionString = "Server = localhost; Database = inventarisierungsloesung; Uid = root; Pwd = ...";
+        }
+
+        private void GenerateListOfCountries()
+        {
+            Countries.Add(new Country("Schweiz"));
+            Countries.Add(new Country("Deutschland"));
+            Countries.Add(new Country("Liechtenstein")); 
         }
 
         public void GetAllCustomers()

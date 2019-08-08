@@ -24,6 +24,7 @@ namespace ZbW.ProgrAdv.NugetTestat.Model
         public string Password { get; set; }
         [Column("kundenkonto_fk")]
         public int AccountNummber { get; set; }
+        public Country CustomerCountry { get; set; } 
 
         public void SetAccountNummber()
         {

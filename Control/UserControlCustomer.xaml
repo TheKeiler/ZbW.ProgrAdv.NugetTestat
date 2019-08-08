@@ -42,6 +42,7 @@
 
         <StackPanel Grid.Row="3" Grid.Column="0" Orientation ="Horizontal" Grid.ColumnSpan="2">
             <Label Content="Kunde erfassen:" FontWeight="Bold" VerticalAlignment="Center"></Label>
+            <ComboBox VerticalAlignment="Center" ItemsSource="{Binding Path=Countries}" SelectedItem="{Binding Path=SelectedCountry, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"></ComboBox>
         </StackPanel>
 
         <StackPanel Grid.Row="4" Grid.Column="0" Orientation ="Horizontal">
