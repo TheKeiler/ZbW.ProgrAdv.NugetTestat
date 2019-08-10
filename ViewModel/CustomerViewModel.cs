@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using ZbW.ProgrAdv.NugetTestat.Model;
 using ZbW.ProgrAdv.NugetTestat.Persistence;
+using ZbW.ProgrAdv.NugetTestat.Services;
 
 namespace ZbW.ProgrAdv.NugetTestat.ViewModel
 {
@@ -34,9 +35,9 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
 
         private void GenerateListOfCountries()
         {
-            Countries.Add(new Country("Schweiz"));
-            Countries.Add(new Country("Deutschland"));
-            Countries.Add(new Country("Liechtenstein")); 
+            Countries.Add(new Country("Schweiz", @"^(0041|0|\+41)(\(0\))?([0-9]{2}\/?[0-9]{7})$"));
+            Countries.Add(new Country("Deutschland", @"^(0049|0|\+49)(\(0\))?([0-9]{2}\/?[0-9]{8})$"));
+            Countries.Add(new Country("Liechtenstein", @"^(00423|\+423)(\/?[0-9]{3}\/?[0-9]{4})$")); 
         }
 
         public void GetAllCustomers()
@@ -50,11 +51,17 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
         //TODO: Validierung mit REGEX
         public void InsertNewCustomer()
         {
+            this.NewCustomer.SetAccountNummber();
+            this.NewCustomer.CustomerCountry = SelectedCountry;
+            var validator = new InputValidation(this.NewCustomer);
+
+            if(validator.AreCustomerInputsValid() == true)
+            {
                 var customerRepository = new CustomerRepository(this.ConnectionString);
-                this.NewCustomer.SetAccountNummber();
                 customerRepository.Add(this.NewCustomer);
                 this.Customers = customerRepository.GetAll();
                 OnPropertyChanged("Customers");
+            }               
         }
 
         private void ChangeSelectedCustomer()

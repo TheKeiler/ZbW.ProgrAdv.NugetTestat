@@ -26,6 +26,11 @@ namespace ZbW.ProgrAdv.NugetTestat.Model
         public int AccountNummber { get; set; }
         public Country CustomerCountry { get; set; } 
 
+        public Customer()
+        {
+            this.CustomerCountry = new Country("Schweiz", @"^(0041|0|\+41)(\(0\))?([0-9]{2}\/?[0-9]{7})$");
+        }
+
         public void SetAccountNummber()
         {
             Random rnd = new Random();

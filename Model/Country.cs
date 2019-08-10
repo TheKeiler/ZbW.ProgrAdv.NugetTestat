@@ -16,6 +16,12 @@ namespace ZbW.ProgrAdv.NugetTestat.Model
             this.Name = name;
         }
 
+        public Country(string name, string phoneRegex)
+        {
+            this.Name = name;
+            this.PhoneNumberRegex = phoneRegex;
+        }
+
         public override string ToString()
         {
             return Name;
