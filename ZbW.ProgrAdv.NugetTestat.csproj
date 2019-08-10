@@ -111,6 +111,7 @@
     <Compile Include="Persistence\LocationRepository.cs" />
     <Compile Include="Persistence\LogEntryRepository.cs" />
     <Compile Include="Persistence\RepositoryBase.cs" />
+    <Compile Include="Services\CryptoService.cs" />
     <Compile Include="Services\InputValidation.cs" />
     <Compile Include="ViewModel\CustomerViewModel.cs" />
     <Compile Include="ViewModel\LocationViewModel.cs" />

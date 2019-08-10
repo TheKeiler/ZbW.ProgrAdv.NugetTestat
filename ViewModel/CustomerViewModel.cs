@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -37,7 +36,7 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
         {
             Countries.Add(new Country("Schweiz", @"^(0041|0|\+41)(\(0\))?([0-9]{2}\/?[0-9]{7})$"));
             Countries.Add(new Country("Deutschland", @"^(0049|0|\+49)(\(0\))?([0-9]{2}\/?[0-9]{8})$"));
-            Countries.Add(new Country("Liechtenstein", @"^(00423|\+423)(\/?[0-9]{3}\/?[0-9]{4})$")); 
+            Countries.Add(new Country("Liechtenstein", @"^(00423|\+423)(\/?[0-9]{3}\/?[0-9]{4})$"));
         }
 
         public void GetAllCustomers()
@@ -48,20 +47,27 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
             OnPropertyChanged("Customers");
         }
 
-        //TODO: Validierung mit REGEX
         public void InsertNewCustomer()
         {
             this.NewCustomer.SetAccountNummber();
             this.NewCustomer.CustomerCountry = SelectedCountry;
             var validator = new InputValidation(this.NewCustomer);
 
-            if(validator.AreCustomerInputsValid() == true)
+            if (validator.AreCustomerInputsValid() == true)
             {
+                HashCustomerPassword();
                 var customerRepository = new CustomerRepository(this.ConnectionString);
                 customerRepository.Add(this.NewCustomer);
                 this.Customers = customerRepository.GetAll();
                 OnPropertyChanged("Customers");
-            }               
+            }
+        }
+
+        private void HashCustomerPassword()
+        {
+            var cryptoService = new CryptoService();
+            var hash = cryptoService.ComputeHash(NewCustomer.Password, cryptoService.GenerateSalt(), 10101, 24);
+            NewCustomer.Password = Convert.ToBase64String(hash);
         }
 
         private void ChangeSelectedCustomer()

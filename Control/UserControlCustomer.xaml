@@ -37,12 +37,11 @@
         </StackPanel>
 
         <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
-            <DataGrid HorizontalAlignment="Center" Height="310"  VerticalAlignment="Stretch" Width="880" CanUserAddRows="false" CanUserDeleteRows="False" IsReadOnly="True" HeadersVisibility="Column" ItemsSource="{Binding Customers, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}"/>
+            <DataGrid HorizontalAlignment="Center" Height="310"  VerticalAlignment="Stretch" Width="880" CanUserAddRows="false" CanUserDeleteRows="False" IsReadOnly="False" HeadersVisibility="Column" ItemsSource="{Binding Customers, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
 
         <StackPanel Grid.Row="3" Grid.Column="0" Orientation ="Horizontal" Grid.ColumnSpan="2">
             <Label Content="Kunde erfassen:" FontWeight="Bold" VerticalAlignment="Center"></Label>
-            <ComboBox VerticalAlignment="Center" ItemsSource="{Binding Path=Countries}" SelectedItem="{Binding Path=SelectedCountry, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"></ComboBox>
         </StackPanel>
 
         <StackPanel Grid.Row="4" Grid.Column="0" Orientation ="Horizontal">
@@ -62,7 +61,8 @@
 
         <StackPanel Grid.Row="5" Grid.Column="1" Orientation ="Horizontal">
             <Label Content="Telefonnummer:" VerticalAlignment="Center" Width="100"></Label>
-            <TextBox VerticalAlignment="Center" Width="300" Text="{Binding NewCustomer.PhoneNumber, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
+            <ComboBox VerticalAlignment="Center" ItemsSource="{Binding Path=Countries}" SelectedItem="{Binding Path=SelectedCountry, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" Width="120"></ComboBox>
+            <TextBox VerticalAlignment="Center" Width="170" Margin="10" Text="{Binding NewCustomer.PhoneNumber, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
         </StackPanel>
 
         <StackPanel Grid.Row="6" Grid.Column="0" Orientation ="Horizontal">

@@ -23,8 +23,8 @@ namespace ZbW.ProgrAdv.NugetTestat.Model
         [Column("password")]
         public string Password { get; set; }
         [Column("kundenkonto_fk")]
-        public int AccountNummber { get; set; }
-        public Country CustomerCountry { get; set; } 
+        public int AccountNumber { get; set; }
+        public Country CustomerCountry { get; set; }
 
         public Customer()
         {
@@ -34,7 +34,7 @@ namespace ZbW.ProgrAdv.NugetTestat.Model
         public void SetAccountNummber()
         {
             Random rnd = new Random();
-            AccountNummber = rnd.Next(1, 9);
+            AccountNumber = rnd.Next(1, 9);
         }
 
         public override bool Equals(object value)

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 using System.Windows;
 using ZbW.ProgrAdv.NugetTestat.Model;
 
@@ -25,8 +20,8 @@ namespace ZbW.ProgrAdv.NugetTestat.Services
                 var regex = new Regex(@"^CU[0-9]{5}$");
                 isValidNumber = regex.IsMatch(Customer.CustomerNumber);
             }
-            
-            if(isValidNumber == false)
+
+            if (isValidNumber == false)
             {
                 MessageBox.Show("Bitte geben Sie eine gültige Kundennummer ein. Beispiel: CU12345", "Validator", MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -36,7 +31,7 @@ namespace ZbW.ProgrAdv.NugetTestat.Services
         public bool HasValidPhonenumber()
         {
             var isValidPhonenumber = false;
-            if(Customer.PhoneNumber != null)
+            if (Customer.PhoneNumber != null)
             {
                 var regex = new Regex(Customer.CustomerCountry.PhoneNumberRegex);
                 string trimedPhoneNumber = Regex.Replace(Customer.PhoneNumber, @"s", "");
@@ -54,11 +49,11 @@ namespace ZbW.ProgrAdv.NugetTestat.Services
         public bool HasValidMailadress()
         {
             var isValidMailadress = false;
-            if(Customer.EMail != null)
+            if (Customer.EMail != null)
             {
                 isValidMailadress = Regex.IsMatch(Customer.EMail, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
             }
-            
+
             if (isValidMailadress == false)
             {
                 MessageBox.Show("Bitte geben Sie eine gültige EMail-Adresse ein.", "Validator", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -69,7 +64,7 @@ namespace ZbW.ProgrAdv.NugetTestat.Services
         public bool HasValidWebsite()
         {
             var isValidWebsite = false;
-            if(Customer.Url != null)
+            if (Customer.Url != null)
             {
                 var regex = new Regex(@"^((http){1}s?(:\/\/){1})?(www\.)?[a-z]+\.{1}([a-z]+\.{1})?[a-z]+");
                 isValidWebsite = regex.IsMatch(Customer.Url);
@@ -86,7 +81,7 @@ namespace ZbW.ProgrAdv.NugetTestat.Services
         public bool HasValidPassword()
         {
             var isValidPassword = false;
-            if(Customer.Password != null)
+            if (Customer.Password != null)
             {
                 var regex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$");
                 isValidPassword = regex.IsMatch(Customer.Password);
@@ -101,7 +96,7 @@ namespace ZbW.ProgrAdv.NugetTestat.Services
 
         public bool AreCustomerInputsValid()
         {
-            var array = new Boolean[5]{
+            var array = new bool[5]{
             HasValidCustomernumber(),
             HasValidPhonenumber(),
             HasValidMailadress(),
@@ -110,9 +105,9 @@ namespace ZbW.ProgrAdv.NugetTestat.Services
             };
 
             var everyElementIsTrue = true;
-            for(int i = 1 ; i < array.Length; i++)
+            for (int i = 1; i < array.Length; i++)
             {
-                if(array[i] == false)
+                if (array[i] == false)
                 {
                     everyElementIsTrue = false;
                 }
