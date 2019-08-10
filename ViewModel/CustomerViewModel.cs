@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
 using ZbW.ProgrAdv.NugetTestat.Model;
 using ZbW.ProgrAdv.NugetTestat.Persistence;
@@ -51,9 +52,8 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
         {
             this.NewCustomer.SetAccountNummber();
             this.NewCustomer.CustomerCountry = SelectedCountry;
-            var validator = new InputValidation(this.NewCustomer);
 
-            if (validator.AreCustomerInputsValid() == true)
+            if (AreCustomerInputsValid() == true)
             {
                 HashCustomerPassword();
                 var customerRepository = new CustomerRepository(this.ConnectionString);
@@ -76,6 +76,42 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
             {
                 this.SelectedCustomer = Customers.First();
             }
+        }
+
+        public bool AreCustomerInputsValid()
+        {
+            var validator = new InputValidation(this.NewCustomer);
+
+            if (validator.HasValidCustomernumber() == false)
+            {
+                MessageBox.Show("Bitte geben Sie eine gültige Kundennummer ein. Beispiel: CU12345", "Validator", MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+
+            if (validator.HasValidPhonenumber() == false)
+            {
+                MessageBox.Show("Bitte geben Sie eine gültige Telefonnummer ein.", "Validator", MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+
+            if (validator.HasValidMailadress() == false)
+            {
+                MessageBox.Show("Bitte geben Sie eine gültige EMail-Adresse ein.", "Validator", MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+
+            if (validator.HasValidWebsite() == false)
+            {
+                MessageBox.Show("Bitte geben Sie eine gültige Website-Url ein.", "Validator", MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+
+            if (validator.HasValidPassword() == false)
+            {
+                MessageBox.Show("Bitte geben Sie ein gültiges Passwort ein. Das Passwort muss 8-15 Zeichen und minimal ein Grossbuchstabe und ein Sonderzeichen enthalten.", "Validator", MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+            return true;
         }
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)

@@ -12,7 +12,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZbW.ProgrAdv.NugetTestatTes
 		{751A476B-152F-41FA-8F54-FADD77D0577A} = {751A476B-152F-41FA-8F54-FADD77D0577A}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZbW.ProgAdv.NugetTestat.UnitTests", "..\ZbW.ProgAdv.NugetTestat.UnitTests\ZbW.ProgAdv.NugetTestat.UnitTests.csproj", "{19C2A4A8-9FCB-45ED-A8B2-0CB512A37861}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZbW.ProgAdv.NugetTestat.UnitTests", "..\ZbW.ProgAdv.NugetTestat.UnitTests\ZbW.ProgAdv.NugetTestat.UnitTests.csproj", "{5B614F27-06FB-49D4-B336-99370821AF5F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,10 +32,10 @@ Global
 		{FA2219B4-E333-44A9-AA41-7215136D6017}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA2219B4-E333-44A9-AA41-7215136D6017}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA2219B4-E333-44A9-AA41-7215136D6017}.Release|Any CPU.Build.0 = Release|Any CPU
-		{19C2A4A8-9FCB-45ED-A8B2-0CB512A37861}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{19C2A4A8-9FCB-45ED-A8B2-0CB512A37861}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{19C2A4A8-9FCB-45ED-A8B2-0CB512A37861}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{19C2A4A8-9FCB-45ED-A8B2-0CB512A37861}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B614F27-06FB-49D4-B336-99370821AF5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B614F27-06FB-49D4-B336-99370821AF5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B614F27-06FB-49D4-B336-99370821AF5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B614F27-06FB-49D4-B336-99370821AF5F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

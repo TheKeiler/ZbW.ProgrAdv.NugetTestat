@@ -1,5 +1,4 @@
 ﻿using System.Text.RegularExpressions;
-using System.Windows;
 using ZbW.ProgrAdv.NugetTestat.Model;
 
 namespace ZbW.ProgrAdv.NugetTestat.Services
@@ -21,10 +20,6 @@ namespace ZbW.ProgrAdv.NugetTestat.Services
                 isValidNumber = regex.IsMatch(Customer.CustomerNumber);
             }
 
-            if (isValidNumber == false)
-            {
-                MessageBox.Show("Bitte geben Sie eine gültige Kundennummer ein. Beispiel: CU12345", "Validator", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
             return isValidNumber;
         }
 
@@ -37,11 +32,6 @@ namespace ZbW.ProgrAdv.NugetTestat.Services
                 string trimedPhoneNumber = Regex.Replace(Customer.PhoneNumber, @"s", "");
                 isValidPhonenumber = regex.IsMatch(trimedPhoneNumber);
             }
-
-            if (isValidPhonenumber == false)
-            {
-                MessageBox.Show("Bitte geben Sie eine gültige Telefonnummer ein.", "Validator", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
             return isValidPhonenumber;
         }
 
@@ -53,11 +43,6 @@ namespace ZbW.ProgrAdv.NugetTestat.Services
             {
                 isValidMailadress = Regex.IsMatch(Customer.EMail, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
             }
-
-            if (isValidMailadress == false)
-            {
-                MessageBox.Show("Bitte geben Sie eine gültige EMail-Adresse ein.", "Validator", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
             return isValidMailadress;
         }
 
@@ -66,13 +51,8 @@ namespace ZbW.ProgrAdv.NugetTestat.Services
             var isValidWebsite = false;
             if (Customer.Url != null)
             {
-                var regex = new Regex(@"^((http){1}s?(:\/\/){1})?(www\.)?[a-z]+\.{1}([a-z]+\.{1})?[a-z]+");
+                var regex = new Regex(@"^((http){1}s?(:\/\/){1})?(www\.)?[a-z]+\.([a-z]+\.)?[a-z]{1,3}$");
                 isValidWebsite = regex.IsMatch(Customer.Url);
-            }
-
-            if (isValidWebsite == false)
-            {
-                MessageBox.Show("Bitte geben Sie eine gültige Website-Url ein.", "Validator", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             return isValidWebsite;
         }
@@ -86,34 +66,7 @@ namespace ZbW.ProgrAdv.NugetTestat.Services
                 var regex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$");
                 isValidPassword = regex.IsMatch(Customer.Password);
             }
-
-            if (isValidPassword == false)
-            {
-                MessageBox.Show("Bitte geben Sie ein gültiges Passwort ein. Das Passwort muss 8-15 Zeichen und minimal ein Grossbuchstabe und ein Sonderzeichen enthalten.", "Validator", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
             return isValidPassword;
-        }
-
-        public bool AreCustomerInputsValid()
-        {
-            var array = new bool[5]{
-            HasValidCustomernumber(),
-            HasValidPhonenumber(),
-            HasValidMailadress(),
-            HasValidWebsite(),
-            HasValidPassword()
-            };
-
-            var everyElementIsTrue = true;
-            for (int i = 1; i < array.Length; i++)
-            {
-                if (array[i] == false)
-                {
-                    everyElementIsTrue = false;
-                }
-            }
-
-            return everyElementIsTrue;
         }
     }
 }
