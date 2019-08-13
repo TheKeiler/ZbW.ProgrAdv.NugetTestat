@@ -7,10 +7,6 @@
         mc:Ignorable="d"
         Title="Kundendaten ändern" Height="250" Width="850">
 
-    <Control.DataContext>
-        <viewModel:CustomerViewModel/>
-    </Control.DataContext>
-    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />

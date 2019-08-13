@@ -38,11 +38,15 @@
         </StackPanel>
 
         <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
-            <DataGrid HorizontalAlignment="Center" Height="310"  VerticalAlignment="Stretch" Width="880" CanUserAddRows="false" CanUserDeleteRows="False" IsReadOnly="True" HeadersVisibility="Column" CurrentItem="{Binding SelectedCustomer, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Customers, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}"/>
+            <DataGrid HorizontalAlignment="Center" Height="310"  VerticalAlignment="Stretch" Width="880" CanUserAddRows="false" CanUserDeleteRows="False" IsReadOnly="True" HeadersVisibility="Column" SelectedItem="{Binding SelectedCustomer, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Customers, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Grid.Column="0" Orientation ="Horizontal" >
+            <Button Content="Ausgewählten Kunden bearbeiten" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="400" Command="{Binding Path=AlterCustomer}" FontWeight="Bold"/>
         </StackPanel>
 
         <StackPanel Grid.Row="3" Grid.Column="1" Orientation ="Horizontal" >
-            <Button Content="Ausgewählten Kunden bearbeiten" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="400" Command="{Binding Path=AlterCustomer}" FontWeight="Bold"/>
+            <Button Content="Ausgewählten Kunden löschen" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="400" Command="{Binding Path=DeleteCustomer}" FontWeight="Bold"/>
         </StackPanel>
 
         <StackPanel Grid.Row="4" Grid.Column="0" Orientation ="Horizontal" Grid.ColumnSpan="2">

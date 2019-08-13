@@ -29,7 +29,7 @@ namespace ZbW.ProgrAdv.NugetTestat.Services
             if (Customer.PhoneNumber != null)
             {
                 var regex = new Regex(Customer.CustomerCountry.PhoneNumberRegex);
-                string trimedPhoneNumber = Regex.Replace(Customer.PhoneNumber, @"s", "");
+                string trimedPhoneNumber = Regex.Replace(Customer.PhoneNumber, @"\s", "");
                 isValidPhonenumber = regex.IsMatch(trimedPhoneNumber);
             }
             return isValidPhonenumber;

@@ -23,6 +23,7 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
         public string ConnectionString { get; set; }
         private ICommand _laden;
         private ICommand _InsertCustomer;
+        private ICommand _DeleteCustomer;
         private ICommand _AlterCustomer;
         private ICommand _SaveChangedCustomer;
 
@@ -66,22 +67,32 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
             }
         }
 
-        public void AlterCustomerData()
+        public void DeleteCustomerData()
         {
-            var windowAlterCustomer = new WindowAlterCustomer();
+            var customerRepository = new CustomerRepository(this.ConnectionString);
+            customerRepository.Delete(this.SelectedCustomer);
+            this.Customers = customerRepository.GetAll();
+            ChangeSelectedCustomer();
             OnPropertyChanged("SelectedCustomer");
             OnPropertyChanged("Customers");
-            windowAlterCustomer.Show();
-
         }
 
         public void SaveChangedCustomerData()
         {
             var customerRepository = new CustomerRepository(this.ConnectionString);
-            customerRepository.Update(this.SelectedCustomer);
-            ChangeSelectedCustomer();
-            OnPropertyChanged("SelectedCustomer");
-            OnPropertyChanged("Customers");
+            if (AreCustomerInputsValid(this.SelectedCustomer))
+            {
+                customerRepository.Update(this.SelectedCustomer);
+                OnPropertyChanged("SelectedCustomer");
+                OnPropertyChanged("Customers");
+            }
+        }
+
+        public void AlterCustomerData()
+        {
+            WindowAlterCustomer windowAlterCustomer = new WindowAlterCustomer();
+            windowAlterCustomer.DataContext = this;
+            windowAlterCustomer.Show();
         }
 
         private void HashCustomerPassword()
@@ -109,6 +120,7 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
                 MessageBox.Show("Bitte geben Sie eine gültige Kundennummer ein. Beispiel: CU12345", "Validator", MessageBoxButton.OK, MessageBoxImage.Information);
                 return false;
             }
+
 
             if (validator.HasValidPhonenumber() == false)
             {
@@ -169,17 +181,17 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
             }
         }
 
-        public ICommand AlterCustomer
+        public ICommand DeleteCustomer
         {
             get
             {
-                if (_AlterCustomer == null)
+                if (_DeleteCustomer == null)
                 {
-                    _AlterCustomer = new RelayCommand(
-                        param => AlterCustomerData()
+                    _DeleteCustomer = new RelayCommand(
+                        param => DeleteCustomerData()
                     );
                 }
-                return _AlterCustomer;
+                return _DeleteCustomer;
             }
         }
 
@@ -194,6 +206,20 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
                     );
                 }
                 return _SaveChangedCustomer;
+            }
+        }
+
+        public ICommand AlterCustomer
+        {
+            get
+            {
+                if (_AlterCustomer == null)
+                {
+                    _AlterCustomer = new RelayCommand(
+                        param => AlterCustomerData()
+                    );
+                }
+                return _AlterCustomer;
             }
         }
 
