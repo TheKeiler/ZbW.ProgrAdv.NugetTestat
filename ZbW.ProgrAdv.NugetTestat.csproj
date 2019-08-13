@@ -99,6 +99,9 @@
     <Compile Include="Control\UserControlLocations.xaml.cs">
       <DependentUpon>UserControlLocations.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Control\WindowAlterCustomer.xaml.cs">
+      <DependentUpon>WindowAlterCustomer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\Country.cs" />
     <Compile Include="Model\Customer.cs" />
     <Compile Include="Model\IEntity.cs" />
@@ -139,6 +142,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Control\UserControlLocations.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\WindowAlterCustomer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
+using ZbW.ProgrAdv.NugetTestat.Control;
 using ZbW.ProgrAdv.NugetTestat.Model;
 using ZbW.ProgrAdv.NugetTestat.Persistence;
 using ZbW.ProgrAdv.NugetTestat.Services;
@@ -22,6 +23,8 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
         public string ConnectionString { get; set; }
         private ICommand _laden;
         private ICommand _InsertCustomer;
+        private ICommand _AlterCustomer;
+        private ICommand _SaveChangedCustomer;
 
         public CustomerViewModel()
         {
@@ -53,7 +56,7 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
             this.NewCustomer.SetAccountNummber();
             this.NewCustomer.CustomerCountry = SelectedCountry;
 
-            if (AreCustomerInputsValid() == true)
+            if (AreCustomerInputsValid(this.NewCustomer) == true)
             {
                 HashCustomerPassword();
                 var customerRepository = new CustomerRepository(this.ConnectionString);
@@ -61,6 +64,24 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
                 this.Customers = customerRepository.GetAll();
                 OnPropertyChanged("Customers");
             }
+        }
+
+        public void AlterCustomerData()
+        {
+            var windowAlterCustomer = new WindowAlterCustomer();
+            OnPropertyChanged("SelectedCustomer");
+            OnPropertyChanged("Customers");
+            windowAlterCustomer.Show();
+
+        }
+
+        public void SaveChangedCustomerData()
+        {
+            var customerRepository = new CustomerRepository(this.ConnectionString);
+            customerRepository.Update(this.SelectedCustomer);
+            ChangeSelectedCustomer();
+            OnPropertyChanged("SelectedCustomer");
+            OnPropertyChanged("Customers");
         }
 
         private void HashCustomerPassword()
@@ -75,12 +96,13 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
             if (this.Customers.Any())
             {
                 this.SelectedCustomer = Customers.First();
+                OnPropertyChanged("SelectedCustomer");
             }
         }
 
-        public bool AreCustomerInputsValid()
+        public bool AreCustomerInputsValid(Customer customer)
         {
-            var validator = new InputValidation(this.NewCustomer);
+            var validator = new InputValidation(customer);
 
             if (validator.HasValidCustomernumber() == false)
             {
@@ -146,5 +168,35 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
                 return _InsertCustomer;
             }
         }
+
+        public ICommand AlterCustomer
+        {
+            get
+            {
+                if (_AlterCustomer == null)
+                {
+                    _AlterCustomer = new RelayCommand(
+                        param => AlterCustomerData()
+                    );
+                }
+                return _AlterCustomer;
+            }
+        }
+
+        public ICommand SaveChangedCustomer
+        {
+            get
+            {
+                if (_SaveChangedCustomer == null)
+                {
+                    _SaveChangedCustomer = new RelayCommand(
+                        param => SaveChangedCustomerData()
+                    );
+                }
+                return _SaveChangedCustomer;
+            }
+        }
+
+
     }
 }

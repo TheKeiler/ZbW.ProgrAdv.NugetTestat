@@ -1,0 +1,66 @@
+﻿<Window x:Class="ZbW.ProgrAdv.NugetTestat.Control.WindowAlterCustomer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel="clr-namespace:ZbW.ProgrAdv.NugetTestat.ViewModel"
+        mc:Ignorable="d"
+        Title="Kundendaten ändern" Height="250" Width="850">
+
+    <Control.DataContext>
+        <viewModel:CustomerViewModel/>
+    </Control.DataContext>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation ="Horizontal">
+            <Label Content="Vorname:" VerticalAlignment="Center" Width="100"></Label>
+            <TextBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="300" Text="{Binding SelectedCustomer.Firstname, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation ="Horizontal">
+            <Label Content="Nachname:" VerticalAlignment="Center" Width="100"></Label>
+            <TextBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="300" Text="{Binding SelectedCustomer.Lastname, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="0" Orientation ="Horizontal">
+            <Label Content="Kundennummer:" VerticalAlignment="Center" Width="100"></Label>
+            <TextBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="300" Text="{Binding SelectedCustomer.CustomerNumber, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}" RenderTransformOrigin="1,0.5"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation ="Horizontal">
+            <Label Content="Telefonnummer:" VerticalAlignment="Center" Width="100"></Label>
+            <ComboBox VerticalAlignment="Center" ItemsSource="{Binding Path=Countries}" SelectedItem="{Binding Path=SelectedCustomer.CustomerCountry, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" Width="120"></ComboBox>
+            <TextBox VerticalAlignment="Center" Width="170" Margin="10" Text="{Binding SelectedCustomer.PhoneNumber, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation ="Horizontal">
+            <Label Content="Email-Adresse:" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100"></Label>
+            <TextBox HorizontalAlignment="Right" VerticalAlignment="Center" Width="300" Text="{Binding SelectedCustomer.EMail, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation ="Horizontal">
+            <Label Content="Website:" VerticalAlignment="Center" Width="100"></Label>
+            <TextBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="300" Text="{Binding SelectedCustomer.Url, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Grid.Column="0" Orientation ="Horizontal">
+            <Label Content="Passwort:" VerticalAlignment="Center" Width="100"></Label>
+            <TextBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="300" Text="{Binding SelectedCustomer.Password, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Grid.Column="1" Orientation ="Horizontal" >
+            <Button Content="Änderungen bestätigen" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="400" Command="{Binding Path=SaveChangedCustomer}" FontWeight="Bold"/>
+        </StackPanel>
+    </Grid>
+</Window>

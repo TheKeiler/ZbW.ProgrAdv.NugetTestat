@@ -25,6 +25,7 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         
         <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Grid.ColumnSpan="2" >
@@ -37,50 +38,54 @@
         </StackPanel>
 
         <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
-            <DataGrid HorizontalAlignment="Center" Height="310"  VerticalAlignment="Stretch" Width="880" CanUserAddRows="false" CanUserDeleteRows="False" IsReadOnly="False" HeadersVisibility="Column" ItemsSource="{Binding Customers, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}"/>
+            <DataGrid HorizontalAlignment="Center" Height="310"  VerticalAlignment="Stretch" Width="880" CanUserAddRows="false" CanUserDeleteRows="False" IsReadOnly="True" HeadersVisibility="Column" CurrentItem="{Binding SelectedCustomer, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Customers, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="3" Grid.Column="0" Orientation ="Horizontal" Grid.ColumnSpan="2">
+        <StackPanel Grid.Row="3" Grid.Column="1" Orientation ="Horizontal" >
+            <Button Content="Ausgewählten Kunden bearbeiten" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="400" Command="{Binding Path=AlterCustomer}" FontWeight="Bold"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Grid.Column="0" Orientation ="Horizontal" Grid.ColumnSpan="2">
             <Label Content="Kunde erfassen:" FontWeight="Bold" VerticalAlignment="Center"></Label>
         </StackPanel>
 
-        <StackPanel Grid.Row="4" Grid.Column="0" Orientation ="Horizontal">
+        <StackPanel Grid.Row="5" Grid.Column="0" Orientation ="Horizontal">
             <Label Content="Vorname:" VerticalAlignment="Center" Width="100"></Label>
-            <TextBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="300" Text="{Binding NewCustomer.Firstname, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="300" Text="{Binding SelectedCustomer.Firstname, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="4" Grid.Column="1" Orientation ="Horizontal">
+        <StackPanel Grid.Row="5" Grid.Column="1" Orientation ="Horizontal">
             <Label Content="Nachname:" VerticalAlignment="Center" Width="100"></Label>
             <TextBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="300" Text="{Binding NewCustomer.Lastname, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="5" Grid.Column="0" Orientation ="Horizontal">
+        <StackPanel Grid.Row="6" Grid.Column="0" Orientation ="Horizontal">
             <Label Content="Kundennummer:" VerticalAlignment="Center" Width="100"></Label>
             <TextBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="300" Text="{Binding NewCustomer.CustomerNumber, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}" RenderTransformOrigin="1,0.5"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="5" Grid.Column="1" Orientation ="Horizontal">
+        <StackPanel Grid.Row="6" Grid.Column="1" Orientation ="Horizontal">
             <Label Content="Telefonnummer:" VerticalAlignment="Center" Width="100"></Label>
             <ComboBox VerticalAlignment="Center" ItemsSource="{Binding Path=Countries}" SelectedItem="{Binding Path=SelectedCountry, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" Width="120"></ComboBox>
             <TextBox VerticalAlignment="Center" Width="170" Margin="10" Text="{Binding NewCustomer.PhoneNumber, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="6" Grid.Column="0" Orientation ="Horizontal">
+        <StackPanel Grid.Row="7" Grid.Column="0" Orientation ="Horizontal">
             <Label Content="Email-Adresse:" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100"></Label>
             <TextBox HorizontalAlignment="Right" VerticalAlignment="Center" Width="300" Text="{Binding NewCustomer.EMail, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="6" Grid.Column="1" Orientation ="Horizontal">
+        <StackPanel Grid.Row="7" Grid.Column="1" Orientation ="Horizontal">
             <Label Content="Website:" VerticalAlignment="Center" Width="100"></Label>
             <TextBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="300" Text="{Binding NewCustomer.Url, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
 
-        <StackPanel Grid.Row="7" Grid.Column="0" Orientation ="Horizontal">
+        <StackPanel Grid.Row="8" Grid.Column="0" Orientation ="Horizontal">
             <Label Content="Passwort:" VerticalAlignment="Center" Width="100"></Label>
             <TextBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="300" Text="{Binding NewCustomer.Password, Mode=TwoWay, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="7" Grid.Column="1" Orientation ="Horizontal" >
+        <StackPanel Grid.Row="8" Grid.Column="1" Orientation ="Horizontal" >
             <Button Content="Kunde einfügen" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="400" Command="{Binding Path=InsertCustomer}" FontWeight="Bold"/>
         </StackPanel>
 
