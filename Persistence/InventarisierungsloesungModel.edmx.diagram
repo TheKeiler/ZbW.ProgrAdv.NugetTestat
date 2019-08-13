@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ef90ac00613449cfb1022c6676b2dfa3" Name="Diagram1">
+        <EntityTypeShape EntityType="inventarisierungsloesungModel.abrechnung" Width="1.5" PointX="5.25" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventarisierungsloesungModel.address" Width="1.5" PointX="1.5" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventarisierungsloesungModel.contact" Width="1.5" PointX="6.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventarisierungsloesungModel.credential" Width="1.5" PointX="5.25" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventarisierungsloesungModel.customer" Width="1.5" PointX="5.25" PointY="30.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventarisierungsloesungModel.device" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventarisierungsloesungModel.deviceport" Width="1.5" PointX="8.25" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventarisierungsloesungModel.devicetype" Width="1.5" PointX="0.75" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventarisierungsloesungModel.interface" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventarisierungsloesungModel.kundenkonto" Width="1.5" PointX="3" PointY="21.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventarisierungsloesungModel.location" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventarisierungsloesungModel.log" Width="1.5" PointX="5.25" PointY="26.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventarisierungsloesungModel.network" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventarisierungsloesungModel.operatingsystem" Width="1.5" PointX="3" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventarisierungsloesungModel.person" Width="1.5" PointX="4" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventarisierungsloesungModel.pointofdelivery" Width="1.5" PointX="8.5" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventarisierungsloesungModel.produkte" Width="1.5" PointX="9.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventarisierungsloesungModel.produktegruppe" Width="1.5" PointX="7.5" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventarisierungsloesungModel.softwaredienstleistung" Width="1.5" PointX="7.5" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventarisierungsloesungModel.town" Width="1.5" PointX="1.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventarisierungsloesungModel.transportmedium" Width="1.5" PointX="6" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventarisierungsloesungModel.v_logentries" Width="1.5" PointX="8.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventarisierungsloesungModel.view_freiesinterface" Width="1.5" PointX="8.75" PointY="6.25" IsExpanded="true" />
+        <AssociationConnector Association="inventarisierungsloesungModel.abrechnung_abrechnung_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="inventarisierungsloesungModel.abrechnung_abrechnung_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="inventarisierungsloesungModel.abrechnung_abrechnung_ibfk_3" ManuallyRouted="false" />
+        <AssociationConnector Association="inventarisierungsloesungModel.abrechnung_abrechnung_ibfk_4" ManuallyRouted="false" />
+        <AssociationConnector Association="inventarisierungsloesungModel.produktegruppe_produktegruppe_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="inventarisierungsloesungModel.softwaredienstleistung_softwaredienstleistung_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="inventarisierungsloesungModel.address_address_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="inventarisierungsloesungModel.location_location_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="inventarisierungsloesungModel.contact_contact_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="inventarisierungsloesungModel.pointofdelivery_pointofdelivery_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="inventarisierungsloesungModel.customer_customer_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="inventarisierungsloesungModel.pointofdelivery_pointofdelivery_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="inventarisierungsloesungModel.device_device_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="inventarisierungsloesungModel.device_device_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="inventarisierungsloesungModel.deviceport_deviceport_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="inventarisierungsloesungModel.interface_interface_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="inventarisierungsloesungModel.log_log_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="inventarisierungsloesungModel.deviceport_deviceport_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="inventarisierungsloesungModel.interface_interface_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="inventarisierungsloesungModel.pointofdelivery_pointofdelivery_ibfk_3" ManuallyRouted="false" />
+        <AssociationConnector Association="inventarisierungsloesungModel.produkte_produkte_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="inventarisierungsloesungModel.devices_has_credentials" ManuallyRouted="false" />
+        <AssociationConnector Association="inventarisierungsloesungModel.devicetype_has_operatingsystem" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

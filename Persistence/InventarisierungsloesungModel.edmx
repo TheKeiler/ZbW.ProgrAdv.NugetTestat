@@ -1,0 +1,1771 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="inventarisierungsloesungModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="abrechnung">
+          <Key>
+            <PropertyRef Name="abrechnung_id" />
+          </Key>
+          <Property Name="abrechnung_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kundenkonto_fk" Type="bigint" Nullable="false" />
+          <Property Name="location_fk" Type="bigint" Nullable="false" />
+          <Property Name="device_fk" Type="bigint" Nullable="false" />
+          <Property Name="interface_fk" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="address">
+          <Key>
+            <PropertyRef Name="address_id" />
+          </Key>
+          <Property Name="address_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="town_fk" Type="bigint" Nullable="false" />
+          <Property Name="streetname" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="streetnumber" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="country" Type="nvarchar" MaxLength="45" Nullable="false" />
+          <Property Name="additive" Type="nvarchar" MaxLength="45" />
+          <Property Name="po_Box" Type="bigint" />
+        </EntityType>
+        <EntityType Name="contact">
+          <Key>
+            <PropertyRef Name="contact_id" />
+          </Key>
+          <Property Name="contact_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="person_fk" Type="bigint" Nullable="false" />
+          <Property Name="priority" Type="nvarchar" MaxLength="17" Nullable="false" />
+        </EntityType>
+        <EntityType Name="credentials">
+          <Key>
+            <PropertyRef Name="credentials_id" />
+          </Key>
+          <Property Name="credentials_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="benutzername" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="passwort" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="snmp" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="nvarchar" MaxLength="45" Nullable="false" />
+          <Property Name="lastname" Type="nvarchar" MaxLength="45" Nullable="false" />
+          <Property Name="customernumber" Type="nvarchar" MaxLength="45" Nullable="false" />
+          <Property Name="kundenkonto_fk" Type="bigint" Nullable="false" />
+          <Property Name="tel" Type="nvarchar" MaxLength="20" />
+          <Property Name="eMail" Type="nvarchar" MaxLength="70" />
+          <Property Name="url" Type="nvarchar" MaxLength="70" />
+          <Property Name="password" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="device">
+          <Key>
+            <PropertyRef Name="device_id" />
+          </Key>
+          <Property Name="device_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="location_fk" Type="bigint" Nullable="false" />
+          <Property Name="deviceType_fk" Type="bigint" Nullable="false" />
+          <Property Name="inventoryDate" Type="date" Nullable="false" />
+          <Property Name="deactivateDate" Type="date" Nullable="false" />
+          <Property Name="hostname" Type="nvarchar" MaxLength="255" />
+          <Property Name="domain" Type="nvarchar" MaxLength="255" />
+          <Property Name="description" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="deviceport">
+          <Key>
+            <PropertyRef Name="deviceport_id" />
+          </Key>
+          <Property Name="deviceport_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="45" Nullable="false" />
+          <Property Name="device_fk" Type="bigint" Nullable="false" />
+          <Property Name="transportmedium_fk" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="devices_has_credentials">
+          <Key>
+            <PropertyRef Name="devices_devices_id" />
+            <PropertyRef Name="credentials_credentials_id" />
+          </Key>
+          <Property Name="devices_devices_id" Type="bigint" Nullable="false" />
+          <Property Name="credentials_credentials_id" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="devicetype">
+          <Key>
+            <PropertyRef Name="deviceType_id" />
+          </Key>
+          <Property Name="deviceType_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="manufacturer" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="model" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="version" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="devicetype_has_operatingsystem">
+          <Key>
+            <PropertyRef Name="deviceType_fk" />
+            <PropertyRef Name="operatingsystem_fk" />
+          </Key>
+          <Property Name="deviceType_fk" Type="bigint" Nullable="false" />
+          <Property Name="operatingsystem_fk" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="interface">
+          <Key>
+            <PropertyRef Name="interface_id" />
+          </Key>
+          <Property Name="interface_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="network_fk" Type="int" Nullable="false" />
+          <Property Name="device_fk" Type="bigint" Nullable="false" />
+          <Property Name="ip_adress_v4" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="mac_adresse" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="isFullDuplex" Type="binary" MaxLength="1" Nullable="false" />
+          <Property Name="bandwith" Type="int" />
+          <Property Name="is_in_use" Type="smallint" />
+          <Property Name="description" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="kundenkonto">
+          <Key>
+            <PropertyRef Name="kundenkonto_id" />
+          </Key>
+          <Property Name="kundenkonto_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="location">
+          <Key>
+            <PropertyRef Name="location_id" />
+          </Key>
+          <Property Name="location_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="parent_location" Type="bigint" />
+          <Property Name="address_fk" Type="bigint" Nullable="false" />
+          <Property Name="designation" Type="nvarchar" MaxLength="45" Nullable="false" />
+          <Property Name="building" Type="bigint" Nullable="false" />
+          <Property Name="room" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="log">
+          <Key>
+            <PropertyRef Name="log_id" />
+          </Key>
+          <Property Name="log_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="device_fk" Type="bigint" Nullable="false" />
+          <Property Name="timestamp" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="logMessage" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="level" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="is_acknowledged" Type="smallint" />
+        </EntityType>
+        <EntityType Name="network">
+          <Key>
+            <PropertyRef Name="network_id" />
+          </Key>
+          <Property Name="network_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="subnet" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="mask" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="vlan" Type="int" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="operatingsystem">
+          <Key>
+            <PropertyRef Name="operatingsystem_id" />
+          </Key>
+          <Property Name="operatingsystem_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="operatingsystemName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="model" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="version" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="person">
+          <Key>
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="person_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="nvarchar" MaxLength="45" Nullable="false" />
+          <Property Name="lastname" Type="nvarchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pointofdelivery">
+          <Key>
+            <PropertyRef Name="pod_id" />
+          </Key>
+          <Property Name="pod_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="customer_id_fk" Type="bigint" Nullable="false" />
+          <Property Name="contact_id_fk" Type="bigint" Nullable="false" />
+          <Property Name="location_fk" Type="bigint" Nullable="false" />
+          <Property Name="designation" Type="nvarchar" MaxLength="45" />
+          <Property Name="timezone" Type="time" Precision="7" Nullable="false" />
+          <Property Name="timeZonePositiv" Type="smallint" Nullable="false" />
+          <Property Name="ntpServerIp" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="produkte">
+          <Key>
+            <PropertyRef Name="artikelnummer_id" />
+          </Key>
+          <Property Name="artikelnummer_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="artikelname" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="preis" Type="real" Nullable="false" />
+          <Property Name="produktegruppe_fk" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="produktegruppe">
+          <Key>
+            <PropertyRef Name="produktegruppe_id" />
+          </Key>
+          <Property Name="produktegruppe_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="hardware" Type="nvarchar" MaxLength="255" />
+          <Property Name="software" Type="nvarchar" MaxLength="255" />
+          <Property Name="sonstigeArtikel" Type="nvarchar" MaxLength="255" />
+          <Property Name="abrechung_fk" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="softwaredienstleistung">
+          <Key>
+            <PropertyRef Name="software_id" />
+          </Key>
+          <Property Name="software_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="stundenaufwand" Type="int" Nullable="false" />
+          <Property Name="abrechung_fk" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="town">
+          <Key>
+            <PropertyRef Name="town_id" />
+          </Key>
+          <Property Name="town_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="zip" Type="bigint" Nullable="false" />
+          <Property Name="town" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="transportmedium">
+          <Key>
+            <PropertyRef Name="transportmedium_id" />
+          </Key>
+          <Property Name="transportmedium_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="v_logentries">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pod" Type="nvarchar" MaxLength="1000" />
+          <Property Name="location" Type="nvarchar" MaxLength="1000" />
+          <Property Name="hostname" Type="nvarchar" MaxLength="45" />
+          <Property Name="severity" Type="int" />
+          <Property Name="timestamp" Type="datetime" Nullable="false" />
+          <Property Name="message" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'inventarisierungsloesung.inventarisierungsloesung.view_freiesinterface' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="view_freiesinterface">
+          <Key>
+            <PropertyRef Name="Portnummer" />
+            <PropertyRef Name="Medium" />
+          </Key>
+          <Property Name="LocationName" Type="varchar" MaxLength="50" />
+          <Property Name="Hostname" Type="nvarchar" MaxLength="255" />
+          <Property Name="Portnummer" Type="nvarchar" MaxLength="45" Nullable="false" />
+          <Property Name="Medium" Type="nvarchar" MaxLength="45" Nullable="false" />
+          <Property Name="Geschwindigkeit" Type="int" />
+        </EntityType>
+        <Association Name="abrechnung$abrechnung_ibfk_1">
+          <End Role="kundenkonto" Type="Self.kundenkonto" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="abrechnung" Type="Self.abrechnung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kundenkonto">
+              <PropertyRef Name="kundenkonto_id" />
+            </Principal>
+            <Dependent Role="abrechnung">
+              <PropertyRef Name="kundenkonto_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="abrechnung$abrechnung_ibfk_2">
+          <End Role="location" Type="Self.location" Multiplicity="1" />
+          <End Role="abrechnung" Type="Self.abrechnung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="location">
+              <PropertyRef Name="location_id" />
+            </Principal>
+            <Dependent Role="abrechnung">
+              <PropertyRef Name="location_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="abrechnung$abrechnung_ibfk_3">
+          <End Role="device" Type="Self.device" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="abrechnung" Type="Self.abrechnung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="device">
+              <PropertyRef Name="device_id" />
+            </Principal>
+            <Dependent Role="abrechnung">
+              <PropertyRef Name="device_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="abrechnung$abrechnung_ibfk_4">
+          <End Role="interface" Type="Self.interface" Multiplicity="1" />
+          <End Role="abrechnung" Type="Self.abrechnung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="interface">
+              <PropertyRef Name="interface_id" />
+            </Principal>
+            <Dependent Role="abrechnung">
+              <PropertyRef Name="interface_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="address$address_ibfk_1">
+          <End Role="town" Type="Self.town" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="address" Type="Self.address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="town">
+              <PropertyRef Name="town_id" />
+            </Principal>
+            <Dependent Role="address">
+              <PropertyRef Name="town_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="contact$contact_ibfk_1">
+          <End Role="person" Type="Self.person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="contact" Type="Self.contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="contact">
+              <PropertyRef Name="person_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="customer$customer_ibfk_1">
+          <End Role="kundenkonto" Type="Self.kundenkonto" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="customer" Type="Self.customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kundenkonto">
+              <PropertyRef Name="kundenkonto_id" />
+            </Principal>
+            <Dependent Role="customer">
+              <PropertyRef Name="kundenkonto_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="device$device_ibfk_1">
+          <End Role="location" Type="Self.location" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="device" Type="Self.device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="location">
+              <PropertyRef Name="location_id" />
+            </Principal>
+            <Dependent Role="device">
+              <PropertyRef Name="location_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="device$device_ibfk_2">
+          <End Role="devicetype" Type="Self.devicetype" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="device" Type="Self.device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="devicetype">
+              <PropertyRef Name="deviceType_id" />
+            </Principal>
+            <Dependent Role="device">
+              <PropertyRef Name="deviceType_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="deviceport$deviceport_ibfk_1">
+          <End Role="device" Type="Self.device" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="deviceport" Type="Self.deviceport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="device">
+              <PropertyRef Name="device_id" />
+            </Principal>
+            <Dependent Role="deviceport">
+              <PropertyRef Name="device_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="deviceport$deviceport_ibfk_2">
+          <End Role="transportmedium" Type="Self.transportmedium" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="deviceport" Type="Self.deviceport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="transportmedium">
+              <PropertyRef Name="transportmedium_id" />
+            </Principal>
+            <Dependent Role="deviceport">
+              <PropertyRef Name="transportmedium_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="devices_has_credentials$devices_has_credentials_ibfk_1">
+          <End Role="device" Type="Self.device" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="devices_has_credentials" Type="Self.devices_has_credentials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="device">
+              <PropertyRef Name="device_id" />
+            </Principal>
+            <Dependent Role="devices_has_credentials">
+              <PropertyRef Name="devices_devices_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="devices_has_credentials$devices_has_credentials_ibfk_2">
+          <End Role="credentials" Type="Self.credentials" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="devices_has_credentials" Type="Self.devices_has_credentials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="credentials">
+              <PropertyRef Name="credentials_id" />
+            </Principal>
+            <Dependent Role="devices_has_credentials">
+              <PropertyRef Name="credentials_credentials_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="devicetype_has_operatingsystem$devicetype_has_operatingsystem_ibfk_1">
+          <End Role="devicetype" Type="Self.devicetype" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="devicetype_has_operatingsystem" Type="Self.devicetype_has_operatingsystem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="devicetype">
+              <PropertyRef Name="deviceType_id" />
+            </Principal>
+            <Dependent Role="devicetype_has_operatingsystem">
+              <PropertyRef Name="deviceType_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="devicetype_has_operatingsystem$devicetype_has_operatingsystem_ibfk_2">
+          <End Role="operatingsystem" Type="Self.operatingsystem" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="devicetype_has_operatingsystem" Type="Self.devicetype_has_operatingsystem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="operatingsystem">
+              <PropertyRef Name="operatingsystem_id" />
+            </Principal>
+            <Dependent Role="devicetype_has_operatingsystem">
+              <PropertyRef Name="operatingsystem_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="interface$interface_ibfk_1">
+          <End Role="network" Type="Self.network" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="interface" Type="Self.interface" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="network">
+              <PropertyRef Name="network_id" />
+            </Principal>
+            <Dependent Role="interface">
+              <PropertyRef Name="network_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="interface$interface_ibfk_2">
+          <End Role="device" Type="Self.device" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="interface" Type="Self.interface" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="device">
+              <PropertyRef Name="device_id" />
+            </Principal>
+            <Dependent Role="interface">
+              <PropertyRef Name="device_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="location$location_ibfk_1">
+          <End Role="address" Type="Self.address" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="location" Type="Self.location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="address">
+              <PropertyRef Name="address_id" />
+            </Principal>
+            <Dependent Role="location">
+              <PropertyRef Name="address_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="log$log_ibfk_1">
+          <End Role="device" Type="Self.device" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="log" Type="Self.log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="device">
+              <PropertyRef Name="device_id" />
+            </Principal>
+            <Dependent Role="log">
+              <PropertyRef Name="device_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="pointofdelivery$pointofdelivery_ibfk_1">
+          <End Role="customer" Type="Self.customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="pointofdelivery" Type="Self.pointofdelivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="customer_id" />
+            </Principal>
+            <Dependent Role="pointofdelivery">
+              <PropertyRef Name="customer_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="pointofdelivery$pointofdelivery_ibfk_2">
+          <End Role="contact" Type="Self.contact" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="pointofdelivery" Type="Self.pointofdelivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="contact">
+              <PropertyRef Name="contact_id" />
+            </Principal>
+            <Dependent Role="pointofdelivery">
+              <PropertyRef Name="contact_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="pointofdelivery$pointofdelivery_ibfk_3">
+          <End Role="location" Type="Self.location" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="pointofdelivery" Type="Self.pointofdelivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="location">
+              <PropertyRef Name="location_id" />
+            </Principal>
+            <Dependent Role="pointofdelivery">
+              <PropertyRef Name="location_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="produkte$produkte_ibfk_1">
+          <End Role="produktegruppe" Type="Self.produktegruppe" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="produkte" Type="Self.produkte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="produktegruppe">
+              <PropertyRef Name="produktegruppe_id" />
+            </Principal>
+            <Dependent Role="produkte">
+              <PropertyRef Name="produktegruppe_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="produktegruppe$produktegruppe_ibfk_1">
+          <End Role="abrechnung" Type="Self.abrechnung" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="produktegruppe" Type="Self.produktegruppe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="abrechnung">
+              <PropertyRef Name="abrechnung_id" />
+            </Principal>
+            <Dependent Role="produktegruppe">
+              <PropertyRef Name="abrechung_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="softwaredienstleistung$softwaredienstleistung_ibfk_1">
+          <End Role="abrechnung" Type="Self.abrechnung" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="softwaredienstleistung" Type="Self.softwaredienstleistung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="abrechnung">
+              <PropertyRef Name="abrechnung_id" />
+            </Principal>
+            <Dependent Role="softwaredienstleistung">
+              <PropertyRef Name="abrechung_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="enum2str_contact_priority" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="inventarisierungsloesung" StoreFunctionName="enum2str$contact$priority" ReturnType="nvarchar(max)">
+          <Parameter Name="setval" Type="tinyint" Mode="In" />
+        </Function>
+        <Function Name="enum2str_log_level" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="inventarisierungsloesung" StoreFunctionName="enum2str$log$level" ReturnType="nvarchar(max)">
+          <Parameter Name="setval" Type="tinyint" Mode="In" />
+        </Function>
+        <Function Name="LogClear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="inventarisierungsloesung">
+          <Parameter Name="p_logentries_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="LogMessageAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="inventarisierungsloesung">
+          <Parameter Name="i_pod" Type="nvarchar" Mode="In" />
+          <Parameter Name="i_hostname" Type="nvarchar" Mode="In" />
+          <Parameter Name="i_severity" Type="int" Mode="In" />
+          <Parameter Name="i_message" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="norm_enum_contact_priority" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="inventarisierungsloesung" StoreFunctionName="norm_enum$contact$priority" ReturnType="nvarchar(max)">
+          <Parameter Name="setval" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="norm_enum_log_level" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="inventarisierungsloesung" StoreFunctionName="norm_enum$log$level" ReturnType="nvarchar(max)">
+          <Parameter Name="setval" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="str2enum_contact_priority" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="inventarisierungsloesung" StoreFunctionName="str2enum$contact$priority" ReturnType="tinyint">
+          <Parameter Name="setval" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="str2enum_log_level" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="inventarisierungsloesung" StoreFunctionName="str2enum$log$level" ReturnType="tinyint">
+          <Parameter Name="setval" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <EntityContainer Name="inventarisierungsloesungModelStoreContainer">
+          <EntitySet Name="abrechnung" EntityType="Self.abrechnung" Schema="inventarisierungsloesung" store:Type="Tables" />
+          <EntitySet Name="address" EntityType="Self.address" Schema="inventarisierungsloesung" store:Type="Tables" />
+          <EntitySet Name="contact" EntityType="Self.contact" Schema="inventarisierungsloesung" store:Type="Tables" />
+          <EntitySet Name="credentials" EntityType="Self.credentials" Schema="inventarisierungsloesung" store:Type="Tables" />
+          <EntitySet Name="customer" EntityType="Self.customer" Schema="inventarisierungsloesung" store:Type="Tables" />
+          <EntitySet Name="device" EntityType="Self.device" Schema="inventarisierungsloesung" store:Type="Tables" />
+          <EntitySet Name="deviceport" EntityType="Self.deviceport" Schema="inventarisierungsloesung" store:Type="Tables" />
+          <EntitySet Name="devices_has_credentials" EntityType="Self.devices_has_credentials" Schema="inventarisierungsloesung" store:Type="Tables" />
+          <EntitySet Name="devicetype" EntityType="Self.devicetype" Schema="inventarisierungsloesung" store:Type="Tables" />
+          <EntitySet Name="devicetype_has_operatingsystem" EntityType="Self.devicetype_has_operatingsystem" Schema="inventarisierungsloesung" store:Type="Tables" />
+          <EntitySet Name="interface" EntityType="Self.interface" Schema="inventarisierungsloesung" store:Type="Tables" />
+          <EntitySet Name="kundenkonto" EntityType="Self.kundenkonto" Schema="inventarisierungsloesung" store:Type="Tables" />
+          <EntitySet Name="location" EntityType="Self.location" Schema="inventarisierungsloesung" store:Type="Tables" />
+          <EntitySet Name="log" EntityType="Self.log" Schema="inventarisierungsloesung" store:Type="Tables" />
+          <EntitySet Name="network" EntityType="Self.network" Schema="inventarisierungsloesung" store:Type="Tables" />
+          <EntitySet Name="operatingsystem" EntityType="Self.operatingsystem" Schema="inventarisierungsloesung" store:Type="Tables" />
+          <EntitySet Name="person" EntityType="Self.person" Schema="inventarisierungsloesung" store:Type="Tables" />
+          <EntitySet Name="pointofdelivery" EntityType="Self.pointofdelivery" Schema="inventarisierungsloesung" store:Type="Tables" />
+          <EntitySet Name="produkte" EntityType="Self.produkte" Schema="inventarisierungsloesung" store:Type="Tables" />
+          <EntitySet Name="produktegruppe" EntityType="Self.produktegruppe" Schema="inventarisierungsloesung" store:Type="Tables" />
+          <EntitySet Name="softwaredienstleistung" EntityType="Self.softwaredienstleistung" Schema="inventarisierungsloesung" store:Type="Tables" />
+          <EntitySet Name="town" EntityType="Self.town" Schema="inventarisierungsloesung" store:Type="Tables" />
+          <EntitySet Name="transportmedium" EntityType="Self.transportmedium" Schema="inventarisierungsloesung" store:Type="Tables" />
+          <EntitySet Name="v_logentries" EntityType="Self.v_logentries" Schema="inventarisierungsloesung" store:Type="Tables" />
+          <EntitySet Name="view_freiesinterface" EntityType="Self.view_freiesinterface" store:Type="Views" store:Schema="inventarisierungsloesung">
+            <DefiningQuery>SELECT 
+    [view_freiesinterface].[LocationName] AS [LocationName], 
+    [view_freiesinterface].[Hostname] AS [Hostname], 
+    [view_freiesinterface].[Portnummer] AS [Portnummer], 
+    [view_freiesinterface].[Medium] AS [Medium], 
+    [view_freiesinterface].[Geschwindigkeit] AS [Geschwindigkeit]
+    FROM [inventarisierungsloesung].[view_freiesinterface] AS [view_freiesinterface]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="abrechnung$abrechnung_ibfk_1" Association="Self.abrechnung$abrechnung_ibfk_1">
+            <End Role="kundenkonto" EntitySet="kundenkonto" />
+            <End Role="abrechnung" EntitySet="abrechnung" />
+          </AssociationSet>
+          <AssociationSet Name="abrechnung$abrechnung_ibfk_2" Association="Self.abrechnung$abrechnung_ibfk_2">
+            <End Role="location" EntitySet="location" />
+            <End Role="abrechnung" EntitySet="abrechnung" />
+          </AssociationSet>
+          <AssociationSet Name="abrechnung$abrechnung_ibfk_3" Association="Self.abrechnung$abrechnung_ibfk_3">
+            <End Role="device" EntitySet="device" />
+            <End Role="abrechnung" EntitySet="abrechnung" />
+          </AssociationSet>
+          <AssociationSet Name="abrechnung$abrechnung_ibfk_4" Association="Self.abrechnung$abrechnung_ibfk_4">
+            <End Role="interface" EntitySet="interface" />
+            <End Role="abrechnung" EntitySet="abrechnung" />
+          </AssociationSet>
+          <AssociationSet Name="address$address_ibfk_1" Association="Self.address$address_ibfk_1">
+            <End Role="town" EntitySet="town" />
+            <End Role="address" EntitySet="address" />
+          </AssociationSet>
+          <AssociationSet Name="contact$contact_ibfk_1" Association="Self.contact$contact_ibfk_1">
+            <End Role="person" EntitySet="person" />
+            <End Role="contact" EntitySet="contact" />
+          </AssociationSet>
+          <AssociationSet Name="customer$customer_ibfk_1" Association="Self.customer$customer_ibfk_1">
+            <End Role="kundenkonto" EntitySet="kundenkonto" />
+            <End Role="customer" EntitySet="customer" />
+          </AssociationSet>
+          <AssociationSet Name="device$device_ibfk_1" Association="Self.device$device_ibfk_1">
+            <End Role="location" EntitySet="location" />
+            <End Role="device" EntitySet="device" />
+          </AssociationSet>
+          <AssociationSet Name="device$device_ibfk_2" Association="Self.device$device_ibfk_2">
+            <End Role="devicetype" EntitySet="devicetype" />
+            <End Role="device" EntitySet="device" />
+          </AssociationSet>
+          <AssociationSet Name="deviceport$deviceport_ibfk_1" Association="Self.deviceport$deviceport_ibfk_1">
+            <End Role="device" EntitySet="device" />
+            <End Role="deviceport" EntitySet="deviceport" />
+          </AssociationSet>
+          <AssociationSet Name="deviceport$deviceport_ibfk_2" Association="Self.deviceport$deviceport_ibfk_2">
+            <End Role="transportmedium" EntitySet="transportmedium" />
+            <End Role="deviceport" EntitySet="deviceport" />
+          </AssociationSet>
+          <AssociationSet Name="devices_has_credentials$devices_has_credentials_ibfk_1" Association="Self.devices_has_credentials$devices_has_credentials_ibfk_1">
+            <End Role="device" EntitySet="device" />
+            <End Role="devices_has_credentials" EntitySet="devices_has_credentials" />
+          </AssociationSet>
+          <AssociationSet Name="devices_has_credentials$devices_has_credentials_ibfk_2" Association="Self.devices_has_credentials$devices_has_credentials_ibfk_2">
+            <End Role="credentials" EntitySet="credentials" />
+            <End Role="devices_has_credentials" EntitySet="devices_has_credentials" />
+          </AssociationSet>
+          <AssociationSet Name="devicetype_has_operatingsystem$devicetype_has_operatingsystem_ibfk_1" Association="Self.devicetype_has_operatingsystem$devicetype_has_operatingsystem_ibfk_1">
+            <End Role="devicetype" EntitySet="devicetype" />
+            <End Role="devicetype_has_operatingsystem" EntitySet="devicetype_has_operatingsystem" />
+          </AssociationSet>
+          <AssociationSet Name="devicetype_has_operatingsystem$devicetype_has_operatingsystem_ibfk_2" Association="Self.devicetype_has_operatingsystem$devicetype_has_operatingsystem_ibfk_2">
+            <End Role="operatingsystem" EntitySet="operatingsystem" />
+            <End Role="devicetype_has_operatingsystem" EntitySet="devicetype_has_operatingsystem" />
+          </AssociationSet>
+          <AssociationSet Name="interface$interface_ibfk_1" Association="Self.interface$interface_ibfk_1">
+            <End Role="network" EntitySet="network" />
+            <End Role="interface" EntitySet="interface" />
+          </AssociationSet>
+          <AssociationSet Name="interface$interface_ibfk_2" Association="Self.interface$interface_ibfk_2">
+            <End Role="device" EntitySet="device" />
+            <End Role="interface" EntitySet="interface" />
+          </AssociationSet>
+          <AssociationSet Name="location$location_ibfk_1" Association="Self.location$location_ibfk_1">
+            <End Role="address" EntitySet="address" />
+            <End Role="location" EntitySet="location" />
+          </AssociationSet>
+          <AssociationSet Name="log$log_ibfk_1" Association="Self.log$log_ibfk_1">
+            <End Role="device" EntitySet="device" />
+            <End Role="log" EntitySet="log" />
+          </AssociationSet>
+          <AssociationSet Name="pointofdelivery$pointofdelivery_ibfk_1" Association="Self.pointofdelivery$pointofdelivery_ibfk_1">
+            <End Role="customer" EntitySet="customer" />
+            <End Role="pointofdelivery" EntitySet="pointofdelivery" />
+          </AssociationSet>
+          <AssociationSet Name="pointofdelivery$pointofdelivery_ibfk_2" Association="Self.pointofdelivery$pointofdelivery_ibfk_2">
+            <End Role="contact" EntitySet="contact" />
+            <End Role="pointofdelivery" EntitySet="pointofdelivery" />
+          </AssociationSet>
+          <AssociationSet Name="pointofdelivery$pointofdelivery_ibfk_3" Association="Self.pointofdelivery$pointofdelivery_ibfk_3">
+            <End Role="location" EntitySet="location" />
+            <End Role="pointofdelivery" EntitySet="pointofdelivery" />
+          </AssociationSet>
+          <AssociationSet Name="produkte$produkte_ibfk_1" Association="Self.produkte$produkte_ibfk_1">
+            <End Role="produktegruppe" EntitySet="produktegruppe" />
+            <End Role="produkte" EntitySet="produkte" />
+          </AssociationSet>
+          <AssociationSet Name="produktegruppe$produktegruppe_ibfk_1" Association="Self.produktegruppe$produktegruppe_ibfk_1">
+            <End Role="abrechnung" EntitySet="abrechnung" />
+            <End Role="produktegruppe" EntitySet="produktegruppe" />
+          </AssociationSet>
+          <AssociationSet Name="softwaredienstleistung$softwaredienstleistung_ibfk_1" Association="Self.softwaredienstleistung$softwaredienstleistung_ibfk_1">
+            <End Role="abrechnung" EntitySet="abrechnung" />
+            <End Role="softwaredienstleistung" EntitySet="softwaredienstleistung" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="inventarisierungsloesungModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="abrechnung">
+          <Key>
+            <PropertyRef Name="abrechnung_id" />
+          </Key>
+          <Property Name="abrechnung_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kundenkonto_fk" Type="Int64" Nullable="false" />
+          <Property Name="location_fk" Type="Int64" Nullable="false" />
+          <Property Name="device_fk" Type="Int64" Nullable="false" />
+          <Property Name="interface_fk" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="kundenkonto" Relationship="Self.abrechnung_abrechnung_ibfk_1" FromRole="abrechnung" ToRole="kundenkonto" />
+          <NavigationProperty Name="location" Relationship="Self.abrechnung_abrechnung_ibfk_2" FromRole="abrechnung" ToRole="location" />
+          <NavigationProperty Name="device" Relationship="Self.abrechnung_abrechnung_ibfk_3" FromRole="abrechnung" ToRole="device" />
+          <NavigationProperty Name="interface" Relationship="Self.abrechnung_abrechnung_ibfk_4" FromRole="abrechnung" ToRole="interface" />
+          <NavigationProperty Name="produktegruppes" Relationship="Self.produktegruppe_produktegruppe_ibfk_1" FromRole="abrechnung" ToRole="produktegruppe" />
+          <NavigationProperty Name="softwaredienstleistungs" Relationship="Self.softwaredienstleistung_softwaredienstleistung_ibfk_1" FromRole="abrechnung" ToRole="softwaredienstleistung" />
+        </EntityType>
+        <EntityType Name="address">
+          <Key>
+            <PropertyRef Name="address_id" />
+          </Key>
+          <Property Name="address_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="town_fk" Type="Int64" Nullable="false" />
+          <Property Name="streetname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="streetnumber" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="country" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="additive" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="po_Box" Type="Int64" />
+          <NavigationProperty Name="town" Relationship="Self.address_address_ibfk_1" FromRole="address" ToRole="town" />
+          <NavigationProperty Name="locations" Relationship="Self.location_location_ibfk_1" FromRole="address" ToRole="location" />
+        </EntityType>
+        <EntityType Name="contact">
+          <Key>
+            <PropertyRef Name="contact_id" />
+          </Key>
+          <Property Name="contact_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="person_fk" Type="Int64" Nullable="false" />
+          <Property Name="priority" Type="String" MaxLength="17" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="person" Relationship="Self.contact_contact_ibfk_1" FromRole="contact" ToRole="person" />
+          <NavigationProperty Name="pointofdeliveries" Relationship="Self.pointofdelivery_pointofdelivery_ibfk_2" FromRole="contact" ToRole="pointofdelivery" />
+        </EntityType>
+        <EntityType Name="credential">
+          <Key>
+            <PropertyRef Name="credentials_id" />
+          </Key>
+          <Property Name="credentials_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="benutzername" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="passwort" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="snmp" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="devices" Relationship="Self.devices_has_credentials" FromRole="credentials" ToRole="device" />
+        </EntityType>
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="lastname" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="customernumber" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="kundenkonto_fk" Type="Int64" Nullable="false" />
+          <Property Name="tel" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="eMail" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="url" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="kundenkonto" Relationship="Self.customer_customer_ibfk_1" FromRole="customer" ToRole="kundenkonto" />
+          <NavigationProperty Name="pointofdeliveries" Relationship="Self.pointofdelivery_pointofdelivery_ibfk_1" FromRole="customer" ToRole="pointofdelivery" />
+        </EntityType>
+        <EntityType Name="device">
+          <Key>
+            <PropertyRef Name="device_id" />
+          </Key>
+          <Property Name="device_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="location_fk" Type="Int64" Nullable="false" />
+          <Property Name="deviceType_fk" Type="Int64" Nullable="false" />
+          <Property Name="inventoryDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="deactivateDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="hostname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="domain" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="abrechnungs" Relationship="Self.abrechnung_abrechnung_ibfk_3" FromRole="device" ToRole="abrechnung" />
+          <NavigationProperty Name="location" Relationship="Self.device_device_ibfk_1" FromRole="device" ToRole="location" />
+          <NavigationProperty Name="devicetype" Relationship="Self.device_device_ibfk_2" FromRole="device" ToRole="devicetype" />
+          <NavigationProperty Name="deviceports" Relationship="Self.deviceport_deviceport_ibfk_1" FromRole="device" ToRole="deviceport" />
+          <NavigationProperty Name="interfaces" Relationship="Self.interface_interface_ibfk_2" FromRole="device" ToRole="interface" />
+          <NavigationProperty Name="logs" Relationship="Self.log_log_ibfk_1" FromRole="device" ToRole="log" />
+          <NavigationProperty Name="credentials" Relationship="Self.devices_has_credentials" FromRole="device" ToRole="credentials" />
+        </EntityType>
+        <EntityType Name="deviceport">
+          <Key>
+            <PropertyRef Name="deviceport_id" />
+          </Key>
+          <Property Name="deviceport_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="device_fk" Type="Int64" Nullable="false" />
+          <Property Name="transportmedium_fk" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="device" Relationship="Self.deviceport_deviceport_ibfk_1" FromRole="deviceport" ToRole="device" />
+          <NavigationProperty Name="transportmedium" Relationship="Self.deviceport_deviceport_ibfk_2" FromRole="deviceport" ToRole="transportmedium" />
+        </EntityType>
+        <EntityType Name="devicetype">
+          <Key>
+            <PropertyRef Name="deviceType_id" />
+          </Key>
+          <Property Name="deviceType_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="manufacturer" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="model" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="version" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="devices" Relationship="Self.device_device_ibfk_2" FromRole="devicetype" ToRole="device" />
+          <NavigationProperty Name="operatingsystems" Relationship="Self.devicetype_has_operatingsystem" FromRole="devicetype" ToRole="operatingsystem" />
+        </EntityType>
+        <EntityType Name="interface">
+          <Key>
+            <PropertyRef Name="interface_id" />
+          </Key>
+          <Property Name="interface_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="network_fk" Type="Int32" Nullable="false" />
+          <Property Name="device_fk" Type="Int64" Nullable="false" />
+          <Property Name="ip_adress_v4" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="mac_adresse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="isFullDuplex" Type="Binary" MaxLength="1" FixedLength="true" Nullable="false" />
+          <Property Name="bandwith" Type="Int32" />
+          <Property Name="is_in_use" Type="Int16" />
+          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="abrechnungs" Relationship="Self.abrechnung_abrechnung_ibfk_4" FromRole="interface" ToRole="abrechnung" />
+          <NavigationProperty Name="device" Relationship="Self.interface_interface_ibfk_2" FromRole="interface" ToRole="device" />
+          <NavigationProperty Name="network" Relationship="Self.interface_interface_ibfk_1" FromRole="interface" ToRole="network" />
+        </EntityType>
+        <EntityType Name="kundenkonto">
+          <Key>
+            <PropertyRef Name="kundenkonto_id" />
+          </Key>
+          <Property Name="kundenkonto_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="abrechnungs" Relationship="Self.abrechnung_abrechnung_ibfk_1" FromRole="kundenkonto" ToRole="abrechnung" />
+          <NavigationProperty Name="customers" Relationship="Self.customer_customer_ibfk_1" FromRole="kundenkonto" ToRole="customer" />
+        </EntityType>
+        <EntityType Name="location">
+          <Key>
+            <PropertyRef Name="location_id" />
+          </Key>
+          <Property Name="location_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="parent_location" Type="Int64" />
+          <Property Name="address_fk" Type="Int64" Nullable="false" />
+          <Property Name="designation" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="building" Type="Int64" Nullable="false" />
+          <Property Name="room" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="abrechnungs" Relationship="Self.abrechnung_abrechnung_ibfk_2" FromRole="location" ToRole="abrechnung" />
+          <NavigationProperty Name="address" Relationship="Self.location_location_ibfk_1" FromRole="location" ToRole="address" />
+          <NavigationProperty Name="devices" Relationship="Self.device_device_ibfk_1" FromRole="location" ToRole="device" />
+          <NavigationProperty Name="pointofdeliveries" Relationship="Self.pointofdelivery_pointofdelivery_ibfk_3" FromRole="location" ToRole="pointofdelivery" />
+        </EntityType>
+        <EntityType Name="log">
+          <Key>
+            <PropertyRef Name="log_id" />
+          </Key>
+          <Property Name="log_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="device_fk" Type="Int64" Nullable="false" />
+          <Property Name="timestamp" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="logMessage" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="level" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="is_acknowledged" Type="Int16" />
+          <NavigationProperty Name="device" Relationship="Self.log_log_ibfk_1" FromRole="log" ToRole="device" />
+        </EntityType>
+        <EntityType Name="network">
+          <Key>
+            <PropertyRef Name="network_id" />
+          </Key>
+          <Property Name="network_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="subnet" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="mask" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="vlan" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="interfaces" Relationship="Self.interface_interface_ibfk_1" FromRole="network" ToRole="interface" />
+        </EntityType>
+        <EntityType Name="operatingsystem">
+          <Key>
+            <PropertyRef Name="operatingsystem_id" />
+          </Key>
+          <Property Name="operatingsystem_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="operatingsystemName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="model" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="version" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="devicetypes" Relationship="Self.devicetype_has_operatingsystem" FromRole="operatingsystem" ToRole="devicetype" />
+        </EntityType>
+        <EntityType Name="person">
+          <Key>
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="person_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="lastname" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="contacts" Relationship="Self.contact_contact_ibfk_1" FromRole="person" ToRole="contact" />
+        </EntityType>
+        <EntityType Name="pointofdelivery">
+          <Key>
+            <PropertyRef Name="pod_id" />
+          </Key>
+          <Property Name="pod_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customer_id_fk" Type="Int64" Nullable="false" />
+          <Property Name="contact_id_fk" Type="Int64" Nullable="false" />
+          <Property Name="location_fk" Type="Int64" Nullable="false" />
+          <Property Name="designation" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="timezone" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="timeZonePositiv" Type="Int16" Nullable="false" />
+          <Property Name="ntpServerIp" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="contact" Relationship="Self.pointofdelivery_pointofdelivery_ibfk_2" FromRole="pointofdelivery" ToRole="contact" />
+          <NavigationProperty Name="customer" Relationship="Self.pointofdelivery_pointofdelivery_ibfk_1" FromRole="pointofdelivery" ToRole="customer" />
+          <NavigationProperty Name="location" Relationship="Self.pointofdelivery_pointofdelivery_ibfk_3" FromRole="pointofdelivery" ToRole="location" />
+        </EntityType>
+        <EntityType Name="produkte">
+          <Key>
+            <PropertyRef Name="artikelnummer_id" />
+          </Key>
+          <Property Name="artikelnummer_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="artikelname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="preis" Type="Single" Nullable="false" />
+          <Property Name="produktegruppe_fk" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="produktegruppe" Relationship="Self.produkte_produkte_ibfk_1" FromRole="produkte" ToRole="produktegruppe" />
+        </EntityType>
+        <EntityType Name="produktegruppe">
+          <Key>
+            <PropertyRef Name="produktegruppe_id" />
+          </Key>
+          <Property Name="produktegruppe_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="hardware" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="software" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="sonstigeArtikel" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="abrechung_fk" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="abrechnung" Relationship="Self.produktegruppe_produktegruppe_ibfk_1" FromRole="produktegruppe" ToRole="abrechnung" />
+          <NavigationProperty Name="produktes" Relationship="Self.produkte_produkte_ibfk_1" FromRole="produktegruppe" ToRole="produkte" />
+        </EntityType>
+        <EntityType Name="softwaredienstleistung">
+          <Key>
+            <PropertyRef Name="software_id" />
+          </Key>
+          <Property Name="software_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="stundenaufwand" Type="Int32" Nullable="false" />
+          <Property Name="abrechung_fk" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="abrechnung" Relationship="Self.softwaredienstleistung_softwaredienstleistung_ibfk_1" FromRole="softwaredienstleistung" ToRole="abrechnung" />
+        </EntityType>
+        <EntityType Name="town">
+          <Key>
+            <PropertyRef Name="town_id" />
+          </Key>
+          <Property Name="town_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="zip" Type="Int64" Nullable="false" />
+          <Property Name="town1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="addresses" Relationship="Self.address_address_ibfk_1" FromRole="town" ToRole="address" />
+        </EntityType>
+        <EntityType Name="transportmedium">
+          <Key>
+            <PropertyRef Name="transportmedium_id" />
+          </Key>
+          <Property Name="transportmedium_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="deviceports" Relationship="Self.deviceport_deviceport_ibfk_2" FromRole="transportmedium" ToRole="deviceport" />
+        </EntityType>
+        <EntityType Name="v_logentries">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pod" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="location" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="hostname" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="severity" Type="Int32" />
+          <Property Name="timestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="message" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="view_freiesinterface">
+          <Key>
+            <PropertyRef Name="Portnummer" />
+            <PropertyRef Name="Medium" />
+          </Key>
+          <Property Name="LocationName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Hostname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Portnummer" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Medium" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Geschwindigkeit" Type="Int32" />
+        </EntityType>
+        <Association Name="abrechnung_abrechnung_ibfk_1">
+          <End Role="kundenkonto" Type="Self.kundenkonto" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="abrechnung" Type="Self.abrechnung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kundenkonto">
+              <PropertyRef Name="kundenkonto_id" />
+            </Principal>
+            <Dependent Role="abrechnung">
+              <PropertyRef Name="kundenkonto_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="abrechnung_abrechnung_ibfk_2">
+          <End Role="location" Type="Self.location" Multiplicity="1" />
+          <End Role="abrechnung" Type="Self.abrechnung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="location">
+              <PropertyRef Name="location_id" />
+            </Principal>
+            <Dependent Role="abrechnung">
+              <PropertyRef Name="location_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="abrechnung_abrechnung_ibfk_3">
+          <End Role="device" Type="Self.device" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="abrechnung" Type="Self.abrechnung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="device">
+              <PropertyRef Name="device_id" />
+            </Principal>
+            <Dependent Role="abrechnung">
+              <PropertyRef Name="device_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="abrechnung_abrechnung_ibfk_4">
+          <End Role="interface" Type="Self.interface" Multiplicity="1" />
+          <End Role="abrechnung" Type="Self.abrechnung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="interface">
+              <PropertyRef Name="interface_id" />
+            </Principal>
+            <Dependent Role="abrechnung">
+              <PropertyRef Name="interface_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="produktegruppe_produktegruppe_ibfk_1">
+          <End Role="abrechnung" Type="Self.abrechnung" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="produktegruppe" Type="Self.produktegruppe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="abrechnung">
+              <PropertyRef Name="abrechnung_id" />
+            </Principal>
+            <Dependent Role="produktegruppe">
+              <PropertyRef Name="abrechung_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="softwaredienstleistung_softwaredienstleistung_ibfk_1">
+          <End Role="abrechnung" Type="Self.abrechnung" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="softwaredienstleistung" Type="Self.softwaredienstleistung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="abrechnung">
+              <PropertyRef Name="abrechnung_id" />
+            </Principal>
+            <Dependent Role="softwaredienstleistung">
+              <PropertyRef Name="abrechung_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="address_address_ibfk_1">
+          <End Role="town" Type="Self.town" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="address" Type="Self.address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="town">
+              <PropertyRef Name="town_id" />
+            </Principal>
+            <Dependent Role="address">
+              <PropertyRef Name="town_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="location_location_ibfk_1">
+          <End Role="address" Type="Self.address" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="location" Type="Self.location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="address">
+              <PropertyRef Name="address_id" />
+            </Principal>
+            <Dependent Role="location">
+              <PropertyRef Name="address_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="contact_contact_ibfk_1">
+          <End Role="person" Type="Self.person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="contact" Type="Self.contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="contact">
+              <PropertyRef Name="person_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="pointofdelivery_pointofdelivery_ibfk_2">
+          <End Role="contact" Type="Self.contact" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="pointofdelivery" Type="Self.pointofdelivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="contact">
+              <PropertyRef Name="contact_id" />
+            </Principal>
+            <Dependent Role="pointofdelivery">
+              <PropertyRef Name="contact_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="customer_customer_ibfk_1">
+          <End Role="kundenkonto" Type="Self.kundenkonto" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="customer" Type="Self.customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kundenkonto">
+              <PropertyRef Name="kundenkonto_id" />
+            </Principal>
+            <Dependent Role="customer">
+              <PropertyRef Name="kundenkonto_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="pointofdelivery_pointofdelivery_ibfk_1">
+          <End Role="customer" Type="Self.customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="pointofdelivery" Type="Self.pointofdelivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="customer_id" />
+            </Principal>
+            <Dependent Role="pointofdelivery">
+              <PropertyRef Name="customer_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="device_device_ibfk_1">
+          <End Role="location" Type="Self.location" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="device" Type="Self.device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="location">
+              <PropertyRef Name="location_id" />
+            </Principal>
+            <Dependent Role="device">
+              <PropertyRef Name="location_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="device_device_ibfk_2">
+          <End Role="devicetype" Type="Self.devicetype" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="device" Type="Self.device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="devicetype">
+              <PropertyRef Name="deviceType_id" />
+            </Principal>
+            <Dependent Role="device">
+              <PropertyRef Name="deviceType_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="deviceport_deviceport_ibfk_1">
+          <End Role="device" Type="Self.device" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="deviceport" Type="Self.deviceport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="device">
+              <PropertyRef Name="device_id" />
+            </Principal>
+            <Dependent Role="deviceport">
+              <PropertyRef Name="device_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="interface_interface_ibfk_2">
+          <End Role="device" Type="Self.device" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="interface" Type="Self.interface" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="device">
+              <PropertyRef Name="device_id" />
+            </Principal>
+            <Dependent Role="interface">
+              <PropertyRef Name="device_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="log_log_ibfk_1">
+          <End Role="device" Type="Self.device" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="log" Type="Self.log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="device">
+              <PropertyRef Name="device_id" />
+            </Principal>
+            <Dependent Role="log">
+              <PropertyRef Name="device_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="deviceport_deviceport_ibfk_2">
+          <End Role="transportmedium" Type="Self.transportmedium" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="deviceport" Type="Self.deviceport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="transportmedium">
+              <PropertyRef Name="transportmedium_id" />
+            </Principal>
+            <Dependent Role="deviceport">
+              <PropertyRef Name="transportmedium_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="interface_interface_ibfk_1">
+          <End Role="network" Type="Self.network" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="interface" Type="Self.interface" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="network">
+              <PropertyRef Name="network_id" />
+            </Principal>
+            <Dependent Role="interface">
+              <PropertyRef Name="network_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="pointofdelivery_pointofdelivery_ibfk_3">
+          <End Role="location" Type="Self.location" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="pointofdelivery" Type="Self.pointofdelivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="location">
+              <PropertyRef Name="location_id" />
+            </Principal>
+            <Dependent Role="pointofdelivery">
+              <PropertyRef Name="location_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="produkte_produkte_ibfk_1">
+          <End Role="produktegruppe" Type="Self.produktegruppe" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="produkte" Type="Self.produkte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="produktegruppe">
+              <PropertyRef Name="produktegruppe_id" />
+            </Principal>
+            <Dependent Role="produkte">
+              <PropertyRef Name="produktegruppe_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="devices_has_credentials">
+          <End Role="device" Type="Self.device" Multiplicity="*" />
+          <End Role="credentials" Type="Self.credential" Multiplicity="*" />
+        </Association>
+        <Association Name="devicetype_has_operatingsystem">
+          <End Role="devicetype" Type="Self.devicetype" Multiplicity="*" />
+          <End Role="operatingsystem" Type="Self.operatingsystem" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="inventarisierungsloesungEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="abrechnungs" EntityType="Self.abrechnung" />
+          <EntitySet Name="addresses" EntityType="Self.address" />
+          <EntitySet Name="contacts" EntityType="Self.contact" />
+          <EntitySet Name="credentials" EntityType="Self.credential" />
+          <EntitySet Name="customers" EntityType="Self.customer" />
+          <EntitySet Name="devices" EntityType="Self.device" />
+          <EntitySet Name="deviceports" EntityType="Self.deviceport" />
+          <EntitySet Name="devicetypes" EntityType="Self.devicetype" />
+          <EntitySet Name="interfaces" EntityType="Self.interface" />
+          <EntitySet Name="kundenkontoes" EntityType="Self.kundenkonto" />
+          <EntitySet Name="locations" EntityType="Self.location" />
+          <EntitySet Name="logs" EntityType="Self.log" />
+          <EntitySet Name="networks" EntityType="Self.network" />
+          <EntitySet Name="operatingsystems" EntityType="Self.operatingsystem" />
+          <EntitySet Name="people" EntityType="Self.person" />
+          <EntitySet Name="pointofdeliveries" EntityType="Self.pointofdelivery" />
+          <EntitySet Name="produktes" EntityType="Self.produkte" />
+          <EntitySet Name="produktegruppes" EntityType="Self.produktegruppe" />
+          <EntitySet Name="softwaredienstleistungs" EntityType="Self.softwaredienstleistung" />
+          <EntitySet Name="towns" EntityType="Self.town" />
+          <EntitySet Name="transportmediums" EntityType="Self.transportmedium" />
+          <EntitySet Name="v_logentries" EntityType="Self.v_logentries" />
+          <EntitySet Name="view_freiesinterface" EntityType="Self.view_freiesinterface" />
+          <AssociationSet Name="abrechnung_abrechnung_ibfk_1" Association="Self.abrechnung_abrechnung_ibfk_1">
+            <End Role="kundenkonto" EntitySet="kundenkontoes" />
+            <End Role="abrechnung" EntitySet="abrechnungs" />
+          </AssociationSet>
+          <AssociationSet Name="abrechnung_abrechnung_ibfk_2" Association="Self.abrechnung_abrechnung_ibfk_2">
+            <End Role="location" EntitySet="locations" />
+            <End Role="abrechnung" EntitySet="abrechnungs" />
+          </AssociationSet>
+          <AssociationSet Name="abrechnung_abrechnung_ibfk_3" Association="Self.abrechnung_abrechnung_ibfk_3">
+            <End Role="device" EntitySet="devices" />
+            <End Role="abrechnung" EntitySet="abrechnungs" />
+          </AssociationSet>
+          <AssociationSet Name="abrechnung_abrechnung_ibfk_4" Association="Self.abrechnung_abrechnung_ibfk_4">
+            <End Role="interface" EntitySet="interfaces" />
+            <End Role="abrechnung" EntitySet="abrechnungs" />
+          </AssociationSet>
+          <AssociationSet Name="produktegruppe_produktegruppe_ibfk_1" Association="Self.produktegruppe_produktegruppe_ibfk_1">
+            <End Role="abrechnung" EntitySet="abrechnungs" />
+            <End Role="produktegruppe" EntitySet="produktegruppes" />
+          </AssociationSet>
+          <AssociationSet Name="softwaredienstleistung_softwaredienstleistung_ibfk_1" Association="Self.softwaredienstleistung_softwaredienstleistung_ibfk_1">
+            <End Role="abrechnung" EntitySet="abrechnungs" />
+            <End Role="softwaredienstleistung" EntitySet="softwaredienstleistungs" />
+          </AssociationSet>
+          <AssociationSet Name="address_address_ibfk_1" Association="Self.address_address_ibfk_1">
+            <End Role="town" EntitySet="towns" />
+            <End Role="address" EntitySet="addresses" />
+          </AssociationSet>
+          <AssociationSet Name="location_location_ibfk_1" Association="Self.location_location_ibfk_1">
+            <End Role="address" EntitySet="addresses" />
+            <End Role="location" EntitySet="locations" />
+          </AssociationSet>
+          <AssociationSet Name="contact_contact_ibfk_1" Association="Self.contact_contact_ibfk_1">
+            <End Role="person" EntitySet="people" />
+            <End Role="contact" EntitySet="contacts" />
+          </AssociationSet>
+          <AssociationSet Name="pointofdelivery_pointofdelivery_ibfk_2" Association="Self.pointofdelivery_pointofdelivery_ibfk_2">
+            <End Role="contact" EntitySet="contacts" />
+            <End Role="pointofdelivery" EntitySet="pointofdeliveries" />
+          </AssociationSet>
+          <AssociationSet Name="customer_customer_ibfk_1" Association="Self.customer_customer_ibfk_1">
+            <End Role="kundenkonto" EntitySet="kundenkontoes" />
+            <End Role="customer" EntitySet="customers" />
+          </AssociationSet>
+          <AssociationSet Name="pointofdelivery_pointofdelivery_ibfk_1" Association="Self.pointofdelivery_pointofdelivery_ibfk_1">
+            <End Role="customer" EntitySet="customers" />
+            <End Role="pointofdelivery" EntitySet="pointofdeliveries" />
+          </AssociationSet>
+          <AssociationSet Name="device_device_ibfk_1" Association="Self.device_device_ibfk_1">
+            <End Role="location" EntitySet="locations" />
+            <End Role="device" EntitySet="devices" />
+          </AssociationSet>
+          <AssociationSet Name="device_device_ibfk_2" Association="Self.device_device_ibfk_2">
+            <End Role="devicetype" EntitySet="devicetypes" />
+            <End Role="device" EntitySet="devices" />
+          </AssociationSet>
+          <AssociationSet Name="deviceport_deviceport_ibfk_1" Association="Self.deviceport_deviceport_ibfk_1">
+            <End Role="device" EntitySet="devices" />
+            <End Role="deviceport" EntitySet="deviceports" />
+          </AssociationSet>
+          <AssociationSet Name="interface_interface_ibfk_2" Association="Self.interface_interface_ibfk_2">
+            <End Role="device" EntitySet="devices" />
+            <End Role="interface" EntitySet="interfaces" />
+          </AssociationSet>
+          <AssociationSet Name="log_log_ibfk_1" Association="Self.log_log_ibfk_1">
+            <End Role="device" EntitySet="devices" />
+            <End Role="log" EntitySet="logs" />
+          </AssociationSet>
+          <AssociationSet Name="deviceport_deviceport_ibfk_2" Association="Self.deviceport_deviceport_ibfk_2">
+            <End Role="transportmedium" EntitySet="transportmediums" />
+            <End Role="deviceport" EntitySet="deviceports" />
+          </AssociationSet>
+          <AssociationSet Name="interface_interface_ibfk_1" Association="Self.interface_interface_ibfk_1">
+            <End Role="network" EntitySet="networks" />
+            <End Role="interface" EntitySet="interfaces" />
+          </AssociationSet>
+          <AssociationSet Name="pointofdelivery_pointofdelivery_ibfk_3" Association="Self.pointofdelivery_pointofdelivery_ibfk_3">
+            <End Role="location" EntitySet="locations" />
+            <End Role="pointofdelivery" EntitySet="pointofdeliveries" />
+          </AssociationSet>
+          <AssociationSet Name="produkte_produkte_ibfk_1" Association="Self.produkte_produkte_ibfk_1">
+            <End Role="produktegruppe" EntitySet="produktegruppes" />
+            <End Role="produkte" EntitySet="produktes" />
+          </AssociationSet>
+          <AssociationSet Name="devices_has_credentials" Association="Self.devices_has_credentials">
+            <End Role="device" EntitySet="devices" />
+            <End Role="credentials" EntitySet="credentials" />
+          </AssociationSet>
+          <AssociationSet Name="devicetype_has_operatingsystem" Association="Self.devicetype_has_operatingsystem">
+            <End Role="devicetype" EntitySet="devicetypes" />
+            <End Role="operatingsystem" EntitySet="operatingsystems" />
+          </AssociationSet>
+          <FunctionImport Name="LogClear">
+            <Parameter Name="p_logentries_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="LogMessageAdd">
+            <Parameter Name="i_pod" Mode="In" Type="String" />
+            <Parameter Name="i_hostname" Mode="In" Type="String" />
+            <Parameter Name="i_severity" Mode="In" Type="Int32" />
+            <Parameter Name="i_message" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="inventarisierungsloesungModelStoreContainer" CdmEntityContainer="inventarisierungsloesungEntities">
+          <EntitySetMapping Name="abrechnungs">
+            <EntityTypeMapping TypeName="inventarisierungsloesungModel.abrechnung">
+              <MappingFragment StoreEntitySet="abrechnung">
+                <ScalarProperty Name="abrechnung_id" ColumnName="abrechnung_id" />
+                <ScalarProperty Name="kundenkonto_fk" ColumnName="kundenkonto_fk" />
+                <ScalarProperty Name="location_fk" ColumnName="location_fk" />
+                <ScalarProperty Name="device_fk" ColumnName="device_fk" />
+                <ScalarProperty Name="interface_fk" ColumnName="interface_fk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="addresses">
+            <EntityTypeMapping TypeName="inventarisierungsloesungModel.address">
+              <MappingFragment StoreEntitySet="address">
+                <ScalarProperty Name="address_id" ColumnName="address_id" />
+                <ScalarProperty Name="town_fk" ColumnName="town_fk" />
+                <ScalarProperty Name="streetname" ColumnName="streetname" />
+                <ScalarProperty Name="streetnumber" ColumnName="streetnumber" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="additive" ColumnName="additive" />
+                <ScalarProperty Name="po_Box" ColumnName="po_Box" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="contacts">
+            <EntityTypeMapping TypeName="inventarisierungsloesungModel.contact">
+              <MappingFragment StoreEntitySet="contact">
+                <ScalarProperty Name="contact_id" ColumnName="contact_id" />
+                <ScalarProperty Name="person_fk" ColumnName="person_fk" />
+                <ScalarProperty Name="priority" ColumnName="priority" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="credentials">
+            <EntityTypeMapping TypeName="inventarisierungsloesungModel.credential">
+              <MappingFragment StoreEntitySet="credentials">
+                <ScalarProperty Name="credentials_id" ColumnName="credentials_id" />
+                <ScalarProperty Name="benutzername" ColumnName="benutzername" />
+                <ScalarProperty Name="passwort" ColumnName="passwort" />
+                <ScalarProperty Name="snmp" ColumnName="snmp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="customers">
+            <EntityTypeMapping TypeName="inventarisierungsloesungModel.customer">
+              <MappingFragment StoreEntitySet="customer">
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="customernumber" ColumnName="customernumber" />
+                <ScalarProperty Name="kundenkonto_fk" ColumnName="kundenkonto_fk" />
+                <ScalarProperty Name="tel" ColumnName="tel" />
+                <ScalarProperty Name="eMail" ColumnName="eMail" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="devices">
+            <EntityTypeMapping TypeName="inventarisierungsloesungModel.device">
+              <MappingFragment StoreEntitySet="device">
+                <ScalarProperty Name="device_id" ColumnName="device_id" />
+                <ScalarProperty Name="location_fk" ColumnName="location_fk" />
+                <ScalarProperty Name="deviceType_fk" ColumnName="deviceType_fk" />
+                <ScalarProperty Name="inventoryDate" ColumnName="inventoryDate" />
+                <ScalarProperty Name="deactivateDate" ColumnName="deactivateDate" />
+                <ScalarProperty Name="hostname" ColumnName="hostname" />
+                <ScalarProperty Name="domain" ColumnName="domain" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="deviceports">
+            <EntityTypeMapping TypeName="inventarisierungsloesungModel.deviceport">
+              <MappingFragment StoreEntitySet="deviceport">
+                <ScalarProperty Name="deviceport_id" ColumnName="deviceport_id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="device_fk" ColumnName="device_fk" />
+                <ScalarProperty Name="transportmedium_fk" ColumnName="transportmedium_fk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="devicetypes">
+            <EntityTypeMapping TypeName="inventarisierungsloesungModel.devicetype">
+              <MappingFragment StoreEntitySet="devicetype">
+                <ScalarProperty Name="deviceType_id" ColumnName="deviceType_id" />
+                <ScalarProperty Name="manufacturer" ColumnName="manufacturer" />
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="version" ColumnName="version" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="interfaces">
+            <EntityTypeMapping TypeName="inventarisierungsloesungModel.interface">
+              <MappingFragment StoreEntitySet="interface">
+                <ScalarProperty Name="interface_id" ColumnName="interface_id" />
+                <ScalarProperty Name="network_fk" ColumnName="network_fk" />
+                <ScalarProperty Name="device_fk" ColumnName="device_fk" />
+                <ScalarProperty Name="ip_adress_v4" ColumnName="ip_adress_v4" />
+                <ScalarProperty Name="mac_adresse" ColumnName="mac_adresse" />
+                <ScalarProperty Name="isFullDuplex" ColumnName="isFullDuplex" />
+                <ScalarProperty Name="bandwith" ColumnName="bandwith" />
+                <ScalarProperty Name="is_in_use" ColumnName="is_in_use" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kundenkontoes">
+            <EntityTypeMapping TypeName="inventarisierungsloesungModel.kundenkonto">
+              <MappingFragment StoreEntitySet="kundenkonto">
+                <ScalarProperty Name="kundenkonto_id" ColumnName="kundenkonto_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="locations">
+            <EntityTypeMapping TypeName="inventarisierungsloesungModel.location">
+              <MappingFragment StoreEntitySet="location">
+                <ScalarProperty Name="location_id" ColumnName="location_id" />
+                <ScalarProperty Name="parent_location" ColumnName="parent_location" />
+                <ScalarProperty Name="address_fk" ColumnName="address_fk" />
+                <ScalarProperty Name="designation" ColumnName="designation" />
+                <ScalarProperty Name="building" ColumnName="building" />
+                <ScalarProperty Name="room" ColumnName="room" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="logs">
+            <EntityTypeMapping TypeName="inventarisierungsloesungModel.log">
+              <MappingFragment StoreEntitySet="log">
+                <ScalarProperty Name="log_id" ColumnName="log_id" />
+                <ScalarProperty Name="device_fk" ColumnName="device_fk" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="logMessage" ColumnName="logMessage" />
+                <ScalarProperty Name="level" ColumnName="level" />
+                <ScalarProperty Name="is_acknowledged" ColumnName="is_acknowledged" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="networks">
+            <EntityTypeMapping TypeName="inventarisierungsloesungModel.network">
+              <MappingFragment StoreEntitySet="network">
+                <ScalarProperty Name="network_id" ColumnName="network_id" />
+                <ScalarProperty Name="subnet" ColumnName="subnet" />
+                <ScalarProperty Name="mask" ColumnName="mask" />
+                <ScalarProperty Name="vlan" ColumnName="vlan" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="operatingsystems">
+            <EntityTypeMapping TypeName="inventarisierungsloesungModel.operatingsystem">
+              <MappingFragment StoreEntitySet="operatingsystem">
+                <ScalarProperty Name="operatingsystem_id" ColumnName="operatingsystem_id" />
+                <ScalarProperty Name="operatingsystemName" ColumnName="operatingsystemName" />
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="version" ColumnName="version" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="people">
+            <EntityTypeMapping TypeName="inventarisierungsloesungModel.person">
+              <MappingFragment StoreEntitySet="person">
+                <ScalarProperty Name="person_id" ColumnName="person_id" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pointofdeliveries">
+            <EntityTypeMapping TypeName="inventarisierungsloesungModel.pointofdelivery">
+              <MappingFragment StoreEntitySet="pointofdelivery">
+                <ScalarProperty Name="pod_id" ColumnName="pod_id" />
+                <ScalarProperty Name="customer_id_fk" ColumnName="customer_id_fk" />
+                <ScalarProperty Name="contact_id_fk" ColumnName="contact_id_fk" />
+                <ScalarProperty Name="location_fk" ColumnName="location_fk" />
+                <ScalarProperty Name="designation" ColumnName="designation" />
+                <ScalarProperty Name="timezone" ColumnName="timezone" />
+                <ScalarProperty Name="timeZonePositiv" ColumnName="timeZonePositiv" />
+                <ScalarProperty Name="ntpServerIp" ColumnName="ntpServerIp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="produktes">
+            <EntityTypeMapping TypeName="inventarisierungsloesungModel.produkte">
+              <MappingFragment StoreEntitySet="produkte">
+                <ScalarProperty Name="artikelnummer_id" ColumnName="artikelnummer_id" />
+                <ScalarProperty Name="artikelname" ColumnName="artikelname" />
+                <ScalarProperty Name="preis" ColumnName="preis" />
+                <ScalarProperty Name="produktegruppe_fk" ColumnName="produktegruppe_fk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="produktegruppes">
+            <EntityTypeMapping TypeName="inventarisierungsloesungModel.produktegruppe">
+              <MappingFragment StoreEntitySet="produktegruppe">
+                <ScalarProperty Name="produktegruppe_id" ColumnName="produktegruppe_id" />
+                <ScalarProperty Name="hardware" ColumnName="hardware" />
+                <ScalarProperty Name="software" ColumnName="software" />
+                <ScalarProperty Name="sonstigeArtikel" ColumnName="sonstigeArtikel" />
+                <ScalarProperty Name="abrechung_fk" ColumnName="abrechung_fk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="softwaredienstleistungs">
+            <EntityTypeMapping TypeName="inventarisierungsloesungModel.softwaredienstleistung">
+              <MappingFragment StoreEntitySet="softwaredienstleistung">
+                <ScalarProperty Name="software_id" ColumnName="software_id" />
+                <ScalarProperty Name="stundenaufwand" ColumnName="stundenaufwand" />
+                <ScalarProperty Name="abrechung_fk" ColumnName="abrechung_fk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="towns">
+            <EntityTypeMapping TypeName="inventarisierungsloesungModel.town">
+              <MappingFragment StoreEntitySet="town">
+                <ScalarProperty Name="town_id" ColumnName="town_id" />
+                <ScalarProperty Name="zip" ColumnName="zip" />
+                <ScalarProperty Name="town1" ColumnName="town" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="transportmediums">
+            <EntityTypeMapping TypeName="inventarisierungsloesungModel.transportmedium">
+              <MappingFragment StoreEntitySet="transportmedium">
+                <ScalarProperty Name="transportmedium_id" ColumnName="transportmedium_id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="v_logentries">
+            <EntityTypeMapping TypeName="inventarisierungsloesungModel.v_logentries">
+              <MappingFragment StoreEntitySet="v_logentries">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="pod" ColumnName="pod" />
+                <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="hostname" ColumnName="hostname" />
+                <ScalarProperty Name="severity" ColumnName="severity" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="message" ColumnName="message" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="view_freiesinterface">
+            <EntityTypeMapping TypeName="inventarisierungsloesungModel.view_freiesinterface">
+              <MappingFragment StoreEntitySet="view_freiesinterface">
+                <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+                <ScalarProperty Name="Hostname" ColumnName="Hostname" />
+                <ScalarProperty Name="Portnummer" ColumnName="Portnummer" />
+                <ScalarProperty Name="Medium" ColumnName="Medium" />
+                <ScalarProperty Name="Geschwindigkeit" ColumnName="Geschwindigkeit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="devices_has_credentials" TypeName="inventarisierungsloesungModel.devices_has_credentials" StoreEntitySet="devices_has_credentials">
+            <EndProperty Name="device">
+              <ScalarProperty Name="device_id" ColumnName="devices_devices_id" />
+            </EndProperty>
+            <EndProperty Name="credentials">
+              <ScalarProperty Name="credentials_id" ColumnName="credentials_credentials_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="devicetype_has_operatingsystem" TypeName="inventarisierungsloesungModel.devicetype_has_operatingsystem" StoreEntitySet="devicetype_has_operatingsystem">
+            <EndProperty Name="devicetype">
+              <ScalarProperty Name="deviceType_id" ColumnName="deviceType_fk" />
+            </EndProperty>
+            <EndProperty Name="operatingsystem">
+              <ScalarProperty Name="operatingsystem_id" ColumnName="operatingsystem_fk" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="LogClear" FunctionName="inventarisierungsloesungModel.Store.LogClear" />
+          <FunctionImportMapping FunctionImportName="LogMessageAdd" FunctionName="inventarisierungsloesungModel.Store.LogMessageAdd" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -59,6 +59,12 @@
     <Reference Include="BouncyCastle.Crypto, Version=1.8.5.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
       <HintPath>packages\BouncyCastle.1.8.5\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Google.Protobuf, Version=3.8.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <HintPath>packages\Google.Protobuf.3.8.0\lib\net45\Google.Protobuf.dll</HintPath>
     </Reference>
@@ -78,6 +84,8 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -109,11 +117,95 @@
     <Compile Include="Model\ModelBase.cs" />
     <Compile Include="Model\Node.cs" />
     <Compile Include="Model\LocationTreeBuilder.cs" />
+    <Compile Include="Persistence\abrechnung.cs">
+      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\address.cs">
+      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\contact.cs">
+      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\credential.cs">
+      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\customer.cs">
+      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Persistence\CustomerRepository.cs" />
+    <Compile Include="Persistence\device.cs">
+      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\deviceport.cs">
+      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\devicetype.cs">
+      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\interface.cs">
+      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\InventarisierungsloesungModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InventarisierungsloesungModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\InventarisierungsloesungModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\InventarisierungsloesungModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InventarisierungsloesungModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Persistence\IRepositoryBase.cs" />
+    <Compile Include="Persistence\kundenkonto.cs">
+      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\location.cs">
+      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Persistence\LocationRepository.cs" />
+    <Compile Include="Persistence\log.cs">
+      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Persistence\LogEntryRepository.cs" />
+    <Compile Include="Persistence\network.cs">
+      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\operatingsystem.cs">
+      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\person.cs">
+      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\pointofdelivery.cs">
+      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\produkte.cs">
+      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\produktegruppe.cs">
+      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Persistence\RepositoryBase.cs" />
+    <Compile Include="Persistence\softwaredienstleistung.cs">
+      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\town.cs">
+      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\transportmedium.cs">
+      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\view_freiesinterface.cs">
+      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\v_logentries.cs">
+      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Services\CryptoService.cs" />
     <Compile Include="Services\InputValidation.cs" />
     <Compile Include="ViewModel\CustomerViewModel.cs" />
@@ -169,6 +261,13 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <EntityDeploy Include="Persistence\InventarisierungsloesungModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>InventarisierungsloesungModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Persistence\InventarisierungsloesungModel.edmx.diagram">
+      <DependentUpon>InventarisierungsloesungModel.edmx</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -191,7 +290,21 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Persistence\InventarisierungsloesungModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>InventarisierungsloesungModel.Context.cs</LastGenOutput>
+      <DependentUpon>InventarisierungsloesungModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Persistence\InventarisierungsloesungModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>InventarisierungsloesungModel.edmx</DependentUpon>
+      <LastGenOutput>InventarisierungsloesungModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
