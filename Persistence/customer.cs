@@ -51,17 +51,17 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
 
         public override bool Equals(object value)
         {
-            return Equals(value as CustomerModel);
+            return Equals(value as customer);
         }
 
-        public bool Equals(CustomerModel Customer)
+        public bool Equals(customer Customer)
         {
             if (Object.ReferenceEquals(null, Customer)) return false;
             if (Object.ReferenceEquals(this, Customer)) return true;
 
-            return string.Equals(customernumber, Customer.CostumerEntity.customernumber)
-                   && string.Equals(lastname, Customer.CostumerEntity.lastname)
-                   && string.Equals(firstname, Customer.CostumerEntity.firstname);
+            return string.Equals(customernumber, Customer.customernumber)
+                   && string.Equals(lastname, Customer.lastname)
+                   && string.Equals(firstname, Customer.firstname);
         }
 
         public override int GetHashCode()
