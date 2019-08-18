@@ -107,6 +107,9 @@
     <Compile Include="Control\WindowAlterCustomer.xaml.cs">
       <DependentUpon>WindowAlterCustomer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Control\WindowSearchCustomer.xaml.cs">
+      <DependentUpon>WindowSearchCustomer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\Country.cs" />
     <Compile Include="Model\CustomerModel.cs" />
     <Compile Include="Model\IEntity.cs" />
@@ -244,6 +247,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Control\WindowAlterCustomer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\WindowSearchCustomer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

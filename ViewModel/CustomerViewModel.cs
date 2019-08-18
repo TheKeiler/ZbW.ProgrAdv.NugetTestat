@@ -20,6 +20,8 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
         public customer SelectedCustomer { get; set; }
         public customer NewCustomer { get; set; }
         public ObservableCollection<Country> Countries { get; set; }
+        public List<customer> CustomerSearchlist { get; set; }
+        public string SearchLastname { get; set; }
         public Country SelectedCountry { get; set; }
         public string ConnectionString { get; set; }
         private ICommand _laden;
@@ -27,10 +29,13 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
         private ICommand _DeleteCustomer;
         private ICommand _AlterCustomer;
         private ICommand _SaveChangedCustomer;
+        private ICommand _SearchCustomer;
+        private ICommand _SearchCustomerByLastname;
 
         public CustomerViewModel()
         {
             Customers = Enumerable.Empty<customer>().AsQueryable().ToList();
+            CustomerSearchlist = Enumerable.Empty<customer>().AsQueryable().ToList();
             NewCustomer = new customer();
             Countries = new ObservableCollection<Country>();
             GenerateListOfCountries();
@@ -94,6 +99,21 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
             WindowAlterCustomer windowAlterCustomer = new WindowAlterCustomer();
             windowAlterCustomer.DataContext = this;
             windowAlterCustomer.Show();
+        }
+
+        public void SearchCustomer()
+        {
+            WindowSearchCustomer windowSearchCustomer = new WindowSearchCustomer();
+            windowSearchCustomer.DataContext = this;
+            windowSearchCustomer.Show();
+        }
+
+        public void SearchCustomerByLastname()
+        {
+            var customerRepo = new CustomerRepository();
+            System.Linq.Expressions.Expression<Func<customer, bool>> expr = cust => cust.lastname.Contains(SearchLastname);
+            this.CustomerSearchlist = customerRepo.GetAll(expr).ToList();
+            OnPropertyChanged("CustomerSearchlist");
         }
 
         private void HashCustomerPassword()
@@ -221,6 +241,34 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
                     );
                 }
                 return _AlterCustomer;
+            }
+        }
+
+        public ICommand Search
+        {
+            get
+            {
+                if (_SearchCustomer == null)
+                {
+                    _SearchCustomer = new RelayCommand(
+                        param => SearchCustomer()
+                    );
+                }
+                return _SearchCustomer;
+            }
+        }
+
+        public ICommand SearchCustomerByLastnameC
+        {
+            get
+            {
+                if (_SearchCustomerByLastname == null)
+                {
+                    _SearchCustomerByLastname = new RelayCommand(
+                        param => SearchCustomerByLastname()
+                    );
+                }
+                return _SearchCustomerByLastname;
             }
         }
 
