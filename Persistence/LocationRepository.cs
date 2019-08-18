@@ -2,18 +2,18 @@
 
 namespace ZbW.ProgrAdv.NugetTestat.Persistence
 {
-    public class LocationRepository : RepositoryBase<Location>
+    public class LocationRepository : RepositoryBase<location>
     {
         public LocationRepository() : base()
         {
         }
 
-        public override void Delete(Location entity)
+        public override void Delete(location entity)
         {
             throw new System.NotImplementedException();
         }
 
-        public override void Update(Location entity)
+        public override void Update(location entity)
         {
             throw new System.NotImplementedException();
         }

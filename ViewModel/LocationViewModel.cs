@@ -11,27 +11,27 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
     public class LocationViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public IQueryable<Location> Locations { get; set; }
+        public List<location> Locations { get; set; }
         public string ConnectionString { get; set; }
-        public List<Node<Location>> LocationTree { get; set; }
+        public List<Node<location>> LocationTree { get; set; }
         private ICommand _laden;
 
         public LocationViewModel()
         {
-            Locations = Enumerable.Empty<Location>().AsQueryable();
+            Locations = new List<location>();
             this.ConnectionString = "Server = localhost; Database = inventarisierungsloesung; Uid = root; Pwd = ...";
         }
 
         public void GetAllLocations()
         {
             var locationRepo = new LocationRepository();
-            this.Locations = locationRepo.GetAll();
-            this.LocationTree = new List<Node<Location>>();
+            this.Locations = locationRepo.GetAll().ToList();
+            this.LocationTree = new List<Node<location>>();
             GenerateLocationTreeFromList(Locations);
             OnPropertyChanged("LocationTree");
         }
 
-        public void GenerateLocationTreeFromList(IQueryable<Location> locationList)
+        public void GenerateLocationTreeFromList(List<location> locationList)
         {
             var treeBuilder = new LocationTreeBuilder();
             var locationNode = treeBuilder.BuildTree(locationList);
