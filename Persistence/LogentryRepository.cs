@@ -5,7 +5,7 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
 {
     public class LogEntryRepository : RepositoryBase<LogEntry>
     {
-        public LogEntryRepository(string connectionString) : base(connectionString)
+        public LogEntryRepository() : base()
         {
         }
 
@@ -14,19 +14,19 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
             throw new System.NotSupportedException();
         }
 
-        public new void Delete(LogEntry entity)
+        public override void Delete(LogEntry entity)
         {
             throw new System.NotSupportedException();
         }
 
-        public new void Update(LogEntry entity)
+        public override void Update(LogEntry entity)
         {
             throw new System.NotSupportedException();
         }
 
         public void ExecuteLogClear(LogEntry entry)
         {
-            using (var db = new DataConnection(ProviderName, ConnectionString))
+            using (var db = new DataConnection(ProviderName))
             {
                 db.QueryProc<LogEntry>("LogClear", new DataParameter("@_logentries_id", entry.Id));
             }
@@ -35,7 +35,7 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
 
         public void ExecuteLogMessageAdd(LogEntry newEntry)
         {
-            using (var db = new DataConnection(ProviderName, ConnectionString))
+            using (var db = new DataConnection(ProviderName))
             {
                 var dataParams = new DataParameter[4];
                 dataParams[0] = new DataParameter("@i_pod", newEntry.Id);
@@ -45,5 +45,6 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
                 db.QueryProc<LogEntry>("LogMessageAdd", dataParams);
             }
         }
+
     }
 }

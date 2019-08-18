@@ -1,12 +1,12 @@
 ﻿using System.Text.RegularExpressions;
-using ZbW.ProgrAdv.NugetTestat.Model;
+using ZbW.ProgrAdv.NugetTestat.Persistence;
 
 namespace ZbW.ProgrAdv.NugetTestat.Services
 {
     public class InputValidation
     {
-        private Customer Customer;
-        public InputValidation(Customer customer)
+        private customer Customer;
+        public InputValidation(customer customer)
         {
             this.Customer = customer;
         }
@@ -14,10 +14,10 @@ namespace ZbW.ProgrAdv.NugetTestat.Services
         public bool HasValidCustomernumber()
         {
             var isValidNumber = false;
-            if (Customer.CustomerNumber != null)
+            if (Customer.customernumber != null)
             {
                 var regex = new Regex(@"^CU[0-9]{5}$");
-                isValidNumber = regex.IsMatch(Customer.CustomerNumber);
+                isValidNumber = regex.IsMatch(Customer.customernumber);
             }
 
             return isValidNumber;
@@ -26,10 +26,10 @@ namespace ZbW.ProgrAdv.NugetTestat.Services
         public bool HasValidPhonenumber()
         {
             var isValidPhonenumber = false;
-            if (Customer.PhoneNumber != null)
+            if (Customer.tel != null)
             {
                 var regex = new Regex(Customer.CustomerCountry.PhoneNumberRegex);
-                string trimedPhoneNumber = Regex.Replace(Customer.PhoneNumber, @"\s", "");
+                string trimedPhoneNumber = Regex.Replace(Customer.tel, @"\s", "");
                 isValidPhonenumber = regex.IsMatch(trimedPhoneNumber);
             }
             return isValidPhonenumber;
@@ -39,9 +39,9 @@ namespace ZbW.ProgrAdv.NugetTestat.Services
         public bool HasValidMailadress()
         {
             var isValidMailadress = false;
-            if (Customer.EMail != null)
+            if (Customer.eMail != null)
             {
-                isValidMailadress = Regex.IsMatch(Customer.EMail, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
+                isValidMailadress = Regex.IsMatch(Customer.eMail, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
             }
             return isValidMailadress;
         }
@@ -49,10 +49,10 @@ namespace ZbW.ProgrAdv.NugetTestat.Services
         public bool HasValidWebsite()
         {
             var isValidWebsite = false;
-            if (Customer.Url != null)
+            if (Customer.url != null)
             {
                 var regex = new Regex(@"^((http){1}s?(:\/\/){1})?(www\.)?[a-z]+\.([a-z]+\.)?[a-z]{1,3}$");
-                isValidWebsite = regex.IsMatch(Customer.Url);
+                isValidWebsite = regex.IsMatch(Customer.url);
             }
             return isValidWebsite;
         }
@@ -61,10 +61,10 @@ namespace ZbW.ProgrAdv.NugetTestat.Services
         public bool HasValidPassword()
         {
             var isValidPassword = false;
-            if (Customer.Password != null)
+            if (Customer.password != null)
             {
                 var regex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$");
-                isValidPassword = regex.IsMatch(Customer.Password);
+                isValidPassword = regex.IsMatch(Customer.password);
             }
             return isValidPassword;
         }

@@ -4,7 +4,8 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ef90ac00613449cfb1022c6676b2dfa3" Name="Diagram1">
+      <Diagram DiagramId="b126f0d097fa413dad4744453f723339" Name="Diagram1">
+        <EntityTypeShape EntityType="inventarisierungsloesungModel.sysdiagram" Width="1.5" PointX="8.75" PointY="2.25" IsExpanded="true" />
         <EntityTypeShape EntityType="inventarisierungsloesungModel.abrechnung" Width="1.5" PointX="5.25" PointY="12.125" IsExpanded="true" />
         <EntityTypeShape EntityType="inventarisierungsloesungModel.address" Width="1.5" PointX="1.5" PointY="4.25" IsExpanded="true" />
         <EntityTypeShape EntityType="inventarisierungsloesungModel.contact" Width="1.5" PointX="6.25" PointY="4.75" IsExpanded="true" />
@@ -26,8 +27,8 @@
         <EntityTypeShape EntityType="inventarisierungsloesungModel.softwaredienstleistung" Width="1.5" PointX="7.5" PointY="16.25" IsExpanded="true" />
         <EntityTypeShape EntityType="inventarisierungsloesungModel.town" Width="1.5" PointX="1.5" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="inventarisierungsloesungModel.transportmedium" Width="1.5" PointX="6" PointY="19.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="inventarisierungsloesungModel.v_logentries" Width="1.5" PointX="8.75" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="inventarisierungsloesungModel.view_freiesinterface" Width="1.5" PointX="8.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventarisierungsloesungModel.v_logentries" Width="1.5" PointX="8.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="inventarisierungsloesungModel.view_freiesinterface" Width="1.5" PointX="10.75" PointY="2.25" IsExpanded="true" />
         <AssociationConnector Association="inventarisierungsloesungModel.abrechnung_abrechnung_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="inventarisierungsloesungModel.abrechnung_abrechnung_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="inventarisierungsloesungModel.abrechnung_abrechnung_ibfk_3" ManuallyRouted="false" />

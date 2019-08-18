@@ -11,15 +11,18 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class customer
+    using ZbW.ProgrAdv.NugetTestat.Model;
+
+    public partial class customer : ModelBase
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public customer()
         {
             this.pointofdeliveries = new HashSet<pointofdelivery>();
+            this.CustomerCountry = new Country("Schweiz", @"^(0041|0|\+41)(\(0\))?([0-9]{2}\/?[0-9]{7})$");
         }
-    
+
+        public override int Id { get ; set; }
         public long customer_id { get; set; }
         public string firstname { get; set; }
         public string lastname { get; set; }
@@ -29,9 +32,82 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
         public string eMail { get; set; }
         public string url { get; set; }
         public string password { get; set; }
-    
+        public Country CustomerCountry { get; set; }
+
         public virtual kundenkonto kundenkonto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<pointofdelivery> pointofdeliveries { get; set; }
+
+        public customer(customer c)
+        {
+            this.CustomerCountry = new Country("Schweiz", @"^(0041|0|\+41)(\(0\))?([0-9]{2}\/?[0-9]{7})$");
+        }
+
+        public void SetAccountNummber()
+        {
+            Random rnd = new Random();
+            kundenkonto_fk = rnd.Next(1, 9);
+        }
+
+        public override bool Equals(object value)
+        {
+            return Equals(value as CustomerModel);
+        }
+
+        public bool Equals(CustomerModel Customer)
+        {
+            if (Object.ReferenceEquals(null, Customer)) return false;
+            if (Object.ReferenceEquals(this, Customer)) return true;
+
+            return string.Equals(customernumber, Customer.CostumerEntity.customernumber)
+                   && string.Equals(lastname, Customer.CostumerEntity.lastname)
+                   && string.Equals(firstname, Customer.CostumerEntity.firstname);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                // Large primes to avoid hashing collisions
+                const int hashingBase = (int)2166136261;
+                const int hashingMultiplier = 16777619;
+
+                int hash = hashingBase;
+                hash = (hash * hashingMultiplier) ^ (!Object.ReferenceEquals(null, customernumber) ?
+                           customernumber.GetHashCode() : 0);
+                hash = (hash * hashingMultiplier) ^ (!Object.ReferenceEquals(null, lastname) ?
+                           lastname.GetHashCode() : 0);
+                hash = (hash * hashingMultiplier) ^ (!Object.ReferenceEquals(null, firstname) ?
+                           firstname.GetHashCode() : 0);
+                return hash;
+            }
+        }
+
+        public static bool operator ==(customer locA, customer locB)
+        {
+            if (Object.ReferenceEquals(locA, locB))
+            {
+                return true;
+            }
+
+            //Ensure that A isnt Null
+            if (Object.ReferenceEquals(null, locA))
+            {
+                return false;
+            }
+
+            return (locA.Equals(locB));
+        }
+
+        public static bool operator !=(customer locA, customer locB)
+        {
+            return !(locA == locB);
+        }
+
+        public override string ToString()
+        {
+            return string.Concat(customernumber, "-", firstname, "-", lastname);
+        }
+
     }
 }

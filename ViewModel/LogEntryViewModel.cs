@@ -102,7 +102,7 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
 
             else
             {
-                var logentryRepository = new LogEntryRepository(ConnectionString);
+                var logentryRepository = new LogEntryRepository();
                 this.LogEntriesList = logentryRepository.GetAll().ToList<LogEntry>();
                 if (LogEntriesList.Any())
                 {
@@ -122,7 +122,7 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
             }
             else
             {
-                var logentryRepository = new LogEntryRepository(ConnectionString);
+                var logentryRepository = new LogEntryRepository();
                 logentryRepository.ExecuteLogClear(SelectedEntry);
                 LogEntriesList = logentryRepository.GetAll().ToList<LogEntry>();
                 if (LogEntriesList.Any())
@@ -150,7 +150,7 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
                 }
                 else
                 {
-                    var logentryRepository = new LogEntryRepository(this.ConnectionString);
+                    var logentryRepository = new LogEntryRepository();
                     logentryRepository.ExecuteLogMessageAdd(this.NewEntry);
                     this.LogEntriesList = logentryRepository.GetAll().ToList<LogEntry>();
                     OnPropertyChanged("LogEntriesList");
@@ -161,7 +161,7 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
         private void RunDuplicatesChecker()
         {
             var dubChecker = new DuplicateChecker();
-            var logRepo = new LogEntryRepository(this.ConnectionString);
+            var logRepo = new LogEntryRepository();
             var logList = logRepo.GetAll().ToList<LogEntry>();
             var dubList = dubChecker.FindDuplicates(logList);
 

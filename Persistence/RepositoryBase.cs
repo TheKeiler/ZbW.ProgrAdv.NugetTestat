@@ -10,23 +10,17 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
 {
     public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : ModelBase, new()
     {
-        protected string ConnectionString { get; }
         protected string RepositoryName = "inventarisierungsloesung";
-        protected string ProviderName = "MySql";
-
-        protected RepositoryBase(string connectionString)
-        {
-            this.ConnectionString = connectionString;
-        }
+        protected string ProviderName = "System.Data.SqlClient";
 
         public T GetSingle<P>(P pkValue)
         {
             var foundRowToEntityKey = new T();
-            using (var ctx = new LinqToDB.DataContext(ProviderName, ConnectionString))
+            var ctx = new InventarisierungsloesungDB();
             {
                 try
                 {
-                    foundRowToEntityKey = (from e in ctx.GetTable<T>() where e.Id.Equals(pkValue) select e).FirstOrDefault();
+                    foundRowToEntityKey = (from e in ctx.Set<T>() where e.Equals(pkValue) select e).FirstOrDefault();
                 }
                 catch (Exception e)
                 {
@@ -38,12 +32,12 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
 
         public void Add(T entity)
         {
-            using (var ctx = new LinqToDB.DataContext(ProviderName, ConnectionString))
+            var ctx = new InventarisierungsloesungDB();
             {
                 try
                 {
-                    ctx.Insert<T>(entity);
-                    ctx.BeginTransaction();
+                    ctx.Set<T>().Add(entity);
+                    ctx.SaveChanges();
                 }
                 catch (Exception e)
                 {
@@ -52,51 +46,18 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
             }
         }
 
-        public void Delete(T entity)
-        {
-            using (var ctx = new LinqToDB.DataContext(ProviderName, ConnectionString))
-            {
-                try
-                {
-                    var foundRowToEntityKey = (from e in ctx.GetTable<T>() where e.Id.Equals(entity.Id) select e).FirstOrDefault();
-                    if (foundRowToEntityKey != null)
-                    {
-                        ctx.Delete<T>(foundRowToEntityKey);
-                    }
-                    ctx.BeginTransaction();
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show("Es konnte keine Verbindung zur Datenbank hergestellt werden: " + e.Message);
-                }
-            }
-        }
+        public abstract void Delete(T entity);
 
-        public void Update(T entity)
-        {
-            using (var ctx = new LinqToDB.DataContext(ProviderName, ConnectionString))
-            {
-                try
-                {
-                    var foundRowToEntityKey = (from e in ctx.GetTable<T>() where e.Id.Equals(entity.Id) select e).FirstOrDefault();
-                    foundRowToEntityKey = entity;
-                    ctx.BeginTransaction();
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show("Es konnte keine Verbindung zur Datenbank hergestellt werden: " + e.Message);
-                }
-            }
-        }
+        public abstract void Update(T entity);
 
         public IQueryable<T> GetAll(Expression<Func<T, bool>> whereClause)
         {
             IQueryable<T> entities = Enumerable.Empty<T>().AsQueryable();
-            using (var db = new LinqToDB.DataContext(ProviderName, ConnectionString))
+            var ctx = new InventarisierungsloesungDB();
             {
                 try
                 {
-                    entities = db.GetTable<T>().Where<T>(whereClause);
+                    entities = ctx.Set<T>().Where<T>(whereClause);
                 }
                 catch (Exception e)
                 {
@@ -109,11 +70,12 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
         public IQueryable<T> GetAll()
         {
             IQueryable<T> entities = Enumerable.Empty<T>().AsQueryable();
-            using (var db = new LinqToDB.DataContext(ProviderName, ConnectionString))
+
+            var ctx = new InventarisierungsloesungDB();
             {
                 try
                 {
-                    entities = db.GetTable<T>();
+                    entities = ctx.Set<T>();
                 }
                 catch (Exception e)
                 {
@@ -126,11 +88,11 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
         public long Count(Expression<Func<T, bool>> whereClause)
         {
             IQueryable<T> entities = Enumerable.Empty<T>().AsQueryable();
-            using (var db = new LinqToDB.DataContext(ProviderName, ConnectionString))
+            var ctx = new InventarisierungsloesungDB();
             {
                 try
                 {
-                    entities = db.GetTable<T>().Where<T>(whereClause);
+                    entities = ctx.Set<T>().Where<T>(whereClause);
                 }
                 catch (Exception e)
                 {
@@ -142,11 +104,11 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
         public long Count()
         {
             IQueryable<T> entities = Enumerable.Empty<T>().AsQueryable();
-            using (var db = new LinqToDB.DataContext(ProviderName, ConnectionString))
+            var ctx = new InventarisierungsloesungDB();
             {
                 try
                 {
-                    entities = db.GetTable<T>();
+                    entities = ctx.Set<T>();
                 }
                 catch (Exception e)
                 {

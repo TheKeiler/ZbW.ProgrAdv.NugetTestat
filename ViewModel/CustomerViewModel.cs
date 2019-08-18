@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -15,9 +16,9 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
     class CustomerViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public IQueryable<Customer> Customers { get; set; }
-        public Customer SelectedCustomer { get; set; }
-        public Customer NewCustomer { get; set; }
+        public List<customer> Customers { get; set; }
+        public customer SelectedCustomer { get; set; }
+        public customer NewCustomer { get; set; }
         public ObservableCollection<Country> Countries { get; set; }
         public Country SelectedCountry { get; set; }
         public string ConnectionString { get; set; }
@@ -29,8 +30,8 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
 
         public CustomerViewModel()
         {
-            Customers = Enumerable.Empty<Customer>().AsQueryable();
-            NewCustomer = new Customer();
+            Customers = Enumerable.Empty<customer>().AsQueryable().ToList();
+            NewCustomer = new customer();
             Countries = new ObservableCollection<Country>();
             GenerateListOfCountries();
             SelectedCountry = Countries[0];
@@ -46,8 +47,8 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
 
         public void GetAllCustomers()
         {
-            var customerRepo = new CustomerRepository(ConnectionString);
-            this.Customers = customerRepo.GetAll();
+            var customerRepo = new CustomerRepository();
+            this.Customers = customerRepo.GetAll().ToList();
             ChangeSelectedCustomer();
             OnPropertyChanged("Customers");
         }
@@ -60,18 +61,18 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
             if (AreCustomerInputsValid(this.NewCustomer) == true)
             {
                 HashCustomerPassword();
-                var customerRepository = new CustomerRepository(this.ConnectionString);
+                var customerRepository = new CustomerRepository();
                 customerRepository.Add(this.NewCustomer);
-                this.Customers = customerRepository.GetAll();
+                this.Customers = customerRepository.GetAll().ToList();
                 OnPropertyChanged("Customers");
             }
         }
 
         public void DeleteCustomerData()
         {
-            var customerRepository = new CustomerRepository(this.ConnectionString);
+            var customerRepository = new CustomerRepository();
             customerRepository.Delete(this.SelectedCustomer);
-            this.Customers = customerRepository.GetAll();
+            this.Customers = customerRepository.GetAll().ToList();
             ChangeSelectedCustomer();
             OnPropertyChanged("SelectedCustomer");
             OnPropertyChanged("Customers");
@@ -79,7 +80,7 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
 
         public void SaveChangedCustomerData()
         {
-            var customerRepository = new CustomerRepository(this.ConnectionString);
+            var customerRepository = new CustomerRepository();
             if (AreCustomerInputsValid(this.SelectedCustomer))
             {
                 customerRepository.Update(this.SelectedCustomer);
@@ -98,8 +99,8 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
         private void HashCustomerPassword()
         {
             var cryptoService = new CryptoService();
-            var hash = cryptoService.ComputeHash(NewCustomer.Password, cryptoService.GenerateSalt(), 10101, 24);
-            NewCustomer.Password = Convert.ToBase64String(hash);
+            var hash = cryptoService.ComputeHash(NewCustomer.password, cryptoService.GenerateSalt(), 10101, 24);
+            NewCustomer.password = Convert.ToBase64String(hash);
         }
 
         private void ChangeSelectedCustomer()
@@ -111,7 +112,7 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
             }
         }
 
-        public bool AreCustomerInputsValid(Customer customer)
+        public bool AreCustomerInputsValid(customer customer)
         {
             var validator = new InputValidation(customer);
 

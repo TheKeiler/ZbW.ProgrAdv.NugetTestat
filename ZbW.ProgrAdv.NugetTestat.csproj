@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="packages\linq2db.MySql.2.7.4\build\linq2db.MySql.props" Condition="Exists('packages\linq2db.MySql.2.7.4\build\linq2db.MySql.props')" />
+  <Import Project="packages\linq2db.SqlServer.2.9.0\build\linq2db.SqlServer.props" Condition="Exists('packages\linq2db.SqlServer.2.9.0\build\linq2db.SqlServer.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -60,19 +60,16 @@
       <HintPath>packages\BouncyCastle.1.8.5\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>packages\EntityFramework.6.3.0-preview8-19405-04\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>packages\EntityFramework.6.3.0-preview8-19405-04\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Protobuf, Version=3.8.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
-      <HintPath>packages\Google.Protobuf.3.8.0\lib\net45\Google.Protobuf.dll</HintPath>
+    <Reference Include="Google.Protobuf, Version=3.9.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>packages\Google.Protobuf.3.9.1\lib\net45\Google.Protobuf.dll</HintPath>
     </Reference>
-    <Reference Include="linq2db, Version=2.7.4.0, Culture=neutral, PublicKeyToken=e41013125f9e410a, processorArchitecture=MSIL">
-      <HintPath>packages\linq2db.2.7.4\lib\net46\linq2db.dll</HintPath>
-    </Reference>
-    <Reference Include="MySql.Data, Version=8.0.16.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>packages\MySql.Data.8.0.16\lib\net452\MySql.Data.dll</HintPath>
+    <Reference Include="linq2db, Version=2.9.0.0, Culture=neutral, PublicKeyToken=e41013125f9e410a, processorArchitecture=MSIL">
+      <HintPath>packages\linq2db.2.9.0\lib\net46\linq2db.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel" />
@@ -111,100 +108,109 @@
       <DependentUpon>WindowAlterCustomer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Country.cs" />
-    <Compile Include="Model\Customer.cs" />
+    <Compile Include="Model\CustomerModel.cs" />
     <Compile Include="Model\IEntity.cs" />
     <Compile Include="Model\Location.cs" />
     <Compile Include="Model\ModelBase.cs" />
     <Compile Include="Model\Node.cs" />
     <Compile Include="Model\LocationTreeBuilder.cs" />
     <Compile Include="Persistence\abrechnung.cs">
-      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Persistence\address.cs">
-      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Persistence\contact.cs">
-      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Persistence\credential.cs">
-      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Persistence\customer.cs">
-      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Persistence\CustomerRepository.cs" />
     <Compile Include="Persistence\device.cs">
-      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Persistence\deviceport.cs">
-      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Persistence\devicetype.cs">
-      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Persistence\interface.cs">
-      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Persistence\InventarisierungsloesungModel.Context.cs">
+    <Compile Include="Persistence\InventarSolutionModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>InventarisierungsloesungModel.Context.tt</DependentUpon>
+      <DependentUpon>InventarSolutionModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Persistence\InventarisierungsloesungModel.cs">
+    <Compile Include="Persistence\InventarSolutionModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Persistence\InventarisierungsloesungModel.Designer.cs">
+    <Compile Include="Persistence\InventarSolutionModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>InventarisierungsloesungModel.edmx</DependentUpon>
+      <DependentUpon>InventarSolutionModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Persistence\IRepositoryBase.cs" />
     <Compile Include="Persistence\kundenkonto.cs">
-      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Persistence\location.cs">
-      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Persistence\LocationRepository.cs" />
     <Compile Include="Persistence\log.cs">
-      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Persistence\LogEntryRepository.cs" />
     <Compile Include="Persistence\network.cs">
-      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Persistence\operatingsystem.cs">
-      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Persistence\person.cs">
-      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Persistence\pointofdelivery.cs">
-      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Persistence\produkte.cs">
-      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Persistence\produktegruppe.cs">
-      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Persistence\RepositoryBase.cs" />
     <Compile Include="Persistence\softwaredienstleistung.cs">
-      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\sp_helpdiagrams_Result.cs">
+      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\sysdiagram.cs">
+      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Persistence\town.cs">
-      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Persistence\transportmedium.cs">
-      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Persistence\view_freiesinterface.cs">
-      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Persistence\v_logentries.cs">
-      <DependentUpon>InventarisierungsloesungModel.tt</DependentUpon>
+      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Services\CryptoService.cs" />
     <Compile Include="Services\InputValidation.cs" />
@@ -261,12 +267,12 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
-    <EntityDeploy Include="Persistence\InventarisierungsloesungModel.edmx">
+    <EntityDeploy Include="Persistence\InventarSolutionModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>InventarisierungsloesungModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>InventarSolutionModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Persistence\InventarisierungsloesungModel.edmx.diagram">
-      <DependentUpon>InventarisierungsloesungModel.edmx</DependentUpon>
+    <None Include="Persistence\InventarSolutionModel.edmx.diagram">
+      <DependentUpon>InventarSolutionModel.edmx</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -291,25 +297,27 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Persistence\InventarisierungsloesungModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>InventarisierungsloesungModel.Context.cs</LastGenOutput>
-      <DependentUpon>InventarisierungsloesungModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="Persistence\InventarisierungsloesungModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>InventarisierungsloesungModel.edmx</DependentUpon>
-      <LastGenOutput>InventarisierungsloesungModel.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Persistence\InventarSolutionModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>InventarSolutionModel.edmx</DependentUpon>
+      <LastGenOutput>InventarSolutionModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Persistence\InventarSolutionModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>InventarSolutionModel.edmx</DependentUpon>
+      <LastGenOutput>InventarSolutionModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="packages\EntityFramework.6.3.0-preview8-19405-04\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.3.0-preview8-19405-04\build\EntityFramework.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\linq2db.MySql.2.7.4\build\linq2db.MySql.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\linq2db.MySql.2.7.4\build\linq2db.MySql.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.3.0-preview8-19405-04\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.3.0-preview8-19405-04\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('packages\linq2db.SqlServer.2.9.0\build\linq2db.SqlServer.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\linq2db.SqlServer.2.9.0\build\linq2db.SqlServer.props'))" />
   </Target>
 </Project>

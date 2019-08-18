@@ -24,7 +24,7 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
 
         public void GetAllLocations()
         {
-            var locationRepo = new LocationRepository(ConnectionString);
+            var locationRepo = new LocationRepository();
             this.Locations = locationRepo.GetAll();
             this.LocationTree = new List<Node<Location>>();
             GenerateLocationTreeFromList(Locations);
