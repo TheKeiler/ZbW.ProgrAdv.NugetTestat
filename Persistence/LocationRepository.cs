@@ -1,6 +1,4 @@
-﻿using ZbW.ProgrAdv.NugetTestat.Model;
-
-namespace ZbW.ProgrAdv.NugetTestat.Persistence
+﻿namespace ZbW.ProgrAdv.NugetTestat.Persistence
 {
     public class LocationRepository : RepositoryBase<location>
     {

@@ -12,14 +12,12 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public List<location> Locations { get; set; }
-        public string ConnectionString { get; set; }
         public List<Node<location>> LocationTree { get; set; }
         private ICommand _laden;
 
         public LocationViewModel()
         {
             Locations = new List<location>();
-            this.ConnectionString = "Server = localhost; Database = inventarisierungsloesung; Uid = root; Pwd = ...";
         }
 
         public void GetAllLocations()

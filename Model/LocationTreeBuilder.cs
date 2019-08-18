@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ZbW.ProgrAdv.NugetTestat.Persistence;
-using ZbW.ProgrAdv.NugetTestat.Model;
 
 namespace ZbW.ProgrAdv.NugetTestat.Model
 {
@@ -36,7 +35,7 @@ namespace ZbW.ProgrAdv.NugetTestat.Model
 
         private Node<location> FindTreeRoot(List<location> nodes)
         {
-            var rootNodes = nodes.Where(node => node.parent_location == 0 );
+            var rootNodes = nodes.Where(node => node.parent_location == 0);
             if (rootNodes.Count() != 1) return new Node<location>();
             var rootNode = rootNodes.Single();
             //nodes.Remove(rootNode);
