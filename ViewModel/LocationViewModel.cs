@@ -25,7 +25,8 @@ namespace ZbW.ProgrAdv.NugetTestat.ViewModel
             var locationRepo = new LocationRepository();
             this.Locations = locationRepo.GetAll().ToList();
             this.LocationTree = new List<Node<location>>();
-            GenerateLocationTreeFromList(Locations);
+            //Umgebaut auf CTE für Testat
+            GenerateLocationTreeFromList(locationRepo.GetLocationsWithCte());
             OnPropertyChanged("LocationTree");
         }
 

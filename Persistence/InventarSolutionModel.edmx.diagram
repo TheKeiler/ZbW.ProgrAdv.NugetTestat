@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b126f0d097fa413dad4744453f723339" Name="Diagram1">
+      <Diagram DiagramId="b126f0d097fa413dad4744453f723339" Name="Diagram1" ZoomLevel="55">
         <EntityTypeShape EntityType="inventarisierungsloesungModel.sysdiagram" Width="1.5" PointX="8.75" PointY="2.25" IsExpanded="true" />
         <EntityTypeShape EntityType="inventarisierungsloesungModel.abrechnung" Width="1.5" PointX="5.25" PointY="12.125" IsExpanded="true" />
         <EntityTypeShape EntityType="inventarisierungsloesungModel.address" Width="1.5" PointX="1.5" PointY="4.25" IsExpanded="true" />

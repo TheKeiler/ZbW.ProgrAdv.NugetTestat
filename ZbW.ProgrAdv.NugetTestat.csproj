@@ -127,6 +127,12 @@
     <Compile Include="Persistence\credential.cs">
       <DependentUpon>InventarSolutionModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Persistence\cte_locations1_Result.cs">
+      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\cte_locations_Result.cs">
+      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Persistence\customer.cs">
       <DependentUpon>InventarSolutionModel.tt</DependentUpon>
     </Compile>
@@ -196,9 +202,6 @@
       <DependentUpon>InventarSolutionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Persistence\sp_helpdiagrams_Result.cs">
-      <DependentUpon>InventarSolutionModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Persistence\sysdiagram.cs">
       <DependentUpon>InventarSolutionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Persistence\town.cs">

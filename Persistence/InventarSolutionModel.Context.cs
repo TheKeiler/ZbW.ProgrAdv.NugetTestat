@@ -27,7 +27,6 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<abrechnung> abrechnungs { get; set; }
         public virtual DbSet<address> addresses { get; set; }
         public virtual DbSet<contact> contacts { get; set; }
@@ -183,6 +182,16 @@ namespace ZbW.ProgrAdv.NugetTestat.Persistence
                 new ObjectParameter("i_message", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("LogMessageAdd", i_podParameter, i_hostnameParameter, i_severityParameter, i_messageParameter);
+        }
+    
+        public virtual ObjectResult<location> cte_locations()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<location>("cte_locations");
+        }
+    
+        public virtual ObjectResult<location> cte_locations(MergeOption mergeOption)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<location>("cte_locations", mergeOption);
         }
     }
 }
